@@ -1,0 +1,1123 @@
+<!DOCTYPE html><html lang="ja"><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>資料作成実践合宿｜ハンズオンガイド制作プレビュー</title><meta name="robots" content="noindex"><style>
+/* ============ design tokens ============ */
+/* ★トーン切替: デフォルト=中級者向けダークネイビー×ゴールド。
+   初心者向けブライト系プリセットは references/components.md「トーン切替」参照。
+   イベントの確定サムネイルがあれば配色をそちらに寄せる */
+:root{
+  --ink:#2A2E3D;
+  --ink-sub:#5C6178;
+  --ink-faint:#8A8FA3;
+  --paper:#FFFFFF;
+  --paper-warm:#FAF6EC;
+  --line:#E2DDCB;
+  --line-soft:#EEEAE0;
+  --accent:#B8860B;
+  --accent-soft:#F5EBD3;
+  --accent-mid:#C2661E;
+  --ok:#0E8A6E;
+  --ok-soft:#E3F3EF;
+  --bad:#B33A3A;
+  --bad-soft:#F7E7E4;
+  --tool:#4A5A8A;
+  --tool-soft:#EAEEF7;
+  --mono:"IBM Plex Mono","Noto Sans JP",monospace;
+  --sans:"Noto Sans JP",-apple-system,BlinkMacSystemFont,sans-serif;
+  --w-text:44rem;
+  --sp-1:8px; --sp-2:16px; --sp-3:24px; --sp-4:32px; --sp-6:48px; --sp-8:64px; --sp-12:96px;
+  --block:#1A2038;
+  --accent-on-dark:#F0C878;
+  --radius:6px;
+  /* header/tabbar専用 */
+  --head-bg:#0A0E1A;
+  --head-line:#2B3350;
+  --head-ink:#EDEEF3;
+  --head-ink-sub:#9AA0BC;
+  --head-accent:#D9A544;
+  --head-accent-soft:rgba(217,165,68,.16);
+}
+*{margin:0;padding:0;box-sizing:border-box}
+html{scroll-behavior:smooth;scroll-padding-top:132px}
+body{
+  font-family:var(--sans);
+  font-feature-settings:"palt";
+  color:var(--ink);
+  background:var(--paper);
+  line-height:1.95;
+  font-size:16px;
+  -webkit-font-smoothing:antialiased;
+}
+::selection{background:var(--accent-soft)}
+.measure{max-width:var(--w-text);margin:0 auto;padding:0 var(--sp-3)}
+
+/* ============ site header ============ */
+.head{
+  background:var(--head-bg);
+  border-bottom:1px solid var(--head-line);
+  padding:var(--sp-3) 0 var(--sp-2);
+}
+.head .inner{max-width:var(--w-text);margin:0 auto;padding:0 var(--sp-3)}
+.head .brand{
+  position:relative;padding-left:13px;display:inline-block;
+  font-family:var(--mono);font-size:11px;letter-spacing:.22em;
+  color:var(--head-accent);font-weight:700;text-transform:uppercase;
+}
+.head .brand::before{content:"";position:absolute;left:0;top:1px;bottom:1px;width:4px;background:var(--head-accent);border-radius:2px}
+.head h1{font-size:clamp(19px,3vw,24px);font-weight:900;line-height:1.5;margin:4px 0 2px;color:var(--head-ink)}
+.head .date{font-size:12px;color:var(--head-ink-sub);font-family:var(--mono);letter-spacing:.08em}
+
+/* ============ tab bar ============ */
+.tabbar{
+  position:sticky;top:0;z-index:20;
+  background:rgba(10,14,26,.92);backdrop-filter:blur(8px);
+  border-bottom:1px solid var(--head-line);
+}
+.tabbar .inner{
+  max-width:var(--w-text);margin:0 auto;padding:0 var(--sp-3);
+  display:flex;gap:4px;overflow-x:auto;scrollbar-width:none;
+}
+.tabbar .inner::-webkit-scrollbar{display:none}
+.tab{
+  appearance:none;border:0;background:none;cursor:pointer;
+  font-family:var(--sans);font-size:13.5px;font-weight:500;color:var(--head-ink-sub);
+  padding:14px 14px 12px;white-space:nowrap;position:relative;
+  border-bottom:2px solid transparent;line-height:1.4;
+}
+.tab .tno{font-family:var(--mono);font-size:10px;color:var(--head-ink-sub);margin-right:6px;letter-spacing:.06em;opacity:.75}
+.tab:hover{color:var(--head-ink)}
+.tab.on{color:var(--head-accent);font-weight:700;border-bottom-color:var(--head-accent);background:var(--head-accent-soft);border-radius:var(--radius) var(--radius) 0 0}
+.tab.on .tno{color:var(--head-accent);opacity:1}
+
+/* ============ panels ============ */
+.panel{display:none;padding-bottom:var(--sp-8)}
+.panel.on{display:block}
+.panel-head{position:relative;background:var(--paper-warm);border:1px solid var(--line-soft);border-left:4px solid var(--accent);border-radius:0 var(--radius) var(--radius) 0;padding:var(--sp-4) var(--sp-4) var(--sp-3);margin:var(--sp-6) 0 var(--sp-4)}
+.panel-head .kicker{
+  font-family:var(--mono);font-size:11px;letter-spacing:.22em;
+  text-transform:uppercase;color:var(--accent);font-weight:700;display:block;
+}
+.panel-head h2{font-size:clamp(23px,3.4vw,30px);font-weight:900;line-height:1.4;margin-top:6px}
+.panel-head .desc{font-size:14px;color:var(--ink-sub);margin-top:8px;max-width:36em}
+
+/* in-panel local index */
+.local{
+  display:flex;flex-wrap:wrap;gap:8px;margin:var(--sp-3) 0 0;
+}
+.local a{
+  font-size:12.5px;color:var(--ink-sub);text-decoration:none;
+  border:1px solid var(--line-soft);border-radius:999px;padding:4px 14px;
+  background:var(--paper-warm);
+}
+.local a:hover{border-color:var(--accent);color:var(--accent)}
+.local a b{font-family:var(--mono);font-weight:500;font-size:11px;margin-right:6px;color:var(--ink-faint)}
+
+/* ============ sections ============ */
+section.chap{padding:var(--sp-4) 0 0}
+.chap-head{display:flex;align-items:baseline;gap:var(--sp-2);border-bottom:1px solid var(--line-soft);padding-bottom:var(--sp-1);margin-bottom:var(--sp-3)}
+.chap-head .no{font-family:var(--mono);font-size:12px;color:var(--accent);letter-spacing:.08em;background:var(--accent-soft);padding:3px 9px;border-radius:4px;font-weight:500}
+.chap-head h3{font-size:clamp(18px,2.4vw,21px);font-weight:900;line-height:1.5;margin:0}
+.chap-head .when{margin-left:auto;font-size:11.5px;color:var(--ink-faint);white-space:nowrap}
+h4{
+  font-size:16.5px;font-weight:800;line-height:1.6;
+  margin:var(--sp-6) 0 var(--sp-2);
+  background:var(--block);color:#FFFFFF;
+  padding:10px 18px;border-radius:var(--radius);
+}
+h4 .h4no{color:var(--accent-on-dark);font-family:var(--mono);font-size:12.5px;margin-right:8px}
+h4 .wk{display:inline-block;background:var(--accent-on-dark);color:#1A2038;font-size:13px;font-weight:800;padding:2px 12px;border-radius:999px;margin-right:10px;vertical-align:2px;white-space:nowrap}
+.tooltag{font-size:13px;color:var(--ink-sub);font-weight:700;margin:-6px 0 var(--sp-2);padding:6px 18px 0}
+.tooltag b{color:var(--tool)}
+p{margin:0 0 var(--sp-2)}
+p.note{font-size:13.5px;color:var(--ink-sub)}
+strong{font-weight:700}
+em{font-style:normal;background:linear-gradient(transparent 68%,var(--accent-soft) 68%);font-weight:700}
+code{font-family:var(--mono);font-size:.92em}
+
+/* ============ setup link cards ============ */
+.setup2{display:grid;grid-template-columns:1fr 1fr;gap:var(--sp-2);margin:var(--sp-2) 0 var(--sp-3)}
+@media(max-width:640px){.setup2{grid-template-columns:1fr}}
+.scard{border:1px solid var(--line-soft);border-radius:var(--radius);overflow:hidden;background:var(--paper);box-shadow:0 1px 4px rgba(42,46,61,.06)}
+.scard .shead{background:var(--block);color:#fff;font-weight:800;font-size:15px;padding:12px 18px;line-height:1.5}
+.scard .shead .ic{font-family:var(--mono);font-weight:500;margin-right:10px;opacity:.85}
+.scard.codex .shead{background:var(--tool)}
+.scard .sbody{padding:var(--sp-2) 18px var(--sp-3)}
+.scard .sbody p{font-size:13.5px;color:var(--ink-sub);margin:0 0 var(--sp-2)}
+.btnlink{display:inline-block;background:var(--accent-mid);color:#fff;font-weight:700;font-size:14px;text-decoration:none;padding:10px 22px;border-radius:var(--radius)}
+.btnlink:hover{opacity:.88}
+.btnlink::before{content:"↗";margin-right:8px;font-weight:400}
+.jumplink{
+  display:inline-flex;align-items:center;gap:6px;
+  border:1px solid var(--accent);border-radius:999px;
+  color:var(--accent);font-weight:700;font-size:13px;
+  text-decoration:none;padding:8px 16px;margin-top:var(--sp-1);
+}
+.jumplink:hover{background:var(--accent-soft)}
+.jumplink::after{content:"→"}
+
+/* ============ steps ============ */
+ol.steps{list-style:none;counter-reset:st;margin:var(--sp-3) 0}
+ol.steps>li{
+  counter-increment:st;position:relative;
+  padding:var(--sp-2) 0 var(--sp-2) 52px;border-top:1px solid var(--line-soft);
+}
+ol.steps>li:last-child{border-bottom:1px solid var(--line-soft)}
+ol.steps>li::before{
+  content:counter(st,decimal-leading-zero);
+  position:absolute;left:0;top:15px;width:30px;height:30px;
+  display:flex;align-items:center;justify-content:center;
+  background:var(--accent-soft);border-radius:50%;
+  font-family:var(--mono);font-size:12px;color:var(--accent);font-weight:700;
+}
+ul.plain{margin:var(--sp-2) 0 var(--sp-2) 1.2em}
+ul.plain li{margin-bottom:10px}
+
+/* ============ callouts ============ */
+.callout{
+  border-left:3px solid var(--accent);background:var(--paper-warm);
+  padding:var(--sp-2) var(--sp-3);margin:var(--sp-3) 0;font-size:14.5px;
+  border-radius:0 var(--radius) var(--radius) 0;
+}
+.callout.ok{border-left-color:var(--ok);background:var(--ok-soft)}
+.callout.tool{border-left-color:var(--tool);background:var(--tool-soft)}
+.callout.ng{border-left-color:#C0392B;background:#FBEDEA;color:#8E2418}
+.callout .ct{
+  font-family:var(--mono);font-size:10.5px;letter-spacing:.18em;
+  color:var(--accent);display:block;margin-bottom:4px;font-weight:500;
+}
+.callout.ok .ct{color:var(--ok)}
+.callout.tool .ct{color:var(--tool)}
+.callout.ng .ct{color:#C0392B}
+
+/* ============ copy block ============ */
+.copywrap{position:relative;margin:var(--sp-3) 0}
+.copyhead{
+  display:flex;align-items:center;justify-content:space-between;gap:12px;
+  background:#050810;color:#fff;border-radius:var(--radius) var(--radius) 0 0;
+  padding:8px 14px;font-size:12px;
+}
+.copyhead .fn{font-family:var(--mono);letter-spacing:.04em;color:#C2C2C2;line-height:1.5}
+.copybtn{
+  font-family:var(--sans);font-size:12px;font-weight:700;flex-shrink:0;
+  background:transparent;color:#fff;border:1px solid #707070;border-radius:4px;
+  padding:4px 12px;cursor:pointer;transition:.15s;
+}
+.copybtn:hover{border-color:#fff}
+.copybtn.done{background:var(--ok);border-color:var(--ok)}
+pre.copy{
+  background:var(--paper-warm);border:1px solid var(--line-soft);border-top:0;
+  border-radius:0 0 var(--radius) var(--radius);
+  padding:var(--sp-3);overflow-x:auto;
+  font-family:var(--mono);font-size:13px;line-height:1.85;color:var(--ink);
+  white-space:pre-wrap;word-break:break-word;
+}
+
+/* ============ tables ============ */
+.tblwrap{overflow-x:auto;margin:var(--sp-3) 0}
+table{width:100%;border-collapse:collapse;font-size:14px}
+th{
+  text-align:left;font-size:11.5px;letter-spacing:.1em;color:var(--ink-faint);
+  font-weight:500;border-bottom:1px solid var(--ink);padding:8px 12px 8px 0;
+  font-family:var(--mono);white-space:nowrap;
+}
+td{border-bottom:1px solid var(--line-soft);padding:12px 12px 12px 0;vertical-align:top;line-height:1.8}
+td b{color:var(--accent)}
+
+/* ============ figure / screenshot slot ============ */
+figure.shot{margin:var(--sp-3) 0}
+figure.shot .ph{
+  border:1px dashed var(--line);border-radius:var(--radius);
+  background:repeating-linear-gradient(-45deg,var(--paper-warm) 0 12px,var(--paper) 12px 24px);
+  min-height:110px;display:flex;align-items:center;justify-content:center;
+  color:var(--ink-faint);font-size:12.5px;letter-spacing:.06em;text-align:center;padding:12px;
+}
+figure.shot.hero img{width:100%;border:1px solid var(--head-line);border-radius:var(--radius);display:block}
+figure.shot.hero{margin:var(--sp-3) 0 0}
+figure.shot img{width:100%;border:2px solid var(--accent);border-radius:var(--radius);display:block}
+figure.shot figcaption{font-size:12px;color:var(--ink-faint);margin-top:6px}
+
+/* ============ 当日のワーク：作業の追従目次 ============ */
+.worktoc{
+  position:sticky;top:var(--tabbar-h,52px);z-index:15;
+  background:var(--paper);border-bottom:1px solid var(--line-soft);
+  padding:8px 0;margin-bottom:var(--sp-3);
+}
+.worktoc-inner{display:flex;gap:6px;overflow-x:auto;scrollbar-width:none}
+.worktoc-inner::-webkit-scrollbar{display:none}
+.worktoc a{
+  flex-shrink:0;text-decoration:none;
+  border:1px solid var(--line-soft);border-radius:999px;
+  font-family:var(--mono);font-size:12px;font-weight:700;color:var(--ink-sub);
+  padding:6px 12px;white-space:nowrap;transition:border-color .12s,background .12s,color .12s;
+}
+.worktoc a:hover{border-color:var(--accent);color:var(--accent)}
+.worktoc a.on{border-color:var(--accent);background:var(--accent-soft);color:var(--accent)}
+h4[id^="work"]{scroll-margin-top:calc(var(--tabbar-h,52px) + var(--worktoc-h,44px) + 8px)}
+
+/* ============ FAQ ============ */
+#t4 details{border-top:1px solid var(--line-soft)}
+#t4 details:last-of-type{border-bottom:1px solid var(--line-soft)}
+#t4 summary{
+  cursor:pointer;list-style:none;display:flex;gap:14px;align-items:baseline;
+  padding:var(--sp-2) 4px;font-weight:700;font-size:15px;line-height:1.6;
+}
+#t4 summary::-webkit-details-marker{display:none}
+#t4 summary .q{font-family:var(--mono);color:var(--accent);font-size:13px}
+#t4 summary::after{content:"＋";margin-left:auto;color:var(--ink-faint);font-weight:400}
+#t4 details[open] summary::after{content:"−"}
+#t4 details .a{padding:0 4px var(--sp-3) 34px;font-size:14.5px;color:var(--ink-sub)}
+
+/* ============ 章アコーディオン（講義のあと） ============ */
+details.chap{padding:var(--sp-4) 0 0}
+details.chap > summary.chap-head{cursor:pointer;list-style:none}
+details.chap > summary.chap-head::-webkit-details-marker{display:none}
+details.chap > summary.chap-head::after{
+  content:"＋";margin-left:auto;color:var(--ink-faint);font-weight:400;
+  font-size:16px;line-height:1;padding-left:var(--sp-2);
+}
+details.chap[open] > summary.chap-head::after{content:"−"}
+details.chap > summary.chap-head:hover h3{color:var(--accent)}
+details.chap > summary.chap-head:hover::after{color:var(--accent)}
+
+/* ============ misc ============ */
+.goal{
+  background:var(--block);border:0;border-left:4px solid var(--accent);
+  border-radius:0 var(--radius) var(--radius) 0;
+  padding:var(--sp-4);margin:var(--sp-4) 0;color:#fff;
+}
+.goal .ct{font-family:var(--mono);font-size:10.5px;letter-spacing:.18em;color:var(--accent-on-dark);font-weight:700}
+.goal p{margin:8px 0 0;font-size:17px;font-weight:700;line-height:1.8;color:#fff}
+.goal p small{display:block;font-size:13px;font-weight:400;color:rgba(255,255,255,.72);margin-top:8px}
+.flowline{font-family:var(--mono);font-size:12.5px;color:var(--ink-sub);background:var(--paper-warm);border:1px solid var(--line-soft);border-radius:var(--radius);padding:var(--sp-2) var(--sp-3);margin:var(--sp-3) 0;line-height:2;overflow-x:auto;white-space:nowrap}
+.flowline b{color:var(--accent);font-weight:500}
+
+/* ============ diagrams ============ */
+.duo{display:grid;grid-template-columns:1fr auto 1fr;gap:var(--sp-2);align-items:stretch;margin:var(--sp-3) 0}
+.duo .side{border:1px solid var(--line-soft);border-radius:var(--radius);padding:var(--sp-2) var(--sp-3);background:var(--paper-warm)}
+.duo .side.hero{border-color:var(--accent);background:var(--accent-soft)}
+.duo .lb{font-family:var(--mono);font-size:10.5px;letter-spacing:.16em;color:var(--ink-faint);display:block;margin-bottom:6px;font-weight:500}
+.duo .side.hero .lb{color:var(--accent)}
+.duo .big{font-weight:900;font-size:15px;line-height:1.7;display:block}
+.duo .side p{font-size:12.5px;color:var(--ink-sub);margin:8px 0 0;line-height:1.8}
+.duo .mid{align-self:center;color:var(--accent);font-family:var(--mono);font-size:16px;padding:0 2px}
+
+.proc{display:flex;align-items:stretch;gap:0;margin:var(--sp-3) 0;overflow-x:auto;padding-bottom:4px}
+.proc .st{flex:1;min-width:110px;border:1px solid var(--line-soft);border-radius:var(--radius);padding:12px 12px;background:var(--paper-warm)}
+.proc .st .n{font-family:var(--mono);font-size:10px;color:var(--accent);letter-spacing:.14em;display:block;font-weight:500}
+.proc .st .t{font-weight:700;font-size:13.5px;line-height:1.55;display:block;margin-top:3px}
+.proc .st small{font-size:11.5px;color:var(--ink-sub);line-height:1.65;display:block;margin-top:4px}
+.proc .ar{align-self:center;color:var(--accent);font-family:var(--mono);padding:0 6px;flex-shrink:0}
+
+.cards3{display:grid;grid-template-columns:repeat(3,1fr);gap:var(--sp-2);margin:var(--sp-3) 0}
+.cards3 .c{border:1px solid var(--line-soft);border-radius:var(--radius);padding:14px 16px;background:var(--paper-warm)}
+.cards3 .c .n{font-family:var(--mono);font-size:10.5px;color:var(--accent);letter-spacing:.14em;display:block;font-weight:500}
+.cards3 .c .t{font-weight:700;font-size:13.5px;line-height:1.6;display:block;margin-top:4px}
+.cards3 .c small{font-size:11.5px;color:var(--ink-sub);line-height:1.65;display:block;margin-top:4px}
+
+.cards4{display:grid;grid-template-columns:repeat(4,1fr);gap:var(--sp-2);margin:var(--sp-3) 0}
+.cards4.subnav .cc{cursor:pointer;transition:border-color .12s,background .12s;user-select:none}
+.cards4.subnav .cc:hover{border-color:var(--accent)}
+.cards4.subnav .cc.on{border-color:var(--accent);background:var(--accent-soft)}
+.cards4 .cc{border:1px solid var(--line-soft);border-radius:var(--radius);padding:14px 16px;background:var(--paper-warm)}
+.cards4 .cc .nm{font-weight:900;font-size:14px}
+.cards4 .cc .dots{font-size:11px;color:var(--ink-sub);margin-top:6px;display:block}
+.subpane2{display:none}
+.subpane2.on{display:block}
+
+/* ============ 公開方法などの5択カード＝サブタブ切り替え ============ */
+.pubgrid{display:grid;grid-template-columns:repeat(5,1fr);gap:var(--sp-2);margin:var(--sp-3) 0}
+.pubgrid.subnav .pc{cursor:pointer;transition:border-color .12s,background .12s;user-select:none}
+.pubgrid.subnav .pc:hover{border-color:var(--accent)}
+.pubgrid.subnav .pc.on{border-color:var(--accent);background:var(--accent-soft)}
+.pubgrid .pc{border:1px solid var(--line-soft);border-radius:var(--radius);padding:16px;background:#fff}
+.pubgrid .pc.reco{border-color:var(--accent)}
+.pubgrid .pc .nm{font-weight:900;font-size:15px}
+.pubgrid .pc .reco-tag{font-family:var(--mono);font-size:9.5px;letter-spacing:.14em;color:var(--accent);border:1px solid var(--accent);border-radius:3px;padding:1px 6px;margin-left:8px;vertical-align:2px}
+.pubgrid .pc .dots{font-size:11px;color:var(--ink-sub);margin-top:6px;display:block}
+.pubgrid .pc .dots b{color:var(--accent);letter-spacing:2px;font-weight:400}
+.pubgrid .pc p{font-size:12px;color:var(--ink-sub);margin:8px 0 0;line-height:1.7}
+.pubpane{display:none}
+.pubpane.on{display:block}
+@media (max-width:640px){.pubgrid{grid-template-columns:1fr}}
+
+/* ============ 選択クイズ（チップ選択→その場で答え合わせ） ============ */
+.maptable td.pick{padding-top:10px;padding-bottom:10px}
+.chipset{display:flex;flex-wrap:wrap;gap:6px}
+.chip{
+  appearance:none;border:1px solid var(--line-soft);border-radius:999px;
+  background:var(--paper-warm);color:var(--ink-sub);
+  font-family:var(--sans);font-size:12.5px;font-weight:700;
+  padding:6px 14px;cursor:pointer;transition:border-color .12s,background .12s,color .12s;
+}
+.chip:hover{border-color:var(--accent)}
+.chip.sel{border-color:var(--accent);background:var(--accent-soft);color:var(--ink)}
+.maptable.checked .chip{cursor:default;pointer-events:none}
+.maptable.checked .chip.sel.correct{border-color:var(--ok);background:var(--ok-soft);color:var(--ok)}
+.maptable.checked .chip.sel.wrong{border-color:var(--bad);background:var(--bad-soft);color:var(--bad)}
+.maptable.checked .chip.answer{border-color:var(--ok);color:var(--ok)}
+.verdict{display:block;margin-top:6px;font-size:12px;color:var(--ink-sub);min-height:1.4em}
+.verdict.correct{color:var(--ok)}
+.verdict.wrong{color:var(--bad)}
+.mapctrls{display:flex;gap:10px;flex-wrap:wrap;margin-top:var(--sp-2)}
+.checkbtn{
+  appearance:none;border:1px solid var(--accent);border-radius:var(--radius);
+  background:var(--accent-soft);color:var(--accent);font-weight:700;font-size:13px;
+  padding:9px 20px;cursor:pointer;font-family:var(--sans);
+}
+.checkbtn:hover{background:var(--accent);color:#fff}
+.checkbtn.ghost{background:transparent;color:var(--ink-sub);border-color:var(--line-soft)}
+.checkbtn.ghost:hover{border-color:var(--accent);color:var(--accent);background:var(--accent-soft)}
+.mapmsg{font-size:12.5px;color:var(--ink-faint);margin-top:8px}
+
+/* ============ ライブ計算フォーム（価値換算） ============ */
+.calc{border:1px solid var(--line-soft);border-radius:var(--radius);background:var(--paper-warm);padding:var(--sp-3);margin:var(--sp-3) 0}
+.calc-row{display:flex;flex-wrap:wrap;gap:var(--sp-2);margin-bottom:var(--sp-2)}
+.calc-row label{flex:1;min-width:150px;display:flex;flex-direction:column;gap:4px;font-size:12px;color:var(--ink-sub);font-family:var(--mono)}
+.calc-row input,.calc-row select{
+  font-family:var(--sans);font-size:14px;color:var(--ink);
+  border:1px solid var(--line-soft);border-radius:var(--radius);
+  background:var(--paper);padding:8px 10px;
+}
+.calc-row input:focus,.calc-row select:focus{outline:none;border-color:var(--accent)}
+.calc-result{border-top:1px dashed var(--line-soft);margin-top:var(--sp-1);padding-top:var(--sp-2);display:flex;flex-direction:column;gap:6px}
+.calc-result .r-line{font-size:14px;color:var(--ink-sub)}
+.calc-result b{color:var(--ink);font-weight:700}
+.calc-result .big{color:var(--accent);font-size:18px}
+@media (max-width:640px){.calc-row label{min-width:100%}}
+
+/* ============ 分岐図（1つの壁→2つの解決策） ============ */
+.walltwo{margin:var(--sp-3) 0}
+.walltwo .wall{
+  border:1px solid var(--line);border-radius:var(--radius);
+  background:var(--paper-warm);padding:10px 16px;text-align:center;
+  font-size:13.5px;color:var(--ink-sub);
+}
+.walltwo .wall b{color:var(--ink);font-weight:700}
+.walltwo .arrows{display:flex;justify-content:space-around;color:var(--accent);font-family:var(--mono);font-size:20px;line-height:1;padding:4px 0}
+.walltwo .branches{display:grid;grid-template-columns:1fr 1fr;gap:var(--sp-2)}
+.walltwo .branch{border:1.5px solid var(--accent);border-radius:var(--radius);padding:14px 16px;background:#fff}
+.walltwo .branch .lb{font-family:var(--mono);font-size:11px;letter-spacing:.14em;color:var(--accent);font-weight:700;display:block}
+.walltwo .branch .t{font-weight:900;font-size:14.5px;display:block;margin-top:4px;line-height:1.6}
+.walltwo .branch small{font-size:11.5px;color:var(--ink-sub);display:block;margin-top:6px;line-height:1.7}
+@media (max-width:640px){.walltwo .branches{grid-template-columns:1fr}}
+
+@media (max-width:640px){
+  .duo{grid-template-columns:1fr}
+  .duo .mid{transform:rotate(90deg);justify-self:center;padding:2px 0}
+  .cards3,.cards4{grid-template-columns:1fr}
+}
+
+/* 文節単位の折り返し：.uで囲んだまとまりの途中では改行させない */
+/* CJK文字はdisplay:inline-blockだけでは内部でも改行されうるため、white-space:nowrapを併用する */
+.u{display:inline-block;white-space:nowrap}
+
+/* 和文の1文字落ち対策：見出し・カード類は行長を均等化、本文は末尾の孤立を回避 */
+h1,h2,h3,h4,
+.duo .big,.duo .side p,
+.proc .st .t,.proc .st small,
+.cards3 .c .t,.cards3 .c small,
+.cards4 .cc .nm,
+.walltwo .branch .t,.walltwo .branch small,
+.goal p{text-wrap:balance}
+p,li,details .a,.callout,td{text-wrap:pretty}
+
+/* prev/next pager */
+.pager{
+  display:flex;justify-content:space-between;gap:var(--sp-2);
+  margin-top:var(--sp-8);border-top:1px solid var(--line);padding-top:var(--sp-3);
+}
+.pager button{
+  appearance:none;border:1px solid var(--line);background:var(--paper-warm);border-radius:var(--radius);
+  font-family:var(--sans);font-size:13px;color:var(--ink);cursor:pointer;
+  padding:12px 18px;line-height:1.6;text-align:left;max-width:48%;
+}
+.pager button:hover{border-color:var(--accent);color:var(--accent)}
+.pager button small{display:block;font-family:var(--mono);font-size:10px;letter-spacing:.14em;color:var(--ink-faint)}
+.pager .next{text-align:right;margin-left:auto}
+
+footer.site{
+  border-top:1px solid var(--line);
+  padding:var(--sp-4) 0 var(--sp-6);font-size:12px;color:var(--ink-faint);
+}
+a.txt{color:var(--accent);text-decoration:underline;text-underline-offset:3px}
+
+@media (max-width:640px){
+  body{font-size:15px}
+  .tab{padding:12px 10px 10px;font-size:12.5px}
+  .pager button{max-width:100%}
+}
+@media (prefers-reduced-motion:reduce){html{scroll-behavior:auto}}
+
+
+:root{--ink:#292521;--ink-sub:#655A51;--ink-faint:#7B6A5D;--paper-warm:#FFF8F2;--line:#E6D7CB;--line-soft:#F1E6DC;--accent:#B94700;--accent-bright:#FF6500;--accent-soft:#FFF0E4;--accent-mid:#B94700;--block:#2D2722;--accent-on-dark:#FFB67A;--tool:#A3471C;--tool-soft:#FFF0E4;--head-bg:#FFFFFF;--head-line:#E6D7CB;--head-ink:#292521;--head-ink-sub:#655A51;--head-accent:#B94700;--head-accent-soft:#FFF0E4;--w-text:48rem;}
+.tabbar{background:rgba(255,255,255,.96)}
+.head{padding:40px 0 24px}.head h1{font-size:clamp(24px,4vw,34px);margin:12px 0;line-height:1.5}
+.head .brand{font-size:11px}.head .date{font-family:var(--sans);font-size:13px}
+.head h1.thumbnail-title{font-size:0;line-height:0;margin:16px 0 20px}
+.thumbnail-title img{display:block;width:100%;height:auto;border-radius:4px}
+.head .brand::before,.tab.on{border-bottom-color:var(--accent-bright)}
+.head .brand::before{background:var(--accent-bright)}
+.panel-head,.goal{border-left-color:var(--accent-bright)}
+h4 .wk{color:var(--ink)}
+.goal{background:var(--accent-soft);border:1px solid var(--line);border-left:4px solid var(--accent);color:var(--ink)}
+.goal p{color:var(--ink);font-size:21px}.goal .ct{color:var(--accent)}.goal p small{color:var(--ink-sub);font-size:14px}
+.preview-note{font-size:12px;background:var(--paper-warm);border-bottom:1px solid var(--line-soft);padding:8px 0;color:var(--ink-sub)}
+a{color:var(--accent);text-underline-offset:3px}.scard{box-shadow:none}
+figure.shot img{border:1px solid var(--line);cursor:zoom-in}
+figure.shot .ph{background:var(--paper-warm);min-height:86px}
+.prompt-details{border:1px solid var(--line-soft);border-top:0;border-radius:0 0 6px 6px}
+.prompt-details summary{cursor:pointer;padding:10px 14px;font-size:13px;color:var(--ink-sub)}
+.prompt-details pre.copy{margin:0;border:0;max-height:32rem;overflow:auto;border-radius:0}
+.copyhead{background:var(--ink)}.copyhead .fn{color:#FFF3E9}
+.downloads{display:flex;flex-wrap:wrap;gap:10px;margin:18px 0}
+.downloads a{font-size:13px;border:1px solid var(--line);border-radius:4px;padding:6px 12px;text-decoration:none}
+.section-intro{font-size:15px;color:var(--ink-sub)}
+.style-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:12px;margin:24px 0}
+.style-option{font-family:var(--sans);color:var(--ink);background:#fff;border:1px solid var(--line);padding:0;cursor:pointer;text-align:left;border-radius:4px;overflow:hidden}
+.style-option.on{border:2px solid var(--accent)}.style-option img{width:100%;display:block;aspect-ratio:16/9;object-fit:contain}
+.style-option span{display:block;padding:8px 10px;font-size:12px;font-weight:700;line-height:1.6}
+.style-option small{display:block;font-size:11px;font-weight:400;color:var(--ink-sub)}
+.style-target{display:block;font-size:13px;margin:16px 0}.style-target input{width:100%;margin-top:6px;padding:10px 12px;border:1px solid var(--line);border-radius:4px;font:inherit}
+.palette-row{display:grid;grid-template-columns:repeat(4,1fr);gap:12px;margin:20px 0}
+.palette{font-size:12px;border-top:1px solid var(--line);padding-top:10px}.swatches{display:flex;gap:4px;margin:8px 0}.swatches span{height:30px;flex:1;border:1px solid var(--line);border-radius:3px}
+.part-table td{min-width:100px}.part-table th{white-space:normal}
+.mini-copy pre.copy{font-size:12px;padding:12px}.mini-copy .copyhead{padding:6px 10px}
+.review-checks{list-style:none;margin:18px 0}.review-checks li{border-bottom:1px solid var(--line-soft);padding:9px 0}
+.sample-memo{border:1px solid var(--line);padding:20px;background:var(--paper-warm)}.sample-memo p:last-child{margin-bottom:0}
+.proc .st{min-width:0}.proc .st .t{font-size:14px}
+footer.site{margin-top:32px}
+[hidden]{display:none!important}
+@media(max-width:640px){.head{padding:24px 0 18px}.head h1{font-size:25px}.panel-head{padding:24px 20px}.goal{padding:24px 20px}.goal p{font-size:18px}.proc{flex-direction:column;overflow:visible;gap:8px}.proc .ar{align-self:center;transform:rotate(90deg);padding:0}.style-grid{grid-template-columns:repeat(2,1fr);gap:8px}.palette-row{grid-template-columns:repeat(2,1fr)}.measure{padding:0 20px}h4{padding:12px 14px}.tooltag{padding-left:14px}.head .inner,.tabbar .inner{padding-left:20px;padding-right:20px}.u{max-width:100%}.tblwrap{max-width:100%}}
+</style></head><body><header class="head"><div class="inner"><span class="brand">SHIFT AI / Hands-on Guide</span><h1 class="thumbnail-title"><img src="images/event-thumbnail.webp" width="1000" height="300" alt="資料は、設計で決まる。読み手の思考の流れから逆算する 資料作成実践合宿" fetchpriority="high"></h1><p class="date"><span class="u">2026.10.17（土）</span> ／ <span class="u">午前・スライド作成パート</span></p></div></header><div class="preview-note"><div class="measure">制作プレビュー：操作画面10か所は、実測後に差し込みます。</div></div><nav class="tabbar" aria-label="ガイドのタブ"><div class="inner" role="tablist"><button class="tab on" role="tab" data-tab="t0" aria-controls="t0" aria-selected="true"><span class="tno">01</span>全体像</button><button class="tab" role="tab" data-tab="t1" aria-controls="t1" aria-selected="false"><span class="tno">02</span>事前準備</button><button class="tab" role="tab" data-tab="t2" aria-controls="t2" aria-selected="false"><span class="tno">03</span>当日のワーク</button><button class="tab" role="tab" data-tab="t3" aria-controls="t3" aria-selected="false"><span class="tno">04</span>講義のあと</button><button class="tab" role="tab" data-tab="t4" aria-controls="t4" aria-selected="false"><span class="tno">05</span>FAQ</button></div></nav><main class="measure"><div class="panel on" id="t0" role="tabpanel"><div class="panel-head"><span class="kicker">OVERVIEW</span><h2>資料は、設計で決まる。</h2><p class="desc">相手に伝わる順番を決め、AIでスライドにする。<br>4工程を自分の資料で試します。</p><nav class="local"><a href="#s1">持ち帰るもの</a><a href="#s2">人とAIの担当</a><a href="#s3">4工程</a></nav></div><section class="chap" id="s1"><div class="chap-head"><span class="no">G1</span><h3>自分の資料を、設計から作る</h3></div><div class="goal"><span class="ct">TODAY'S GOAL</span><p><span class="u">目的と説明順を決め、</span><span class="u">図解入りのスライドにする。</span><small>設計メモ・構成案・確認した画像スライドを持ち帰ります。</small></p></div><p>最初から長い設計メモを書く必要はありません。<br>AIの質問に短く答え、整理されたメモを自分の意図に合わせて直します。</p></section><section class="chap" id="s2"><div class="chap-head"><span class="no">G2</span><h3>設計は人・生成はAI・検収は人</h3></div><div class="cards3"><div class="c"><span class="n">DESIGN</span><span class="t">人が決める</span><small>読み手・目的・答える順番・入れない情報。</small></div><div class="c"><span class="n">GENERATE</span><span class="t">AIが形にする</span><small>回答をメモに整理し、構成案と画像を作る。</small></div><div class="c"><span class="n">REVIEW</span><span class="t">人が確かめる</span><small>目的、文章、条件、図の意味が合っているか。</small></div></div></section><section class="chap" id="s3"><div class="chap-head"><span class="no">G3</span><h3>必須3工程と、任意のデザイン変更</h3></div><div class="proc"><div class="st"><span class="n">01</span><span class="t">インタビュー</span><small>短い設計メモ</small></div><span class="ar" aria-hidden="true">→</span><div class="st"><span class="n">02</span><span class="t">構成案</span><small>表示文章と図の計画</small></div><span class="ar" aria-hidden="true">→</span><div class="st"><span class="n">03</span><span class="t">画像生成と検収</span><small>図解入りのスライド</small></div><span class="ar" aria-hidden="true">→</span><div class="st"><span class="n">04 任意</span><span class="t">デザイン変更</span><small>まず1枚で試す</small></div></div><div class="tblwrap"><table><tr><th>言葉</th><th>何を決めるものか</th></tr><tr><td>設計メモ</td><td>誰に、何を、どの順に伝えるか。</td></tr><tr><td>構成案</td><td>各スライドの表示文章と、説明する図。</td></tr><tr><td>検収</td><td>出力が意図と素材に合うかの確認・修正。</td></tr></table></div><a class="jumplink" href="#s7">当日のワークへ</a></section></div>
+<div class="panel" id="t1" role="tabpanel"><div class="panel-head"><span class="kicker">PREPARATION</span><h2>題材と保存先を用意する</h2><p class="desc">自分のテーマを一言で。<br>題材が未定なら、工務店の架空例から始められます。</p><nav class="local"><a href="#s4">作る題材</a><a href="#s5">Codexと保存先</a><a href="#s6">工務店の例</a></nav></div><section class="chap" id="s4"><div class="chap-head"><span class="no">P1</span><h3>どんな資料を作るか</h3></div><p>最近作った資料、または次に作る予定の資料を1つ選びます。<br>手元のメモは整えず、そのまま使えます。</p><div class="callout">例：上司に新しい運用を提案する資料、取引先へのサービス説明、社内の手順を伝える資料。</div><p>社外へ渡せない情報は、公開できる範囲へ置き換えます。<br>価格・条件が分からない場合は、推測せず「未確認」で残します。</p></section><section class="chap" id="s5"><div class="chap-head"><span class="no">P2</span><h3>Codexと作業フォルダー</h3></div><p>使うツールはCodexです。<br>成果物を1つの作業フォルダーへ集め、W1からW4まで同じ会話で進めます。</p><p class="tooltag">操作するもの：<b>Codexと、選択した作業フォルダー</b></p><figure class="shot"><div class="ph" data-shot="prep-codex.webp">実測待ち：Codexが起動した画面</div></figure><figure class="shot"><div class="ph" data-shot="prep-folder.webp">実測待ち：選択した作業フォルダー</div></figure><div class="copywrap mini-copy"><div class="copyhead"><span class="fn">成果物の保存先（ワーク中にAIが作成）</span><button type="button" class="copybtn">コピー</button></div><pre class="copy">作業フォルダー/
+  00_素材.md
+  01_設計メモ.md
+  02_構成案.md
+  03_検収メモ.md
+  slides/
+  slides_design/</pre></div><p class="note">画像生成が使えない場合の復帰ルートは、W3とFAQにあります。<br>未確認の環境設定を推測で変更せず、講師の案内を確認します。</p></section><section class="chap" id="s6"><div class="chap-head"><span class="no">P3</span><h3>題材がない人は工務店の例を使う</h3></div><p>工務店の社長へInstagram運用代行を提案する架空の題材です。<br>題材文をコピーし、W1のインタビュープロンプトと一緒にCodexへ渡します。</p><div class="copywrap"><div class="copyhead"><span class="fn">工務店の題材（架空例）</span><button type="button" class="copybtn">コピー</button></div><pre class="copy">工務店の社長に、Instagram運用代行を提案する資料を作りたいです。
+見学会の集客はチラシ中心で、社内にInstagramを担当する人がいません。
+まず3か月の試行を提案します。</pre></div><p class="note">金額・頻度・条件は、インタビューで分かる範囲を伝えます。<br>決めていない情報は「未確認」のまま進めて大丈夫です。</p><a class="jumplink" href="#s7">題材を使ってインタビューへ</a></section></div>
+<div class="panel" id="t2" role="tabpanel"><div class="panel-head"><span class="kicker">WORKSHOP</span><h2>4工程で、資料を形にする</h2><p class="desc">毎回、できたものを確かめてから次へ。<br>デザイン変更は、必須工程が終わった人向けの任意ワークです。</p><nav class="local"><a href="#s7">W1 設計メモ</a><a href="#s8">W2 構成案</a><a href="#s9">W3 画像と検収</a><a href="#s10">W4 任意</a></nav></div><nav class="worktoc" aria-label="作業の目次"><div class="worktoc-inner"><a href="#work1" data-work="work1">01 題材と回答</a><a href="#work2" data-work="work2">02 メモ確認</a><a href="#work3" data-work="work3">03 構成化</a><a href="#work4" data-work="work4">04 構成確認</a><a href="#work5" data-work="work5">05 画像生成</a><a href="#work6" data-work="work6">06 照合</a><a href="#work7" data-work="work7">07 修正</a><a href="#work8" data-work="work8">08 見本選択</a><a href="#work9" data-work="work9">09 1枚変更</a><a href="#work10" data-work="work10">10 全枚へ</a></div></nav><section class="chap" id="s7"><div class="chap-head"><span class="no">W1</span><h3>インタビューで設計メモを作る</h3></div><div class="callout ok"><span class="ct">このワークのゴール</span>5項目の設計メモを読み、自分の意図に合っていると確認できた。</div><h4 id="work1"><span class="wk">作業1</span>質問に、1つずつ答える</h4><p class="tooltag">操作するもの：<b>Codexの同じ会話・自分の題材と素材</b></p><p>プロンプトを渡し、AIからの質問に答えます。<br>短い回答や箇条書きで大丈夫です。</p><div class="copywrap"><div class="copyhead"><span class="fn">① 設計メモのインタビュー</span><button type="button" class="copybtn">コピー</button></div><details class="prompt-details"><summary>プロンプト全文を読む</summary><pre class="copy">あなたは、資料の設計メモを作るインタビュアーです。
+短い対話で本人の考えを引き出し、資料の目的と説明順を設計メモに整理してください。
+最初から完成したメモや長い入力シートを求めないでください。
+この工程では設計メモを作ります。構成案・画像生成・スキル化へは進みません。
+
+【始め方】
+・題材がまだ分からなければ、最初の返答は次の質問1つだけにする。
+  「今回は、どんな資料を作りたいですか？ 一言で大丈夫です。」
+・題材、読み手、目的などが会話や素材ですでに分かっていれば、聞き直さず次の不足へ進む。
+・先に質問一覧や長い説明を表示しない。
+
+【インタビューの進め方】
+・1回に尋ねるのは1つの論点。回答を受け取ってから次の質問へ進む。
+・短い回答や箇条書きを受け付ける。整った文章への書き直しを求めない。
+・回答が曖昧な場合は、具体例を尋ねるか、2～3個の候補を示して本人に選んでもらう。
+・毎回の長い解説や称賛を省き、必要な質問に進む。
+・すでに回答や素材で確認できた項目は省く。毎回同じ順序ですべてを尋ねない。
+・相手の本音や潜在ニーズを推測で決めず、本人が知っている状況と、AIの仮説を分ける。
+・素材にない数字・条件・実績・効果は補わない。本人も分からない情報は確認事項にする。
+
+【聞き出す内容】
+必要な範囲で、次を確認する。本人へ一括で記入を求めない。
+・どんな資料か。
+・誰に見せるか。その人がすでに知っていること、気にしていること。
+・どんな場面で使うか。画面で説明するか、相手が一人で読むか。
+・見終えた相手に、何を判断・理解・実行してほしいか。
+・使える素材、条件、数字は何か。手元のメモや既存資料は、そのまま受け取る。
+・相手は最初に何を知りたくなるか、その次は何か。
+・今回は入れない情報は何か。
+
+【説明順を一緒に決める】
+・目的と素材が分かったら、相手が持ちそうな疑問を3～5個、短い言葉で提案する。
+・本人がすでに疑問や順番を示していれば、まずその案を使う。
+・提案する順番には、理由を1文添える。
+・本人には「先に答えるべき疑問はありますか？」など、1つの判断を尋ねる。
+・入れない情報が未定なら、候補を提案して本人に選んでもらう。
+  費用・手間・条件・注意点など、判断に必要な情報を省く候補にはしない。
+・目的、説明順、入れない情報は、本人の回答を得て決める。
+・未解決の事実は確認事項として残し、推測で埋めない。
+
+【設計メモの完成形】
+目的と説明順が本人の言葉・選択で決まったら、次の5項目を各1～2文でまとめる。
+1. 読み手と使う場面
+2. 見終えた相手にどうなってほしいか
+3. 相手の疑問と、答える順番
+4. 今回は入れない情報
+5. 確認が必要なこと
+
+素材の全文、数字の一覧、出典管理、画像の仕様を、設計メモへ詰め込まない。
+素材は別に残し、後の構成案では設計メモと元の素材を両方読む。
+最後に、意図と違う点がないか1問だけ確認する。
+「分からない」と答えられた事実を、未確認と記録する。目的自体が決まらない場合は、目的を決める対話を続ける。
+
+【元の素材】
+同じ会話にあるメモ・資料を参照する。素材がまだなければ、インタビュー中に尋ねる。
+素材がないからといって、価格・条件・実績・効果を作らない。
+
+【確認後の保存】
+本人が設計メモを確認したら、選択済みの作業フォルダーに「01_設計メモ.md」として保存する。
+使った素材は「00_素材.md」として別に残す。本人が用意したファイルは上書きしない。
+ファイル保存機能が使えない場合は全文を会話に残し、保存できたと報告しない。
+最後に、設計メモと元の素材を次の工程で使うと短く伝えて止まる。
+
+</pre></details></div><figure class="shot"><div class="ph" data-shot="w1-interview.webp">実測待ち：質問と短い回答</div></figure><h4 id="work2"><span class="wk">作業2</span>整理されたメモを確認する</h4><p class="tooltag">操作するもの：<b>AIが返した設計メモ</b></p><p>読み手、目的、答える順番、入れない情報、確認が必要な点を読みます。<br>意図と違う部分だけを直します。</p><p class="note">インタビューの質問数は、題材と手元の情報によって変わります。</p><figure class="shot"><div class="ph" data-shot="w1-memo.webp">実測待ち：5項目に整理された設計メモ</div></figure><div class="copywrap mini-copy"><div class="copyhead"><span class="fn">メモを確認したら</span><button type="button" class="copybtn">コピー</button></div><pre class="copy">この設計メモで進めます。作業フォルダーに01_設計メモ.mdとして保存してください。
+構成案は次の工程で作ります。</pre></div><a class="jumplink" href="#s8">W2 構成案へ</a></section><section class="chap" id="s8"><div class="chap-head"><span class="no">W2</span><h3>設計メモを構成案にする</h3></div><div class="callout ok"><span class="ct">このワークのゴール</span>各枚の表示文章と図の計画があり、説明順と条件を確認できた。</div><h4 id="work3"><span class="wk">作業3</span>設計メモと題材から構成を依頼する</h4><p class="tooltag">操作するもの：<b>同じ会話の設計メモ・題材の説明</b></p><p>確認済みの設計メモと、最初に伝えた題材から構成を依頼します。<br>追加する情報があれば、金額・頻度・条件のメモも渡してください。<br>決めていない条件は「未確認」のままで大丈夫です。</p><div class="copywrap"><div class="copyhead"><span class="fn">② スライド構成案</span><button type="button" class="copybtn">コピー</button></div><details class="prompt-details"><summary>プロンプト全文を読む</summary><pre class="copy">あなたは、本人が確認した設計メモをスライド構成案にする編集者です。
+同じ会話の設計メモと元の素材、または作業フォルダーの「01_設計メモ.md」「00_素材.md」を両方参照してください。
+設計メモを読み取れない場合だけ、該当する本文を尋ねてください。確認済みの目的・順番・除外情報を聞き直さないでください。
+この工程では構成案まで作ります。画像生成とスキル化へは進みません。
+
+【枚数】
+希望があれば従う。未指定なら、初回のハンズオン用に3〜5枚程度の構成を提案する。
+判断に必要な条件が収まらない場合は、情報を落とさず枚数の追加を提案する。
+
+【構成と文章のルール】
+・1スライドで伝えることは1つにする。
+・目的に応じて、最初の1～2枚で資料の主張や求める判断を明確にする。
+・素材にない数字・効果・実績・事例・URLを足さない。
+・未確認事項は未確認と分かる表現にする。資料の根拠として言い切らない。
+・費用・手間・条件・注意点など、相手の判断に必要な情報を省かない。
+・「今回入れない情報」に従う。ただし判断に必要な条件まで除外される場合は確認する。
+・文章は意味を保って短くする。専門用語は読み手の知識に合わせて説明する。
+・画像化の目安は、1枚120字以内、箇条書き3項目まで、主要な文章グループ3つまで。
+  超える場合は内容を削る前に分割を検討する。文字サイズを小さくする前提で詰め込まない。
+・希望枚数に収まらない場合は、必要な内容と枚数が衝突する箇所を示して確認する。
+・構成案では、表示文章と一緒に、内容を説明する図の計画まで決める。
+  通常の説明は、図解または小さな立体イラストを入れることを標準とする。
+・図の種類は、教える内容から選ぶ。
+  比較は同じ軸で並べた比較図、手順は矢印で順序を示すフロー図、
+  全体の位置は構成図、階層は枝分かれや入れ子、選択は分岐図にする。
+  概念や利用場面の説明には、内容に合う場面・物の立体イラストを使う。
+  原稿にない因果関係や推奨経路は作らない。
+・各図について、何を表すか、要素同士がどう関係するか、読む順番、文章との配置を具体的に記す。
+  「図を入れる」「アイコンを添える」だけで終えない。図中の文字も「表示」に含める。
+・表、チェックリスト、ファイルツリーが十分に説明していれば、場面イラストは追加しない。
+・表紙、短い問い、重要な一文、締めは、学習上の理由があれば文字だけでもよい。
+  ただし、実際の内容が工程や比較の説明なら図を入れる。文字だけにする理由を記録する。
+・表示文章と、管理用の見出し・設計意図・図解指示を分ける。
+  話す台本や、検討途中の文章を表示文章へ混ぜない。
+
+【出力形式】
+最初に、本人が確認した短い設計メモを示す。
+続けて、全スライドを次の表にまとめる。
+
+| 番号 | 1枚で伝えること | 答える疑問 | 図の種類 | 素材の根拠 |
+
+その後、各スライドを次の形式で記す。
+「表示」のコードブロックには、画像に載せる文章だけを入れる。
+
+### [スライド 1] 管理用の見出し
+役割：［タイトル／説明／比較／手順／問い／締めなど］
+表示：
+```text
+実際に表示するタイトル、または主となる一文
+実際に表示する本文
+実際に表示する図のラベル（必要な場合）
+```
+図の種類：［比較図／フロー図／構成図／階層図／分岐図／場面・物の立体イラスト／表／文字のみ（理由を記す）など］
+図解指示：［具体的な対象・関係・読む順番・配置。ラベルは「表示」の語句を使う。文字だけなら理由］
+強調する語句：［表示文章から1～3箇所。必要なければ「なし」］
+
+【自己点検】
+・目的と、読み手の疑問の順番に沿っているか。
+・表示文章が全枚分あり、1枚で伝えることが1つになっているか。
+・必要な条件や注意点を落としていないか。
+・素材にない情報や、未確認事項の断定が混じっていないか。
+・説明内容に合う図を計画しているか。対象・関係・配置が具体的か。
+・図のラベルも表示文章に含まれ、制作メモと分かれているか。
+
+最後に、本人に確認してほしい点と、解消していない不足だけを短く示す。
+
+【確認後の保存】
+本人が構成案を確認したら、作業フォルダーに「02_構成案.md」として保存する。
+既存の版を置き換える場合は別の版として残す。
+画像化は次の生成プロンプトで進める。
+
+</pre></details></div><h4 id="work4"><span class="wk">作業4</span>文章と図の計画を確認する</h4><p class="tooltag">操作するもの：<b>AIが返した構成案</b></p><p>相手の疑問に答える順番か、必要な条件が残っているかを確かめます。<br>画像に載るのは「表示」のコードブロック内の文章です。</p><div class="callout">構成案には、文字と一緒に図の対象・関係・配置も書きます。<br>「図を入れる」だけでは、何を説明する図か決まりません。</div><figure class="shot"><div class="ph" data-shot="w2-outline.webp">実測待ち：表示文章と図の計画がある構成案</div></figure><div class="copywrap mini-copy"><div class="copyhead"><span class="fn">構成案を確認したら</span><button type="button" class="copybtn">コピー</button></div><pre class="copy">この構成案で進めます。作業フォルダーに02_構成案.mdとして保存してください。
+画像に載せるのは「表示」の文章だけです。</pre></div><a class="jumplink" href="#s9">W3 画像生成へ</a></section><section class="chap" id="s9"><div class="chap-head"><span class="no">W3</span><h3>画像を生成し、内容を確かめる</h3></div><div class="callout ok"><span class="ct">このワークのゴール</span>基本デザインの画像を生成し、構成案と照合して必要な箇所を直した。</div><h4 id="work5"><span class="wk">作業5</span>基本デザインで生成する</h4><p class="tooltag">操作するもの：<b>02_構成案.md・Codexの画像生成</b></p><p>最初は白地・ネイビー×ブルーの基本デザインを使います。<br>説明には図解または小さな立体イラストを入れます。</p><div class="copywrap"><div class="copyhead"><span class="fn">③ スライド画像生成</span><button type="button" class="copybtn">コピー</button></div><details class="prompt-details"><summary>プロンプト全文を読む</summary><pre class="copy">あなたは、確定した構成案を画像スライドにする制作者です。
+以下の構成案を使い、内蔵の画像生成機能でスライドを作成してください。
+今回は画像生成と検収まで進めます。スキル化は、後の工程で実施します。
+
+【確定した構成案】
+同じ会話で確認済みの構成案、または作業フォルダーの「02_構成案.md」。読み取れない場合だけ本文を尋ねる。
+
+【生成範囲】
+確認済みの構成案の全枚。枚数が多い場合、まず1枚を試してから残りへ進む。
+
+【保存先】
+選択済みの作業フォルダー内の「slides/」。生成後に利用可能な保存手段でここへコピーする。
+
+【配色の変更】
+未指定なら次のネイビー×ブルーを使用。今回はまず基本デザインで生成する。
+
+【表示内容の扱い】
+・入力された構成案は本人が確定したものとして扱い、同じ確認を繰り返さない。
+・「表示」のコードブロック内だけを、画像に載せる文章として扱う。
+  最初の行は通常、タイトルまたは主となる一文。別のタイトルを足さない。
+・コードブロック外の管理用見出し、番号、役割、図の種類、図解指示、強調指定は文字として描かない。
+  図の種類・図解指示・強調指定は、制作に反映する。図のラベルは「表示」の語句だけを使う。
+・確定した順番・枚数・表示文章・条件・注意点を保つ。
+  勝手に言い換え、要約、追記、削除をしない。
+・収まらない場合は、図を小さく・単純にし、配置を変える。
+  それでも読めない場合は、分割案を示して本人の確認を待つ。文章を削らない。
+・表示範囲や図解の意味が判断できない場合は、該当箇所だけ確認する。
+
+【初期デザイン】
+・16:9。1920×1080を基準に設計する。1回の画像生成につき1枚を作る。
+・白背景 #FFFFFF、濃いネイビー #1F2A44 の文字、広い余白、整列した配置。
+・アクセントはブルー #2F6FDE。判断ポイント、重要な語句、矢印、構造を示す線に使う。
+・タイトルの下に、細く控えめなブルーの線。グラデーションは使わない。
+・薄いパネルは #EEF4FF。広い面を濃い色で塗らない。
+・Noto Sans JP Bold相当の日本語ゴシック体を全枚で統一する。
+・文字は3段階。タイトル80px、本文・具体例・説明・まとめ56px、短い図解ラベル44px。
+  別解像度では3段階を同じ倍率で調整する。本文をラベルサイズへ下げない。
+・強調する語句は文字色だけを変える。「人」「AI」など、一部分だけを大きくしない。
+  同じ本文内の語句はすべて同じサイズに保つ。余白を埋めるために文字を拡大しない。
+・外側の余白は80px以上、文章グループ間は32px以上、行間は1.25～1.35を目安にする。
+・文字サイズは画像生成への目標指定として扱い、結果を見て統一感と可読性を確認する。
+・全面の暗い背景、派手な装飾、強い影、発光、絵文字、ロゴ、透かしを使わない。
+・表紙や章の区切りも同じデザインにする。
+・配色の変更が指定されている場合は、色だけを置き換え、読みやすさとデッキ内の統一を保つ。
+
+【図解とイラスト】
+・説明スライドは、図解または小さな立体イラストを入れることを標準とする。
+  図の種類は構成案に従い、初稿から実際に描く。文章だけのパネルで置き換えない。
+・比較は同じ軸で並べた比較図、工程は矢印で順序を示すフロー図、
+  全体の位置は構成図、階層は枝分かれや入れ子、選択は分岐図で示す。
+  色付きの文章カードや装飾アイコンだけで、関係図の代わりにしない。
+・通常の説明には、内容に結びつく小さな場面・物・関係図を入れる。
+  表、チェックリスト、ファイルツリーが十分に説明していれば、場面イラストは追加しない。
+・表紙、短い問い、重要な一文、締めで文字だけにする場合は、構成案の理由が内容に合うか確認する。
+  実際の内容が工程や比較の説明なら、その関係図を入れる。
+  必須の図解がない画像を、後から文字だけの例外として受け入れない。
+・場面や物は、斜め上から見たすっきりしたベクター風の立体図にする。
+  白・薄いグレーを基調に、アクセント色、2～3段階の平面的な色面、短く薄い影を使う。
+・視点、輪郭の描き方、細かさをそろえる。人物は行動の説明に必要な場合だけ入れる。
+  自然な大人の体型と、分かりやすい動作にする。人物などに関する本人の制約を優先する。
+・文章と必要な関係図の領域を先に確保し、イラストの領域・最大サイズを決める。
+  イラストで本文を圧迫しない。内容が少なくても、絵を大きくして余白を埋めない。
+・文字とラベルは水平・正面向き。立体表現で文字や接続線を隠さない。
+・スクリーンショット、UI、顔写真、URL、QRコードを創作しない。
+  指定された空白領域は空ける。提供済みの実物素材は指示された範囲で使う。
+・スライド番号は画像に描かない。
+
+【生成と検収の手順】
+1. 全対象について、次の図解計画を整理する。
+   番号／図の種類／対象と関係／文章と図の配置／文字だけの場合の理由。
+   表示文章と強調箇所も確認し、必要な図解がプロンプトから抜けていないか点検する。
+2. 1枚ずつ生成する。画像生成への指示には、その1枚のデザイン・表示文章・図解・配置だけを渡す。
+   表示文章と制作指示を明確に分け、文字サイズの3段階を毎回指定する。
+   必須の図解を「任意」「必要なら」と弱めない。
+3. 生成した画像を1枚ずつ開き、確定した構成案と照合する。
+   文字・数字・条件の欠落や意味の変化、余計な文章、図解の欠落、はみ出しを確認する。
+   図解が計画どおりの対象と関係を示しているかも確認する。
+   必須の図解がなければ、文字と色が正しくても不合格として直す。
+   同じ表示幅で全枚を比べ、約960×540でも本文とラベルを読めるか確認する。
+   プロンプトに書いた内容が画像にもあるとは決めつけない。
+4. 不具合の原因を具体的に直し、該当スライドを再生成して再確認する。
+   同じ指示のまま再試行し続けない。
+5. 利用可能な保存操作で、slide_01.png のように番号順に保存する。
+   実際のファイルの存在、形式、寸法、16:9の比率、欠番を確認する。
+   利用可能な画像生成・保存手段がない場合は、その制約を報告する。
+   依頼なくHTML、PPTX、外部APIによる生成へ切り替えない。
+
+最後に、生成枚数、保存先、修正した箇所、残っている問題を短く報告する。
+検収で直っていない問題がある画像を、完成扱いにしない。
+
+【修正から学ぶ記録】
+既存の画像は上書きせず、修正版を別名で残す。保存前に対象ファイルの有無を確認する。
+実際に直した箇所を「03_検収メモ.md」に短く残す。
+意図しない増加グラフやSNS画面が出た場合、文章だけでなく図の意味も構成案と照合し、該当画像を内蔵画像生成で直す。
+
+</pre></details></div><figure class="shot"><div class="ph" data-shot="w3-request.webp">実測待ち：画像生成を依頼した状態</div></figure><h4 id="work6"><span class="wk">作業6</span>文字だけでなく、図の意味も見る</h4><p class="tooltag">操作するもの：<b>生成画像と構成案</b></p><ul class="review-checks"><li>表示文章・数字・税別・回数に、欠落や追加がないか。</li><li>「想定」「未確認」「要確認」が残っているか。</li><li>図の対象・順序・分岐・比較軸が構成案と同じか。</li><li>本文と条件が読めるか。文字が欠けたり重なったりしていないか。</li></ul><div class="callout">工務店の試行では、契約期間の図に増加グラフが足されました。<br>根拠のない成果を示す図を除き、期間だけの図へ直しました。</div><figure class="shot"><div class="ph" data-shot="w3-review.webp">実測待ち：画像と構成案の照合</div></figure><h4 id="work7"><span class="wk">作業7</span>問題を1つ、具体的に直す</h4><p class="tooltag">操作するもの：<b>修正する画像・slides/・検収メモ</b></p><div class="copywrap mini-copy"><div class="copyhead"><span class="fn">修正する箇所を指定する</span><button type="button" class="copybtn">コピー</button></div><pre class="copy">スライド［番号］の［直したい箇所］を、構成案の［正しい文章・図の意味］に合わせて直してください。
+金額・条件・注意点と、指定していない部分は保ってください。
+元の画像を残し、修正版を別名で保存して見せてください。</pre></div><p>「もっと良く」ではなく、何をどう直すかを伝えます。<br>修正前の画像を残し、直した理由を検収メモへ記録します。</p><figure class="shot"><div class="ph" data-shot="w3-saved.webp">実測待ち：実際の保存先にある画像</div></figure><div class="callout tool">画像生成が使えない、または待ち時間が長い場合は、<a href="#s16">「講義のあと」の完成画像</a>で照合を続けます。<br>完成例を使ったことと、自分の資料を生成できたことは分けて振り返ります。</div><a class="jumplink" href="#s10">任意のデザイン変更へ</a></section><section class="chap" id="s10"><div class="chap-head"><span class="no">W4 任意</span><h3>デザインを変えてみる</h3></div><div class="callout ok"><span class="ct">このワークのゴール</span>内容を保ち、選んだデザインを1枚で試して確認できた。</div><h4 id="work8"><span class="wk">作業8</span>見本を1つ選ぶ</h4><p class="tooltag">操作するもの：<b>デザイン見本カタログ</b></p><p>まず組合せ6例から選びます。<br>フォントだけ、図だけ、配色だけを変えても構いません。</p><a class="jumplink" href="#s11">見本を選び、変更指示をコピー</a><h4 id="work9"><span class="wk">作業9</span>まず1枚だけ変更する</h4><p class="tooltag">操作するもの：<b>対象の画像1枚・変更用プロンプト</b></p><p>コピーした指示へ、変更したい画像のファイル名または番号を入れます。<br>元と並べて、文章・条件・図の関係が保たれているかを確かめます。</p><div class="copywrap"><div class="copyhead"><span class="fn">④ デザイン変更（任意）</span><button type="button" class="copybtn">コピー</button></div><details class="prompt-details"><summary>プロンプト全文を読む</summary><pre class="copy">あなたは、確認済みのスライドのデザインを変更する制作者です。
+内蔵の画像生成・画像編集機能を使ってください。
+
+【対象】
+［変えたい画像のファイル名、またはスライド番号を1つ指定］
+指定された画像を先に開き、構成案「02_構成案.md」の同じスライドと照合する。
+
+【変更するもの】
+［フォント／図の見た目／配色／組合せセットのいずれか］
+［見本の名前、または変更したい雰囲気を一言で記入］
+未指定の要素は元のデザインを保つ。
+
+【選べる見本】
+フォント：
+F1 角ゴシック：Noto Sans JP Bold相当。
+F2 UDゴシック：BIZ UDGothic Bold相当。
+F3 丸ゴシック：Zen Maru Gothic Bold相当。
+F4 明朝の見出し：見出しはNoto Serif JP Bold相当、本文はNoto Sans JP Bold相当。
+
+図の見た目：
+D1 立体イラスト：斜め上からのベクター風。平面の色面と薄い影。
+D2 立体線画：D1と同じ視点。濃紺の輪郭、白い面、青の小さな差し色。
+D3 フラット：正面からの2D。単純な面、濃紺と青、影なし。
+D4 モノライン：均一な太さの線。濃紺の線、白い面、青の接続線。
+D5 手描き：少し揺れる線、少ない色、白地。文字は手書きにしない。
+D6 切り絵：重ねた紙の形。浅い影、少ない色、単純な輪郭。
+
+配色（背景は全て白）：
+C1 ネイビー×ブルー：文字#1F2A44、強調#2F6FDE、薄い面#EEF4FF。
+C2 チャコール×ティール：文字#263238、強調#007F86、薄い面#EAF6F5。
+C3 ダークブラウン×テラコッタ：文字#3B302A、強調#B54B32、薄い面#FAEEE8。
+C4 ダークグリーン×オーカー：文字#243C32、強調#8A5B00、薄い面#F7F0E3。
+
+組合せセット：
+S1 標準の提案資料＝F1＋D1＋C1。
+S2 線画の講義資料＝F1＋D2＋C1。
+S3 読みやすい業務説明＝F2＋D3＋C2。
+S4 やわらかい案内＝F3＋D5＋C3。
+S5 落ち着いた紹介＝F4＋D4＋C4。
+S6 紙の質感の説明＝F1＋D6＋C2。
+
+【保つもの】
+・構成案の順番・枚数・全ての表示文章・図のラベル。
+・金額、税別、回数、契約条件、注意点、未確認事項。
+・図が説明する対象と関係。フローの順序、分岐、比較軸を変えない。
+・文字サイズの3段階、余白、読みやすさ。
+・指定していないデザイン要素。
+
+変更対象に明示したデザイン指定は、元のデザイン指定より優先する。
+例：D3フラットを選んだら、その画像では元の立体指定を置き換える。
+フォント名は書体の雰囲気の参考。画像生成で厳密なフォントファイルの使用やpx値の一致を保証しない。
+
+【進め方】
+1. 指定画像を見て、どの要素を変更するか1〜2文で説明する。確認済みの選択を聞き直さない。
+2. その1枚だけを編集し、作業フォルダーの「slides_design/」へ別名で保存する。
+   例：slide_03_design_v1.png。元画像は残す。
+3. 構成案と照合し、文字・条件・図の関係が保たれているか、本文が読めるかを確認する。
+4. 元画像と並べて見せ、実際に変更した箇所と、直せていない問題を短く示す。
+5. 全枚への適用は、本人が試作を見て依頼した場合だけ進める。同じ指定で全枚をそろえる。
+
+既存の画像を読み取れない場合は、その画像の添付を依頼する。
+画像編集機能が使えない場合は状況を説明し、無断でHTML・PPTX・外部APIへ切り替えない。
+
+</pre></details></div><figure class="shot"><div class="ph" data-shot="w4-target.webp">実測待ち：対象1枚と変更するデザインを指定</div></figure><figure class="shot"><div class="ph" data-shot="w4-compare.webp">実測待ち：元画像と変更後の比較</div></figure><h4 id="work10"><span class="wk">作業10</span>確認できたら全枚へ広げる</h4><p class="tooltag">操作するもの：<b>変更した1枚・残りの画像</b></p><div class="copywrap mini-copy"><div class="copyhead"><span class="fn">同じデザインを全枚へ</span><button type="button" class="copybtn">コピー</button></div><pre class="copy">この変更版のデザインを、残りのスライドにも適用してください。
+構成案の順番・枚数・表示文章・金額・条件・注意点・図の関係は保ってください。
+元の画像を残し、slides_design/に別名で保存してください。</pre></div><p>デザイン変更は任意です。<br>時間が足りなければ、基本デザインで必須工程を終え、講義のあとに試します。</p><a class="jumplink" href="#s12">別の資料への転用へ</a></section></div>
+<div class="panel" id="t3" role="tabpanel"><div class="panel-head"><span class="kicker">AFTER THE SESSION</span><h2>完成例で振り返り、自分の資料へ</h2><p class="desc">完成例と見比べ、同じ作り方を別の資料にも使います。<br>デザインを選ぶときも、内容と読みやすさを確認します。</p><nav class="local"><a href="#s16">工務店の完成例</a><a href="#s11">デザイン見本</a><a href="#s12">別の資料へ</a><a href="#s13">スキルとして残す</a></nav></div><section class="chap" id="s16"><div class="chap-head"><span class="no">A1</span><h3>工務店の完成例で振り返る</h3></div><p>設計メモから構成案、画像スライドへ進んだ講師の試行例です。<br>自分の成果物と見比べ、目的・説明順・図の関係を確かめます。</p><p class="note">完成例は、講師が架空の金額・頻度・条件を用意して作成しました。<br>実際の相場や効果を示すものではありません。作成する資料の内容は、自分の回答に合わせて決めます。</p><div class="downloads"><a href="downloads/01_設計メモ.md" download>設計メモの完成例</a><a href="downloads/02_構成案.md" download>構成案の完成例</a><a href="downloads/工務店_完成画像.zip" download>完成画像5枚</a></div><details><summary>完成例のインタビューで答えたこと</summary><div class="a"><div class="sample-memo"><b>工務店の例で答えたこと</b><p>最初に知りたい：どんな成果が得られるか。<br>目指す成果：Instagram経由の問い合わせ増加。<br>次に知りたい：いくらかかるか。</p></div><p class="note">完成例は、用意した条件のメモに3つの回答を加えて整理しました。<br>題材文だけで始める場合の質問数は、対話の内容によって変わります。</p></div></details><figure class="shot"><a href="images/base_slide_03.webp" target="_blank" rel="noopener"><img src="images/base_slide_03.webp" alt="工務店への提案：3つの代行業務の基本スライド" loading="lazy"></a><figcaption>完成画像5枚のうち3枚目。画像を選ぶと拡大できます。</figcaption></figure><a class="jumplink" href="#s7">W1から自分の資料を作る</a></section><section class="chap" id="s11"><div class="chap-head"><span class="no">A2</span><h3>デザイン見本カタログ</h3></div><p>同じ文章と3業務の関係を保ち、見た目だけを変えた6例です。<br>見本を選んで、変更指示をコピーできます。</p><div class="style-grid"><button class="style-option on" data-style="S1" type="button" aria-pressed="true"><img src="images/base_slide_03.webp" loading="lazy" alt="標準の提案資料のスライド見本"><span>S1 標準の提案資料<small>角ゴシック・立体</small></span></button><button class="style-option" data-style="S2" type="button" aria-pressed="false"><img src="images/s2_lineart.webp" loading="lazy" alt="線画の講義資料のスライド見本"><span>S2 線画の講義資料<small>角ゴシック・立体線画</small></span></button><button class="style-option" data-style="S3" type="button" aria-pressed="false"><img src="images/s3_flat.webp" loading="lazy" alt="読みやすい業務説明のスライド見本"><span>S3 読みやすい業務説明<small>UDゴシックの参考・フラット</small></span></button><button class="style-option" data-style="S4" type="button" aria-pressed="false"><img src="images/s4_rounded.webp" loading="lazy" alt="やわらかい案内のスライド見本"><span>S4 やわらかい案内<small>丸ゴシック・手描き</small></span></button><button class="style-option" data-style="S5" type="button" aria-pressed="false"><img src="images/s5_serif.webp" loading="lazy" alt="落ち着いた紹介のスライド見本"><span>S5 落ち着いた紹介<small>明朝見出し・モノライン</small></span></button><button class="style-option" data-style="S6" type="button" aria-pressed="false"><img src="images/s6_paper.webp" loading="lazy" alt="紙の質感の説明のスライド見本"><span>S6 紙の質感の説明<small>角ゴシック・切り絵</small></span></button></div><p id="styleChoice"><b>S1 標準の提案資料</b></p><figure class="shot"><a id="styleImageLink" href="images/base_slide_03.webp" target="_blank" rel="noopener"><img id="styleImage" src="images/base_slide_03.webp" alt="選択したデザインの大きな見本" loading="lazy"></a><figcaption>同じ内容の比較例。字形・色・サイズの厳密な再現を保証するものではありません。</figcaption></figure><label class="style-target">変更する画像のファイル名、またはスライド番号<input id="styleTarget" value="スライド1" maxlength="200"></label><div class="copywrap"><div class="copyhead"><span class="fn">選んだデザインの変更指示</span><button type="button" class="copybtn">コピー</button></div><details class="prompt-details"><summary>プロンプト全文を読む</summary><pre class="copy" id="stylePrompt">あなたは、確認済みのスライドのデザインを変更する制作者です。
+内蔵の画像生成・画像編集機能を使ってください。
+
+【対象】
+［変えたい画像のファイル名、またはスライド番号を1つ指定］
+指定された画像を先に開き、構成案「02_構成案.md」の同じスライドと照合する。
+
+【変更するもの】
+［フォント／図の見た目／配色／組合せセットのいずれか］
+［見本の名前、または変更したい雰囲気を一言で記入］
+未指定の要素は元のデザインを保つ。
+
+【選べる見本】
+フォント：
+F1 角ゴシック：Noto Sans JP Bold相当。
+F2 UDゴシック：BIZ UDGothic Bold相当。
+F3 丸ゴシック：Zen Maru Gothic Bold相当。
+F4 明朝の見出し：見出しはNoto Serif JP Bold相当、本文はNoto Sans JP Bold相当。
+
+図の見た目：
+D1 立体イラスト：斜め上からのベクター風。平面の色面と薄い影。
+D2 立体線画：D1と同じ視点。濃紺の輪郭、白い面、青の小さな差し色。
+D3 フラット：正面からの2D。単純な面、濃紺と青、影なし。
+D4 モノライン：均一な太さの線。濃紺の線、白い面、青の接続線。
+D5 手描き：少し揺れる線、少ない色、白地。文字は手書きにしない。
+D6 切り絵：重ねた紙の形。浅い影、少ない色、単純な輪郭。
+
+配色（背景は全て白）：
+C1 ネイビー×ブルー：文字#1F2A44、強調#2F6FDE、薄い面#EEF4FF。
+C2 チャコール×ティール：文字#263238、強調#007F86、薄い面#EAF6F5。
+C3 ダークブラウン×テラコッタ：文字#3B302A、強調#B54B32、薄い面#FAEEE8。
+C4 ダークグリーン×オーカー：文字#243C32、強調#8A5B00、薄い面#F7F0E3。
+
+組合せセット：
+S1 標準の提案資料＝F1＋D1＋C1。
+S2 線画の講義資料＝F1＋D2＋C1。
+S3 読みやすい業務説明＝F2＋D3＋C2。
+S4 やわらかい案内＝F3＋D5＋C3。
+S5 落ち着いた紹介＝F4＋D4＋C4。
+S6 紙の質感の説明＝F1＋D6＋C2。
+
+【保つもの】
+・構成案の順番・枚数・全ての表示文章・図のラベル。
+・金額、税別、回数、契約条件、注意点、未確認事項。
+・図が説明する対象と関係。フローの順序、分岐、比較軸を変えない。
+・文字サイズの3段階、余白、読みやすさ。
+・指定していないデザイン要素。
+
+変更対象に明示したデザイン指定は、元のデザイン指定より優先する。
+例：D3フラットを選んだら、その画像では元の立体指定を置き換える。
+フォント名は書体の雰囲気の参考。画像生成で厳密なフォントファイルの使用やpx値の一致を保証しない。
+
+【進め方】
+1. 指定画像を見て、どの要素を変更するか1〜2文で説明する。確認済みの選択を聞き直さない。
+2. その1枚だけを編集し、作業フォルダーの「slides_design/」へ別名で保存する。
+   例：slide_03_design_v1.png。元画像は残す。
+3. 構成案と照合し、文字・条件・図の関係が保たれているか、本文が読めるかを確認する。
+4. 元画像と並べて見せ、実際に変更した箇所と、直せていない問題を短く示す。
+5. 全枚への適用は、本人が試作を見て依頼した場合だけ進める。同じ指定で全枚をそろえる。
+
+既存の画像を読み取れない場合は、その画像の添付を依頼する。
+画像編集機能が使えない場合は状況を説明し、無断でHTML・PPTX・外部APIへ切り替えない。
+
+</pre></details></div><a class="jumplink" href="#s10">W4に戻って1枚を変更</a><details class="chap"><summary class="chap-head"><h3>フォント4系統</h3></summary><p>画像生成による書体の参考イメージです。<br>指定フォントのファイルで組版した見本ではありません。</p><figure class="shot"><a href="images/font_styles.webp" target="_blank" rel="noopener"><img src="images/font_styles.webp" alt="同じ文章を角ゴシック・UDゴシック・丸ゴシック・明朝で比較" loading="lazy"></a></figure><div class="tblwrap"><table class="part-table"><tr><th>見本</th><th>変更用プロンプトへ入れる指定</th></tr><tr><td><b>F1</b><br>角ゴシック</td><td>Noto Sans JP Bold相当の角ゴシックへ。サイズと配色は保持。</td></tr><tr><td><b>F2</b><br>UDゴシック</td><td>BIZ UDGothic Bold相当のUDゴシックへ。字の内側の空間を十分に。</td></tr><tr><td><b>F3</b><br>丸ゴシック</td><td>Zen Maru Gothic Bold相当の丸ゴシックへ。端と角に丸み。</td></tr><tr><td><b>F4</b><br>明朝の見出し</td><td>見出しだけNoto Serif JP Bold相当の明朝へ。本文は角ゴシックのまま。</td></tr></table></div><p class="note">正式な字形：<a href="https://notofonts.github.io/noto-docs/website/use/" target="_blank" rel="noopener">Noto</a>・<a href="https://github.com/googlefonts/morisawa-biz-ud-gothic" target="_blank" rel="noopener">BIZ UDGothic</a>・<a href="https://github.com/googlefonts/zen-marugothic" target="_blank" rel="noopener">Zen Maru Gothic</a>。<br>F1とF2の差は参考画像では小さいため、公式見本も参照します。</p></details><details class="chap"><summary class="chap-head"><h3>図の見た目6種類</h3></summary><figure class="shot"><a href="images/diagram_styles.webp" target="_blank" rel="noopener"><img src="images/diagram_styles.webp" alt="家・スマートフォン・吹き出しを6種類の見た目で比較" loading="lazy"></a></figure><div class="tblwrap"><table class="part-table"><tr><th>見本</th><th>変更用プロンプトへ入れる指定</th></tr><tr><td><b>D1</b><br>立体イラスト</td><td>斜め上の視点、平面の色面、薄い影。</td></tr><tr><td><b>D2</b><br>立体線画</td><td>立体の視点、白い面、濃紺の輪郭線、小さい差し色。</td></tr><tr><td><b>D3</b><br>フラット</td><td>正面2D、単純な面、少ない色、影なし。</td></tr><tr><td><b>D4</b><br>モノライン</td><td>正面2D、均一な太さの線、白い面。</td></tr><tr><td><b>D5</b><br>手描き</td><td>少し揺れる端正な線。文字はゴシックのまま。</td></tr><tr><td><b>D6</b><br>切り絵</td><td>紙の単純な形を重ねる。浅い影、少ない色。</td></tr></table></div><div class="callout">フロー・比較・構成・階層・分岐は「何を説明する図か」。<br>立体・線画・フラット・手描きは「どう描くか」。<br>見た目を変えても、矢印の順序や比較軸は保ちます。</div></details><details class="chap"><summary class="chap-head"><h3>白地の配色4組</h3></summary><div class="palette-row"><div class="palette"><b>C1 ネイビー×ブルー</b><div class="swatches"><span style="background:#1F2A44" title="#1F2A44"></span><span style="background:#2F6FDE" title="#2F6FDE"></span><span style="background:#EEF4FF" title="#EEF4FF"></span></div><span>文字 #1F2A44<br>強調 #2F6FDE<br>薄い面 #EEF4FF</span></div><div class="palette"><b>C2 チャコール×ティール</b><div class="swatches"><span style="background:#263238" title="#263238"></span><span style="background:#007F86" title="#007F86"></span><span style="background:#EAF6F5" title="#EAF6F5"></span></div><span>文字 #263238<br>強調 #007F86<br>薄い面 #EAF6F5</span></div><div class="palette"><b>C3 ブラウン×テラコッタ</b><div class="swatches"><span style="background:#3B302A" title="#3B302A"></span><span style="background:#B54B32" title="#B54B32"></span><span style="background:#FAEEE8" title="#FAEEE8"></span></div><span>文字 #3B302A<br>強調 #B54B32<br>薄い面 #FAEEE8</span></div><div class="palette"><b>C4 グリーン×オーカー</b><div class="swatches"><span style="background:#243C32" title="#243C32"></span><span style="background:#8A5B00" title="#8A5B00"></span><span style="background:#F7F0E3" title="#F7F0E3"></span></div><span>文字 #243C32<br>強調 #8A5B00<br>薄い面 #F7F0E3</span></div></div><p>背景は全て白。<br>薄い補助色を本文の文字色には使いません。</p><div class="copywrap mini-copy"><div class="copyhead"><span class="fn">配色だけ変える例</span><button type="button" class="copybtn">コピー</button></div><pre class="copy">スライド［番号］の配色だけをC2へ変更してください。
+文字#263238、強調と線#007F86、薄い面#EAF6F5、背景は白。
+文章・条件・図の関係・フォント・文字サイズは保ってください。</pre></div></details></section><section class="chap" id="s12"><div class="chap-head"><span class="no">A3</span><h3>別の資料でも、目的から始める</h3></div><div class="tblwrap"><table><tr><th>次に作る資料</th><th>先に考えること</th></tr><tr><td>社内提案</td><td>上司に何を判断してほしいか。費用と手間をどこで答えるか。</td></tr><tr><td>サービス説明</td><td>相手がすでに知っていることと、導入前に知りたいこと。</td></tr><tr><td>講義資料</td><td>見終えた人に何を理解し、何ができてほしいか。</td></tr></table></div><p>見本の目的や順番を、そのまま自分の題材へ移しません。<br>W1のインタビューで、読み手と目的を決め直します。</p><a class="jumplink" href="#s7">W1からもう1本作る</a></section><section class="chap" id="s13"><div class="chap-head"><span class="no">A4</span><h3>試して直したプロンプトを、後でスキルへ</h3></div><p>まずプロンプトで一周し、どこを人が決め、何を直したかを残します。<br>次回にも繰り返す質問と制作ルールを、後からスキルにまとめます。</p><div class="callout">まずは必須3工程を通し、余裕があればデザイン変更へ進みます。<br>保存する内容と方法は、試行後に整理します。</div></section></div>
+<div class="panel" id="t4" role="tabpanel"><div class="panel-head"><span class="kicker">FAQ</span><h2>止まった場所から、再開する</h2><p class="desc">質問が多いときも、画像生成で止まったときも。<br>戻る工程を確認して続けます。</p><nav class="local"><a href="#s14">操作とつまずき</a><a href="#s15">内容とデザイン</a></nav></div><section class="chap" id="s14"><div class="chap-head"><span class="no">F1</span><h3>操作とつまずき</h3></div><details><summary><span class="q">Q</span>題材が決まっていません。</summary><div class="a"><a href="#s6">工務店の題材文</a>を使えます。<br>まず共通例で流れを試し、自分の題材は講義のあとに考えても構いません。</div></details><details><summary><span class="q">Q</span>質問が多くて進みません。</summary><div class="a">すでに素材にある情報を聞き直していないか確認します。<br>分からない事実は「未確認」と伝え、目的と順番の対話を続けます。</div></details><details><summary><span class="q">Q</span>構成案で止まりました。</summary><div class="a"><a href="#s16">「講義のあと」の構成案の完成例</a>からW3を試せます。<br>本人の資料が完成したこととは分けて振り返ります。</div></details><details><summary><span class="q">Q</span>画像生成が使えません。</summary><div class="a">無断で別のツールへ切り替えず、講師に状況を伝えます。<br><a href="#s16">「講義のあと」の完成画像</a>で照合を続ける復帰ルートがあります。</div></details><details><summary><span class="q">Q</span>保存したファイルが見つかりません。</summary><div class="a">AIに実際の保存先を示してもらいます。<br>保存できていない場合は、保存が済んだものとして扱いません。</div></details><details><summary><span class="q">Q</span>講義を聞き逃しました。</summary><div class="a"><a href="#s7">当日のワーク</a>から、最後に確認できた工程の次へ戻ります。<br>質問方法は当日の講師の案内を確認します。</div></details></section><section class="chap" id="s15"><div class="chap-head"><span class="no">F2</span><h3>内容とデザイン</h3></div><details><summary><span class="q">Q</span>AIが数字や成果を足しました。</summary><div class="a">元の素材にある数字・条件か確かめ、根拠のない追加を直します。<br>図に足された増加グラフなども照合の対象です。</div></details><details><summary><span class="q">Q</span>図は入っていますが、意味が違います。</summary><div class="a">構成案の対象・順序・分岐・比較軸へ合わせます。<br>装飾アイコンがあるだけでは、関係を説明する図の代わりになりません。</div></details><details><summary><span class="q">Q</span>指定したフォントと違って見えます。</summary><div class="a">画像生成では書体名やpx値の厳密な再現を保証しません。<br>字形の特徴も文章で指定し、生成した文字の読みやすさを確かめます。</div></details><details><summary><span class="q">Q</span>デザイン変更で文章が変わりました。</summary><div class="a">構成案の表示文章へ戻す修正を依頼します。<br>デザイン変更でも、数字・条件・注意点は保ちます。</div></details><details><summary><span class="q">Q</span>デザインを全部変える時間がありません。</summary><div class="a">基本デザインで必須工程を終え、変更は講義のあとに回せます。<br>任意ワークは、まず1枚の試作から始めます。</div></details></section></div><div class="pager" id="pager"><button class="prev" type="button"><small>PREVIOUS</small><span>全体像</span></button><button class="next" type="button"><small>NEXT</small><span>事前準備</span></button></div></main><footer class="site"><div class="measure">資料作成実践合宿 / 午前・寺町パート<br>架空の工務店例を使用。操作画面が未取得の制作プレビューです。</div></footer><script>
+const TABS = ['t0','t1','t2','t3','t4'];
+const TAB_NAMES = ['全体像','事前準備','当日のワーク','講義のあと','FAQ'];
+// セクションid → 所属タブ（直リンクを正しいタブで開くための対応表）
+// ★セクション(id=s◯)を増減したら必ずここを同期する
+const SECTION_TAB = {"s1":"t0","s2":"t0","s3":"t0","s4":"t1","s5":"t1","s6":"t1","s7":"t2","s8":"t2","s9":"t2","s10":"t2","s11":"t3","s12":"t3","s13":"t3","s14":"t4","s15":"t4","s16":"t3","work1":"t2","work2":"t2","work3":"t2","work4":"t2","work5":"t2","work6":"t2","work7":"t2","work8":"t2","work9":"t2","work10":"t2"};
+
+const tabs = [...document.querySelectorAll('.tab')];
+const panels = TABS.map(id => document.getElementById(id));
+const pagerPrev = document.querySelector('#pager .prev');
+const pagerNext = document.querySelector('#pager .next');
+
+function showTab(id, scrollTop = true){
+  tabs.forEach(t => {t.classList.toggle('on', t.dataset.tab === id);t.setAttribute('aria-selected',String(t.dataset.tab === id));});
+  panels.forEach(p => p.classList.toggle('on', p.id === id));
+  const i = TABS.indexOf(id);
+  pagerPrev.hidden = i <= 0;
+  pagerNext.hidden = i >= TABS.length - 1;
+  if (i > 0) pagerPrev.querySelector('span').textContent = TAB_NAMES[i-1];
+  if (i < TABS.length - 1) pagerNext.querySelector('span').textContent = TAB_NAMES[i+1];
+  if (scrollTop) window.scrollTo({top:0});
+}
+tabs.forEach(t => t.addEventListener('click', () => { history.replaceState(null,'','#'+t.dataset.tab); showTab(t.dataset.tab); }));
+pagerPrev.addEventListener('click', () => { const i = TABS.indexOf(document.querySelector('.panel.on').id); showTab(TABS[i-1]); });
+pagerNext.addEventListener('click', () => { const i = TABS.indexOf(document.querySelector('.panel.on').id); showTab(TABS[i+1]); });
+
+// ハッシュ（#t2 / #s6 どちらでも）で該当タブを開く
+function route(){
+  const h = location.hash.replace('#','');
+  if (!h) return;
+  if (TABS.includes(h)) { showTab(h); return; }
+  const tab = SECTION_TAB[h];
+  if (tab) {
+    showTab(tab, false);
+    const el = document.getElementById(h);
+    if (el) { openChap(el); el.scrollIntoView(); }
+  }
+}
+
+// 章アコーディオン（講義のあと）：リンクで飛んだら開いた状態にする
+function openChap(el){
+  if (el && el.tagName === 'DETAILS') el.open = true;
+}
+window.addEventListener('hashchange', route);
+route();
+
+// パネル内のローカルリンク（同タブ内アンカー）はそのままスクロール
+document.querySelectorAll('.local a').forEach(a => {
+  a.addEventListener('click', e => {
+    e.preventDefault();
+    const id = a.getAttribute('href').slice(1);
+    history.replaceState(null,'','#'+id);
+    route();
+    const el = document.getElementById(id);
+    if (el) { openChap(el); el.scrollIntoView({behavior:'smooth'}); }
+  });
+});
+
+// copy buttons
+document.querySelectorAll('.copywrap').forEach(w => {
+  const btn = w.querySelector('.copybtn');
+  const pre = w.querySelector('pre.copy');
+  btn.addEventListener('click', async () => {
+    try {
+      await navigator.clipboard.writeText(pre.textContent);
+      btn.textContent = 'コピーしました';
+      btn.classList.add('done');
+      setTimeout(() => { btn.textContent = 'コピー'; btn.classList.remove('done'); }, 1800);
+    } catch (e) {
+      const r = document.createRange();
+      r.selectNodeContents(pre);
+      const sel = getSelection();
+      sel.removeAllRanges(); sel.addRange(r);
+      btn.textContent = '選択しました（⌘C / Ctrl+C）';
+    }
+  });
+});
+
+/* ============ 当日のワーク：作業の追従目次 ============ */
+(function(){
+  const tabbarEl = document.querySelector('.tabbar');
+  const toc = document.querySelector('.worktoc');
+  if(!tabbarEl || !toc) return;
+
+  function setOffsets(){
+    document.documentElement.style.setProperty('--tabbar-h', tabbarEl.offsetHeight + 'px');
+    document.documentElement.style.setProperty('--worktoc-h', toc.offsetHeight + 'px');
+  }
+  setOffsets();
+  window.addEventListener('resize', setOffsets);
+
+  const links = [...toc.querySelectorAll('a')];
+  const targets = links.map(a => document.getElementById(a.dataset.work)).filter(Boolean);
+  const topOffset = tabbarEl.offsetHeight + toc.offsetHeight + 4;
+  const io = new IntersectionObserver((entries) => {
+    entries.forEach(entry => {
+      if(entry.isIntersecting){
+        links.forEach(a => a.classList.toggle('on', a.dataset.work === entry.target.id));
+      }
+    });
+  }, {rootMargin: `-${topOffset}px 0px -70% 0px`, threshold: 0});
+  targets.forEach(t => io.observe(t));
+})();
+
+/* ============ 転用例集：カード＝サブタブ切り替え ============ */
+(function(){
+  const nav=document.querySelector('.cards4.subnav');
+  if(!nav) return;
+  const cards=[...nav.querySelectorAll('.cc')];
+  const panes=[...document.querySelectorAll('.subpane2')];
+  cards.forEach(c=>{
+    c.addEventListener('click',()=>{
+      const id=c.dataset.sub2;
+      cards.forEach(x=>x.classList.toggle('on',x===c));
+      panes.forEach(p=>p.classList.toggle('on',p.dataset.sub2===id));
+    });
+  });
+})();
+
+/* ============ 公開方法などの5択カード＝サブタブ切り替え ============ */
+(function(){
+  const nav=document.getElementById('pubNav');
+  if(!nav) return;
+  const cards=[...nav.querySelectorAll('.pc')];
+  const panes=[...document.querySelectorAll('.pubpane')];
+  cards.forEach(c=>{
+    c.addEventListener('click',()=>{
+      const id=c.dataset.pub;
+      cards.forEach(x=>x.classList.toggle('on',x===c));
+      panes.forEach(p=>p.classList.toggle('on',p.dataset.pub===id));
+    });
+  });
+})();
+
+/* ============ 選択クイズ：チップ選択→その場で答え合わせ ============ */
+(function(){
+  const wrap = document.getElementById('mapTable');
+  const btn = document.getElementById('mapCheckBtn');
+  const resetBtn = document.getElementById('mapResetBtn');
+  if(!wrap || !btn || !resetBtn) return;
+  const cells = [...wrap.querySelectorAll('td.pick')];
+  const msg = document.getElementById('mapMsg');
+
+  function clearVerdicts(){
+    cells.forEach(cell=>{
+      const chips = [...cell.querySelectorAll('.chip')];
+      chips.forEach(x=>x.classList.remove('correct','wrong','answer'));
+      const verdict = cell.querySelector('.verdict');
+      verdict.textContent = '';
+      verdict.className = 'verdict';
+    });
+    wrap.classList.remove('checked');
+    msg.hidden = true;
+    resetBtn.hidden = true;
+  }
+
+  cells.forEach(cell=>{
+    const chips = [...cell.querySelectorAll('.chip')];
+    chips.forEach(chip=>{
+      chip.addEventListener('click',()=>{
+        chips.forEach(x=>x.classList.toggle('sel', x===chip));
+        clearVerdicts();
+      });
+    });
+  });
+
+  btn.addEventListener('click', ()=>{
+    let answered = 0, correct = 0;
+    cells.forEach(cell=>{
+      const ans = cell.dataset.ans;
+      const reason = cell.dataset.reason;
+      const chips = [...cell.querySelectorAll('.chip')];
+      const sel = chips.find(c=>c.classList.contains('sel'));
+      const verdict = cell.querySelector('.verdict');
+      chips.forEach(c=>{
+        c.classList.remove('correct','wrong','answer');
+        if(c.dataset.v === ans) c.classList.add('answer');
+      });
+      if(sel){
+        answered++;
+        const isCorrect = sel.dataset.v === ans;
+        if(isCorrect) correct++;
+        sel.classList.add(isCorrect ? 'correct' : 'wrong');
+        verdict.textContent = isCorrect ? `正解：${reason}` : `→ 正解は「${ans}」：${reason}`;
+        verdict.className = 'verdict ' + (isCorrect ? 'correct' : 'wrong');
+      } else {
+        verdict.textContent = `未選択 → 正解は「${ans}」：${reason}`;
+        verdict.className = 'verdict wrong';
+      }
+    });
+    wrap.classList.add('checked');
+    msg.hidden = false;
+    msg.textContent = `${cells.length}問中 ${correct}問正解（${answered}問回答）`;
+    resetBtn.hidden = false;
+  });
+
+  resetBtn.addEventListener('click', ()=>{
+    cells.forEach(cell=>{
+      cell.querySelectorAll('.chip').forEach(c=>c.classList.remove('sel'));
+    });
+    clearVerdicts();
+  });
+})();
+
+/* ============ 価値換算：ライブ計算 ============ */
+(function(){
+  const task = document.getElementById('vcTask');
+  const before = document.getElementById('vcBefore');
+  const after = document.getElementById('vcAfter');
+  const freq = document.getElementById('vcFreq');
+  const wage = document.getElementById('vcWage');
+  if(!task || !before || !after || !freq || !wage) return;
+  const taskOut = document.getElementById('vcTaskOut');
+  const deltaOut = document.getElementById('vcDelta');
+  const hoursOut = document.getElementById('vcHours');
+  const yenOut = document.getElementById('vcYen');
+
+  function calc(){
+    const b = parseFloat(before.value) || 0;
+    const a = parseFloat(after.value) || 0;
+    const times = parseFloat(freq.value) || 0;
+    const w = parseFloat(wage.value) || 0;
+    const delta = Math.max(0, b - a);
+    const hours = delta * times;
+    const yen = Math.round(hours * w);
+    taskOut.textContent = task.value.trim() || '対象業務';
+    deltaOut.textContent = delta.toLocaleString('ja-JP', {maximumFractionDigits:2});
+    hoursOut.textContent = hours.toLocaleString('ja-JP', {maximumFractionDigits:1});
+    yenOut.textContent = yen.toLocaleString('ja-JP') + '円';
+  }
+  [task, before, after, freq, wage].forEach(el=>{
+    el.addEventListener('input', calc);
+    el.addEventListener('change', calc);
+  });
+  calc();
+})();
+
+
+const STYLE_DATA=[{"id":"S1","name":"標準の提案資料","image":"images/base_slide_03.webp"},{"id":"S2","name":"線画の講義資料","image":"images/s2_lineart.webp"},{"id":"S3","name":"読みやすい業務説明","image":"images/s3_flat.webp"},{"id":"S4","name":"やわらかい案内","image":"images/s4_rounded.webp"},{"id":"S5","name":"落ち着いた紹介","image":"images/s5_serif.webp"},{"id":"S6","name":"紙の質感の説明","image":"images/s6_paper.webp"}];
+const EDIT_BASE="あなたは、確認済みのスライドのデザインを変更する制作者です。\n内蔵の画像生成・画像編集機能を使ってください。\n\n【対象】\n［変えたい画像のファイル名、またはスライド番号を1つ指定］\n指定された画像を先に開き、構成案「02_構成案.md」の同じスライドと照合する。\n\n【変更するもの】\n［フォント／図の見た目／配色／組合せセットのいずれか］\n［見本の名前、または変更したい雰囲気を一言で記入］\n未指定の要素は元のデザインを保つ。\n\n【選べる見本】\nフォント：\nF1 角ゴシック：Noto Sans JP Bold相当。\nF2 UDゴシック：BIZ UDGothic Bold相当。\nF3 丸ゴシック：Zen Maru Gothic Bold相当。\nF4 明朝の見出し：見出しはNoto Serif JP Bold相当、本文はNoto Sans JP Bold相当。\n\n図の見た目：\nD1 立体イラスト：斜め上からのベクター風。平面の色面と薄い影。\nD2 立体線画：D1と同じ視点。濃紺の輪郭、白い面、青の小さな差し色。\nD3 フラット：正面からの2D。単純な面、濃紺と青、影なし。\nD4 モノライン：均一な太さの線。濃紺の線、白い面、青の接続線。\nD5 手描き：少し揺れる線、少ない色、白地。文字は手書きにしない。\nD6 切り絵：重ねた紙の形。浅い影、少ない色、単純な輪郭。\n\n配色（背景は全て白）：\nC1 ネイビー×ブルー：文字#1F2A44、強調#2F6FDE、薄い面#EEF4FF。\nC2 チャコール×ティール：文字#263238、強調#007F86、薄い面#EAF6F5。\nC3 ダークブラウン×テラコッタ：文字#3B302A、強調#B54B32、薄い面#FAEEE8。\nC4 ダークグリーン×オーカー：文字#243C32、強調#8A5B00、薄い面#F7F0E3。\n\n組合せセット：\nS1 標準の提案資料＝F1＋D1＋C1。\nS2 線画の講義資料＝F1＋D2＋C1。\nS3 読みやすい業務説明＝F2＋D3＋C2。\nS4 やわらかい案内＝F3＋D5＋C3。\nS5 落ち着いた紹介＝F4＋D4＋C4。\nS6 紙の質感の説明＝F1＋D6＋C2。\n\n【保つもの】\n・構成案の順番・枚数・全ての表示文章・図のラベル。\n・金額、税別、回数、契約条件、注意点、未確認事項。\n・図が説明する対象と関係。フローの順序、分岐、比較軸を変えない。\n・文字サイズの3段階、余白、読みやすさ。\n・指定していないデザイン要素。\n\n変更対象に明示したデザイン指定は、元のデザイン指定より優先する。\n例：D3フラットを選んだら、その画像では元の立体指定を置き換える。\nフォント名は書体の雰囲気の参考。画像生成で厳密なフォントファイルの使用やpx値の一致を保証しない。\n\n【進め方】\n1. 指定画像を見て、どの要素を変更するか1〜2文で説明する。確認済みの選択を聞き直さない。\n2. その1枚だけを編集し、作業フォルダーの「slides_design/」へ別名で保存する。\n   例：slide_03_design_v1.png。元画像は残す。\n3. 構成案と照合し、文字・条件・図の関係が保たれているか、本文が読めるかを確認する。\n4. 元画像と並べて見せ、実際に変更した箇所と、直せていない問題を短く示す。\n5. 全枚への適用は、本人が試作を見て依頼した場合だけ進める。同じ指定で全枚をそろえる。\n\n既存の画像を読み取れない場合は、その画像の添付を依頼する。\n画像編集機能が使えない場合は状況を説明し、無断でHTML・PPTX・外部APIへ切り替えない。\n\n";
+let chosenStyle=STYLE_DATA[0];
+function updateStylePrompt(){
+ const target=document.getElementById('styleTarget').value.trim()||'［変更する画像のファイル名または番号］';
+ const p=EDIT_BASE.replace('［変えたい画像のファイル名、またはスライド番号を1つ指定］',target)
+ .replace('［フォント／図の見た目／配色／組合せセットのいずれか］\n［見本の名前、または変更したい雰囲気を一言で記入］',chosenStyle.id+' '+chosenStyle.name);
+ document.getElementById('stylePrompt').textContent=p;
+}
+document.querySelectorAll('[data-style]').forEach(btn=>btn.addEventListener('click',()=>{
+ chosenStyle=STYLE_DATA.find(x=>x.id===btn.dataset.style);
+ document.querySelectorAll('[data-style]').forEach(b=>{const on=b===btn;b.classList.toggle('on',on);b.setAttribute('aria-pressed',String(on));});
+ const img=document.getElementById('styleImage');img.src=chosenStyle.image;img.alt=chosenStyle.name+'の大きな見本';
+ document.getElementById('styleImageLink').href=chosenStyle.image;
+ document.getElementById('styleChoice').textContent=chosenStyle.id+' '+chosenStyle.name;
+ updateStylePrompt();
+}));
+document.getElementById('styleTarget').addEventListener('input',updateStylePrompt);
+updateStylePrompt();
+tabs.forEach((t,i)=>t.addEventListener('keydown',e=>{if(!['ArrowLeft','ArrowRight'].includes(e.key))return;e.preventDefault();const next=(i+(e.key==='ArrowRight'?1:-1)+tabs.length)%tabs.length;tabs[next].click();tabs[next].focus();}));
+showTab(document.querySelector('.panel.on').id,false);
+</script></body></html>

@@ -1,0 +1,13 @@
+確認画像/
+header-preview.html
+downloads/00_素材.md
+.DS_Store
+.env
+.env.*
+*.env
+.envrc
+credentials.json
+auth.json
+service-account*.json
+*.pem
+*.key
