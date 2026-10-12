@@ -2,7 +2,7 @@
 
 10/17の午前・スライド作成パートで使うガイドです。制作途中の版として共同編集します。
 
-公開プレビュー：https://terarbeit-tm.github.io/shift-ai-documents-20261017/
+公開プレビュー：https://shift-ai-documents-20261017.pages.dev/
 
 ## 現在の内容
 
@@ -28,6 +28,8 @@ cd shift-ai-documents-20261017
 python3 -m http.server 8000
 ```
 
-ブラウザで `http://localhost:8000/` を開いて確認します。`main` ブランチのルートをGitHub Pagesの公開元に設定します。共有前には、PCとスマホ幅の表示、変更したコピー欄と直リンク、ダウンロード先を確かめてください。
+2回目以降は、作業を始める前に `git pull` で最新の変更を取り込みます。
 
-公開の仕組み：[GitHub Pagesの公式手順](https://docs.github.com/en/pages/getting-started-with-github-pages/creating-a-github-pages-site)。
+ブラウザで `http://localhost:8000/` を開いて確認します。`main` ブランチへpushすると、Cloudflare Pagesが数分で公開プレビューを更新します。共有前には、PCとスマホ幅の表示、変更したコピー欄と直リンク、ダウンロード先を確かめてください。
+
+公開の仕組み：GitHubの `main` ブランチとCloudflare Pagesを連携しています（[Cloudflare Pagesの公式手順](https://developers.cloudflare.com/pages/configuration/git-integration/)）。
