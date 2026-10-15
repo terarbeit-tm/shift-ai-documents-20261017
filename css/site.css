@@ -229,3 +229,4 @@ html{scroll-behavior:smooth}
   .vid-card{flex-direction:column;align-items:stretch}
   .vid-thumb{width:100%}
 }
+.tooltag+.vid-card{margin-top:0}
