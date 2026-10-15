@@ -97,3 +97,11 @@
 .pm-zoom__body{overflow:auto;padding:12px;background:var(--bg-dark);text-align:center}
 .pm-zoom__body img{display:inline-block;max-width:100%;max-height:calc(94vh - 90px);width:auto;height:auto;object-fit:contain}
 html.pm-zoom-open{overflow:hidden}
+
+/* 「改善する内容」と「なぜ改善するのか」：PCでは左右2カラム（高さを揃える）、スマホは縦1列 */
+.pm-pair{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:var(--sp-3);margin-top:var(--sp-4);align-items:stretch}
+.pm-pair>.ux-step{margin:0;display:flex;flex-direction:column}
+.pm-pair>.ux-step>.ux-step__body{flex:1}
+@media (max-width:720px){
+  .pm-pair{grid-template-columns:minmax(0,1fr);margin-top:var(--sp-3)}
+}
