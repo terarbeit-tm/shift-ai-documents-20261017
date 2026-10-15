@@ -293,19 +293,18 @@ h4.ux-step__head{margin:0;padding:15px 22px;border-radius:0;box-shadow:none}
   .worksub--cards .worksub-card{padding:14px 14px 38px}
 }
 
-/* ===== 01 全体像の最下部：合宿終了後のご案内（目的別の3カード。本文幅が狭いので縦に並べる） ===== */
+/* ===== 01 全体像の最下部：合宿終了後のご案内。上段＝アンケートとDiscordの2列、下段＝公開講評会（サムネイル左・情報右）。スマホは縦1列 ===== */
 .after{margin:var(--sp-6) 0 0}
 .after-h{margin:0 0 14px;padding-left:12px;border-left:5px solid var(--fill);font-size:1.15rem;font-weight:800;line-height:1.4}
-.after-grid{display:grid;grid-template-columns:minmax(0,1fr);gap:14px}
-.after-card{display:flex;flex-direction:column;gap:10px;min-width:0;padding:18px 18px 20px;border:1px solid var(--border);border-top:5px solid var(--fill);border-radius:var(--r);background:var(--paper);box-shadow:var(--shadow)}
+.after-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:14px;margin-bottom:14px}
+.after-card{display:flex;flex-direction:column;gap:10px;min-width:0;padding:20px;border:1px solid var(--border);border-radius:var(--r);background:var(--paper);box-shadow:var(--shadow)}
 .after-card h4{margin:0;padding:0;border:0;border-radius:0;background:none;box-shadow:none;font-size:1.1rem;font-weight:800;line-height:1.5;word-break:auto-phrase;line-break:strict}
 .after-card p{margin:0;font-size:.9rem;line-height:1.7;word-break:auto-phrase;line-break:strict}
-.after-k{align-self:flex-start;padding:2px 12px;border-radius:50px;background:var(--accent-soft);color:var(--accent);font-size:.75rem;font-weight:800;letter-spacing:.04em}
-.after-ev-t{font-size:1.05rem!important;font-weight:800;color:var(--accent)}
 .after-when{display:flex;flex-wrap:wrap;gap:4px 10px;align-items:baseline;font-weight:700}
 .after-when span{padding:0 8px;border:1px solid var(--border-strong);border-radius:4px;font-size:.75rem;font-weight:700;color:var(--ink-light)}
+.after-sub{font-weight:700;color:var(--ink-light)}
 .after-act{margin-top:auto;padding-top:6px}
-.after-btn{display:flex;max-width:360px;align-items:center;justify-content:center;min-height:var(--tap);padding:10px 16px;border:1px solid var(--fill);border-radius:50px;background:var(--fill);color:var(--on-fill);font-size:.92rem;font-weight:800;text-align:center;text-decoration:none}
+.after-btn{display:flex;align-items:center;justify-content:center;min-height:var(--tap);padding:10px 16px;border:1px solid var(--fill);border-radius:50px;background:var(--fill);color:var(--on-fill);font-size:.92rem;font-weight:800;text-align:center;text-decoration:none}
 a.after-btn:hover{background:color-mix(in srgb,var(--fill) 88%,#000);color:var(--on-fill);text-decoration:none}
 a.after-btn:focus-visible,.after-copy:focus-visible{outline:3px solid var(--ink);outline-offset:2px}
 .after-btn.is-pending{border-color:var(--border-strong);background:var(--bg-dark,#eee);color:var(--ink-sub);cursor:not-allowed}
@@ -316,4 +315,10 @@ a.after-btn:focus-visible,.after-copy:focus-visible{outline:3px solid var(--ink)
 .after-copy{min-height:var(--tap);padding:6px 14px;border:1.5px solid var(--accent);border-radius:50px;background:var(--paper);color:var(--accent);font:inherit;font-size:.85rem;font-weight:800;cursor:pointer}
 .after-copy:hover{background:var(--accent-soft)}
 .after-copy.is-done{border-color:#1F7A44;background:#1F7A44;color:#fff}
-@media (max-width:720px){.after{margin-top:var(--sp-4)}.after-card{padding:16px 14px 18px}}
+/* 公開講評会：横長カード。サムネイルは16:9のまま枠に収める（画像ファイルのパスだけで差し替え可。画像が無い・読めないときは「サムネイル準備中」） */
+.after-event{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1fr);align-items:stretch;gap:20px}
+.after-thumb{position:relative;margin:0;aspect-ratio:16/9;align-self:start;overflow:hidden;border:1px solid var(--border);border-radius:var(--r-sm);background:var(--accent-soft)}
+.after-thumb img{display:block;width:100%;height:100%;object-fit:contain}
+.after-thumb:not(:has(img))::after{content:"サムネイル準備中";position:absolute;inset:0;display:grid;place-items:center;font-size:.9rem;font-weight:800;color:var(--ink-light)}
+.after-ev{display:flex;flex-direction:column;gap:10px;min-width:0}
+@media (max-width:720px){.after{margin-top:var(--sp-4)}.after-grid{grid-template-columns:minmax(0,1fr)}.after-card{padding:16px 14px 18px}.after-event{grid-template-columns:minmax(0,1fr);gap:14px}}

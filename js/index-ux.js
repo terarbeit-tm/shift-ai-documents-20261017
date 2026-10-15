@@ -36,6 +36,11 @@
     window.UXCopy.copy(b.dataset.copyText).then(function (ok) { window.UXCopy.flash(b, ok); });
   });
   var ev = document.getElementById('after-event');
+  var th = ev && ev.querySelector('.after-thumb img');
+  if (th) {
+    var drop = function () { th.remove(); };
+    if (th.complete && th.naturalWidth === 0 && th.getAttribute('src')) drop(); else th.addEventListener('error', drop);
+  }
   var url = ev && ev.dataset.eventUrl;
   if (!/^https:\/\//.test(url || '')) return;
   var span = ev.querySelector('.after-btn.is-pending');
