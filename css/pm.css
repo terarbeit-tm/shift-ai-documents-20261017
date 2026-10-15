@@ -111,3 +111,25 @@ html.pm-zoom-open{overflow:hidden}
 .pm-help__btn{font-size:.85rem;font-weight:600;background:transparent;border:1.5px solid var(--border-strong);color:var(--ink-sub);min-height:40px}
 .pm-help__btn:hover{border-color:var(--accent);color:var(--accent);background:var(--accent-soft)}
 .pm-step .pm-fine{margin-top:6px}
+
+/* CP4「合宿完走！」 */
+.pm-complete{display:flex;justify-content:center;margin-top:var(--sp-3)}
+.pm-complete__btn{display:inline-flex;align-items:center;justify-content:center;gap:8px;min-height:52px;padding:12px 32px;border:0;border-radius:50px;
+  background:linear-gradient(135deg,var(--fill),var(--fill-2));color:var(--on-fill);font:inherit;font-size:1.05rem;font-weight:700;box-shadow:var(--shadow);cursor:pointer;transition:transform .15s,box-shadow .15s}
+.pm-complete__btn:hover{transform:translateY(-2px);box-shadow:var(--shadow-lg)}
+.pm-complete__btn:focus-visible{outline:3px solid var(--ink);outline-offset:3px}
+.pm-complete-modal{width:min(94vw,640px);max-width:none;max-height:94vh;margin:auto;padding:0;border:0;border-radius:var(--r);background:var(--paper);color:var(--ink);overflow:auto;box-shadow:var(--shadow-lg)}
+.pm-complete-modal::backdrop{background:rgba(41,37,33,.72)}
+.pmc__head{display:flex;align-items:center;justify-content:space-between;gap:12px;padding:14px 14px 12px 20px;border-bottom:3px solid var(--fill)}
+.pmc__title{margin:0;font-size:1.2rem;font-weight:700;line-height:1.4}
+.pmc__close{flex:none;width:44px;height:44px;border:1.5px solid var(--border-strong);border-radius:50%;background:#fff;color:var(--ink);font-size:1.5rem;line-height:1;cursor:pointer}
+.pmc__close:hover{border-color:var(--accent);color:var(--accent)}
+.pmc__body{padding:16px 20px 20px}
+.pmc__img{display:block;width:100%;height:auto;margin:0 auto;border-radius:var(--r);box-shadow:var(--shadow-sm)}
+.pmc__missing{margin:0;padding:24px 0;text-align:center;color:var(--ink-sub)}
+.pmc__actions{display:flex;flex-wrap:wrap;gap:10px;margin-top:16px}
+.pmc__actions .ux-btn{flex:1 1 200px}
+.pmc__actions .ux-btn[disabled],.pmc__save[aria-disabled=true]{opacity:.55;cursor:not-allowed;pointer-events:none}
+.pmc__full,.pmc__hint{margin:12px 0 0;font-size:.85rem;line-height:1.7;color:var(--ink-sub);text-align:center}
+.pmc__hint[hidden],.pmc__missing[hidden],.pmc__full[hidden]{display:none}
+@media (max-width:640px){.pmc__actions .ux-btn{flex-basis:100%}.pmc__body{padding:14px 14px 18px}}

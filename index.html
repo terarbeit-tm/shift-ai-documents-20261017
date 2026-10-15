@@ -999,6 +999,7 @@ figure.shot img[src*="images/shots/"]{border:3px solid var(--shot-line);border-r
           <div class="ux-step__body">
             <p class="pm-fine">できたものに、チェックを入れます。</p>
             <div class="ux-checks"><label class="ux-check"><input type="checkbox"><span class="ux-check__box"></span><span class="ux-check__text">公開されたURLが発行されている</span></label><label class="ux-check"><input type="checkbox"><span class="ux-check__box"></span><span class="ux-check__text">そのURLを別の端末で開ける</span></label><label class="ux-check"><input type="checkbox"><span class="ux-check__box"></span><span class="ux-check__text">公開後も、元の内容と表示が崩れていない</span></label></div>
+            <div class="pm-complete"><button type="button" class="pm-complete__btn" id="pm-complete-open" aria-haspopup="dialog">🏆 合宿完走！</button></div>
             <p class="pm-fine">チェックの内容は、教材の確定時に見直します。チェックの状態は保存されません。</p>
           </div>
         </div>
@@ -1654,7 +1655,7 @@ const styleTargetEl=document.getElementById('styleTarget');if(styleTargetEl)styl
 updateStylePrompt();
 tabs.forEach((t,i)=>t.addEventListener('keydown',e=>{if(!['ArrowLeft','ArrowRight'].includes(e.key))return;e.preventDefault();const next=(i+(e.key==='ArrowRight'?1:-1)+tabs.length)%tabs.length;tabs[next].click();tabs[next].focus();}));
 showTab(currentTab,false);
-</script><script src="js/pm-config.js"></script><script src="js/pm-prompts.js"></script><script src="js/apps-data.js"></script><script src="js/apps-build.js"></script><script src="js/copy.js"></script><script src="js/prompt-modal.js"></script><script src="js/index-ux.js"></script><script src="js/subtabs.js"></script><script src="js/checklist.js"></script><script src="js/pm.js"></script><script src="js/pm-zoom.js"></script><script src="js/apps.js"></script><script src="js/glossary.js"></script><script>
+</script><script src="js/pm-config.js"></script><script src="js/pm-prompts.js"></script><script src="js/apps-data.js"></script><script src="js/apps-build.js"></script><script src="js/copy.js"></script><script src="js/prompt-modal.js"></script><script src="js/index-ux.js"></script><script src="js/subtabs.js"></script><script src="js/checklist.js"></script><script src="js/pm.js"></script><script src="js/pm-complete.js"></script><script src="js/pm-zoom.js"></script><script src="js/apps.js"></script><script src="js/glossary.js"></script><script>
 /* ============ 特典1：講義スライドのページめくり ============ */
 (function(){
   document.querySelectorAll('[data-sv]').forEach(function(sv){
