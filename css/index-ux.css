@@ -329,3 +329,45 @@ a.after-btn:focus-visible,.after-copy:focus-visible{outline:3px solid var(--ink)
 /* ===== 文字の重さ：見出し＝600〜700／本文＝400／強調だけ600。文字色は --ink（チャコール） ===== */
 b,strong{font-weight:600}
 .ux-lead{font-weight:400}
+
+/* 「講師と違う画面が出たら」：メインタブの右端（全タブ共通）。スマホは2行の小さな文字で、タブと同じ高さに収める */
+.tabbar{display:flex;align-items:center;justify-content:center;gap:8px}
+.tabbar .inner{flex:0 1 auto;min-width:0;margin:0}
+@media (min-width:721px){.tabbar{padding:0 var(--sp-3)}}
+.tabbar__help{flex:none;min-height:var(--tap);padding:6px 16px;border:1.5px solid var(--accent);border-radius:50px;background:var(--accent-soft);color:var(--accent);font:inherit;font-size:.85rem;font-weight:600;line-height:1.3;cursor:pointer;transition:color .15s,background .15s}
+.tabbar__help:hover{background:var(--fill);border-color:var(--fill);color:var(--on-fill)}
+.tabbar__help:focus-visible{outline:3px solid var(--ink);outline-offset:2px}
+@media (max-width:720px){.tabbar{padding-right:10px}.tabbar__help{width:7.8em;padding:4px 8px;font-size:.72rem;border-radius:14px}}
+
+/* 相談プロンプトのモーダル */
+.help-modal{width:min(96vw,720px);max-width:none;max-height:94vh;margin:auto;padding:0;border:0;border-radius:var(--r);background:var(--paper);color:var(--ink);overflow:auto;box-shadow:var(--shadow-lg)}
+.help-modal::backdrop{background:rgba(41,37,33,.72)}
+.hm__head{position:sticky;top:0;z-index:1;display:flex;align-items:center;justify-content:space-between;gap:12px;padding:12px 14px 10px 20px;background:var(--paper);border-bottom:3px solid var(--fill)}
+.hm__title{margin:0;font-size:1.15rem;font-weight:700;line-height:1.4}
+.hm__close{flex:none;width:44px;height:44px;border:1.5px solid var(--border-strong);border-radius:50%;background:#fff;color:var(--ink);font-size:1.5rem;line-height:1;cursor:pointer}
+.hm__close:hover{border-color:var(--accent);color:var(--accent)}
+.hm__body{padding:14px 20px 22px}
+.hm__lead{margin:0 0 6px;font-size:.9rem;color:var(--ink-sub)}
+.hm__lb{display:block;margin:16px 0 6px;font-size:.9rem;font-weight:700}
+.hm__parts{display:flex;gap:6px;padding:4px;border-radius:50px;background:var(--bg-dark)}
+.hm__part{flex:1;min-height:var(--tap);border:0;border-radius:50px;background:transparent;color:var(--ink);font:inherit;font-size:.9rem;font-weight:600;cursor:pointer}
+.hm__part.on{background:var(--fill);color:var(--on-fill)}
+.hm__stages{display:flex;flex-wrap:wrap;gap:8px}
+.hm__stage{min-height:var(--tap);padding:6px 16px;border:1.5px solid var(--border-strong);border-radius:50px;background:#fff;color:var(--ink);font:inherit;font-size:.88rem;font-weight:600;cursor:pointer}
+.hm__stage:hover{border-color:var(--accent);color:var(--accent)}
+.hm__stage.on{border-color:var(--fill);background:var(--fill);color:var(--on-fill)}
+.hm__part:focus-visible,.hm__stage:focus-visible,.hm__close:focus-visible,.hm__status:focus-visible,.hm__preview:focus-visible{outline:3px solid var(--ink);outline-offset:2px}
+.hm__status{display:block;width:100%;box-sizing:border-box;padding:10px 12px;border:1.5px solid var(--border-strong);border-radius:var(--r);font:inherit;font-size:1rem;line-height:1.6;resize:vertical;background:#fff;color:var(--ink)}
+.hm__prevhead{display:flex;align-items:flex-end;justify-content:space-between;gap:10px;flex-wrap:wrap}
+.hm__prevhead .hm__lb{margin-bottom:6px}
+.hm__prevhead .ux-btn{margin-bottom:6px}
+.hm__preview{margin:0;padding:14px 16px;max-height:16rem;overflow:auto;border:1px solid var(--border);border-radius:var(--r);background:var(--bg-dark);font:inherit;font-size:.85rem;line-height:1.75;white-space:pre-wrap;overflow-wrap:anywhere}
+.hm__guide{margin-top:16px;padding:12px 14px;border:1px solid var(--border);border-left:4px solid var(--fill);border-radius:var(--r);background:var(--accent-soft)}
+.hm__guide p{margin:0 0 6px;font-size:.88rem;line-height:1.7}
+.hm__lb2{font-weight:700}
+.hm__keys{margin:0 0 6px;padding:0;list-style:none;display:grid;gap:4px}
+.hm__keys li{display:flex;flex-wrap:wrap;align-items:baseline;gap:4px 10px;font-size:.88rem}
+.hm__keys span{flex:none;min-width:4.5em;font-weight:600;color:var(--ink-sub)}
+.hm__keys code{padding:2px 8px;border:1px solid var(--border);border-radius:var(--r-xs);background:#fff}
+.hm__warn{margin-bottom:0!important}
+@media (max-width:640px){.hm__body{padding:12px 14px 20px}.hm__prevhead .ux-btn{width:100%}}
