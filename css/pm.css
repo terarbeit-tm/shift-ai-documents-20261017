@@ -68,7 +68,7 @@
 .pm-tree code{font:inherit;background:none;padding:0}
 @media (max-width:720px){.pm-prep{padding-top:var(--sp-2)}.pm-prep__btn{width:100%}.pm-tree{font-size:.8rem}}
 .pm-prep .ux-check__text{min-width:0}
-.pm-prep :not(pre)>code{overflow-wrap:anywhere;word-break:normal}
+.pm-prep :not(pre)>code{white-space:nowrap;overflow-wrap:normal;word-break:normal}
 .pm-step{flex:1 1 0;min-width:0;text-align:left;word-break:auto-phrase;line-break:strict;overflow-wrap:anywhere}
 .pm-step p{margin:0}
 .pm-files{display:grid;gap:6px;margin:8px 0 0;padding:0;list-style:none}
