@@ -254,3 +254,22 @@ h4.ux-step__head{margin:0;padding:15px 22px;border-radius:0;box-shadow:none}
 .subpane{display:block}
 /* 午後・応用編・用語集の部品（site.css の .ux-*）を、午前のマークアップの中に置くための囲い。余白は中のクラスで決める */
 .ux-pane{background:transparent}
+
+/* ===== 見出し単位のカード（01 全体像 G1〜G3／02 事前準備 P1〜P3／05 講義のあと A1・A2）：午前・午後の .ux-step と同じ見た目 =====
+   DOMは変えない。section.chap 全体を1枚のカードにし、.chap-head をヘッダー帯（番号バッジ＋タイトル）、その下の本文をカード内に置く */
+#t0 section.chap,#t1 section.chap,#t3 section.chap{overflow:hidden;margin:var(--sp-4) 0 0;padding:0 22px 24px;border:1px solid var(--border);border-radius:var(--r);background:var(--paper);box-shadow:var(--shadow)}
+#t0 section.chap .chap-head,#t1 section.chap .chap-head,#t3 section.chap .chap-head{flex-wrap:nowrap;align-items:center;gap:15px;margin:0 -22px 20px;padding:15px 22px;border-bottom:1px solid var(--border);background:var(--grad-step)}
+#t0 section.chap .chap-head .no,#t1 section.chap .chap-head .no,#t3 section.chap .chap-head .no{flex:none;display:flex;align-items:center;justify-content:center;width:54px;height:54px;padding:0;border-radius:50%;
+  background:var(--grad-main);color:var(--on-fill);font-family:var(--sans);font-size:1rem;font-weight:800;letter-spacing:.02em;line-height:1;box-shadow:0 4px 12px rgba(242,92,0,.30)}
+#t0 section.chap .chap-head h3,#t1 section.chap .chap-head h3,#t3 section.chap .chap-head h3{min-width:0;font-size:1.02rem;font-weight:800;line-height:1.5;text-wrap:balance}
+#t0 section.chap>.chap-head+*,#t1 section.chap>.chap-head+*,#t3 section.chap>.chap-head+*{margin-top:0}
+#t0 section.chap>:last-child,#t1 section.chap>:last-child,#t3 section.chap>:last-child{margin-bottom:0}
+/* カードの中のカード（GOAL・3つの役割・工程）は、影を外して多重構造の重さを避ける */
+#t0 section.chap .goal,#t0 section.chap .cards3 .c,#t0 section.chap .proc .st{box-shadow:none}
+@media (max-width:720px){
+  #t0 section.chap,#t1 section.chap,#t3 section.chap{margin-top:var(--sp-3);padding:0 14px 18px}
+  #t0 section.chap .chap-head,#t1 section.chap .chap-head,#t3 section.chap .chap-head{gap:12px;margin:0 -14px 16px;padding:12px 14px}
+  #t0 section.chap .chap-head .no,#t1 section.chap .chap-head .no,#t3 section.chap .chap-head .no{width:50px;height:50px}
+}
+#t0 section.chap .goal{border-color:color-mix(in srgb,var(--accent) 28%,transparent)}
+#t0 section.chap .chap-head h3,#t1 section.chap .chap-head h3,#t3 section.chap .chap-head h3{word-break:auto-phrase;line-break:strict}
