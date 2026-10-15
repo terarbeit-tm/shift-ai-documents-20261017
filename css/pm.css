@@ -105,3 +105,9 @@ html.pm-zoom-open{overflow:hidden}
 @media (max-width:720px){
   .pm-pair{grid-template-columns:minmax(0,1fr);margin-top:var(--sp-3)}
 }
+
+/* うまくいかないときのプロンプト（通常のプロンプトボタンより控えめ） */
+.pm-help{margin-top:var(--sp-2)}
+.pm-help__btn{font-size:.85rem;font-weight:600;background:transparent;border:1.5px solid var(--border-strong);color:var(--ink-sub);min-height:40px}
+.pm-help__btn:hover{border-color:var(--accent);color:var(--accent);background:var(--accent-soft)}
+.pm-step .pm-fine{margin-top:6px}
