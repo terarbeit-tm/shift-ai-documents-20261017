@@ -55,3 +55,17 @@
 .pm-card .ux-checks{margin:0}
 @media (max-width:720px){.pm-panel{padding-top:var(--sp-2)}}
 .ux-prompt--btn .pm-pending{background:var(--bg-dark);border-color:var(--border-strong);color:var(--ink-sub)}
+
+/* 午後の最初の準備カード（作業フォルダ・素材ダウンロード） */
+.pm-prep{display:grid;gap:var(--sp-3);padding-top:var(--sp-3)}
+.pm-prep .pm-card{margin:0}
+.pm-prep__dl{margin:var(--sp-2) 0 6px}
+.pm-prep__btn{gap:8px}
+.pm-prep__ext{font-size:1.05em;line-height:1}
+.pm-prep .ux-flow{margin-top:var(--sp-2)}
+.pm-prep__lb{margin:var(--sp-2) 0 6px;font-size:.8rem;font-weight:600;color:var(--ink-sub)}
+.pm-tree{margin:0 0 var(--sp-1);padding:14px 16px;overflow-x:auto;border:1px solid var(--border);border-radius:var(--r-sm);background:var(--bg-dark);color:var(--ink);font:400 .88rem/1.7 var(--mono);white-space:pre}
+.pm-tree code{font:inherit;background:none;padding:0}
+@media (max-width:720px){.pm-prep{padding-top:var(--sp-2)}.pm-prep__btn{width:100%}.pm-tree{font-size:.8rem}}
+.pm-prep li,.pm-prep .ux-check__text{min-width:0}
+.pm-prep :not(pre)>code{white-space:normal;overflow-wrap:anywhere;word-break:break-all}
