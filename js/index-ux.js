@@ -27,3 +27,21 @@
   window.addEventListener('resize', setNav);
   if (mq.addEventListener) mq.addEventListener('change', setNav);
 })();
+
+/* 合言葉のコピー／イベントページURL（#after-event の data-event-url）が入ったらボタンをリンクにする */
+(function () {
+  document.addEventListener('click', function (e) {
+    var b = e.target.closest('[data-copy-text]');
+    if (!b || !window.UXCopy) return;
+    window.UXCopy.copy(b.dataset.copyText).then(function (ok) { window.UXCopy.flash(b, ok); });
+  });
+  var ev = document.getElementById('after-event');
+  var url = ev && ev.dataset.eventUrl;
+  if (!/^https:\/\//.test(url || '')) return;
+  var span = ev.querySelector('.after-btn.is-pending');
+  var a = document.createElement('a');
+  a.className = 'after-btn';
+  a.href = url; a.target = '_blank'; a.rel = 'noopener noreferrer';
+  a.textContent = 'イベントページを開く';
+  span.replaceWith(a);
+})();
