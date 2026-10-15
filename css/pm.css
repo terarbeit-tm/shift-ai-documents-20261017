@@ -67,5 +67,11 @@
 .pm-tree{margin:0 0 var(--sp-1);padding:14px 16px;overflow-x:auto;border:1px solid var(--border);border-radius:var(--r-sm);background:var(--bg-dark);color:var(--ink);font:400 .88rem/1.7 var(--mono);white-space:pre}
 .pm-tree code{font:inherit;background:none;padding:0}
 @media (max-width:720px){.pm-prep{padding-top:var(--sp-2)}.pm-prep__btn{width:100%}.pm-tree{font-size:.8rem}}
-.pm-prep li,.pm-prep .ux-check__text{min-width:0}
-.pm-prep :not(pre)>code{white-space:normal;overflow-wrap:anywhere;word-break:break-all}
+.pm-prep .ux-check__text{min-width:0}
+.pm-prep :not(pre)>code{overflow-wrap:anywhere;word-break:normal}
+.pm-step{flex:1 1 0;min-width:0;text-align:left;word-break:auto-phrase;line-break:strict;overflow-wrap:anywhere}
+.pm-step p{margin:0}
+.pm-files{display:grid;gap:6px;margin:8px 0 0;padding:0;list-style:none}
+.pm-files>li{display:flex;flex-wrap:wrap;align-items:baseline;gap:4px 10px;min-width:0}
+.pm-files__k{flex:none;min-width:2.6em;font-size:.78rem;font-weight:600;color:var(--ink-sub)}
+.pm-files code{padding:2px 8px;border:1px solid var(--border);border-radius:var(--r-xs);background:var(--bg-dark);font-size:.88rem}
