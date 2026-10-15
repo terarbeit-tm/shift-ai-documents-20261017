@@ -1,5 +1,5 @@
 /* CP4「合宿完走！」ボタンと、お祝いモーダル。
-   画像：images/bootcamp-complete.png（IMG）。X：PM_CONFIG.complete.shareUrl が https のときだけ投稿画面を開く（未設定は無効）。
+   画像：images/bootcamp-complete.png（IMG）。X：PM_CONFIG.complete.xUrl（https）を加工せずそのまま新しいタブで開く（未設定は無効）。
    PC＝PNGをダウンロード／スマホ＝共有シート（対応端末）または原寸画像を新しいタブで開く。写真アプリへの直接保存は保証しない。 */
 (function () {
   'use strict';
@@ -7,7 +7,7 @@
   var open = document.getElementById('pm-complete-open');
   if (!open) return;
   var cfg = (window.PM_CONFIG && window.PM_CONFIG.complete) || {};
-  var shareUrl = /^https:\/\//.test(cfg.shareUrl || '') ? cfg.shareUrl : '';
+  var xUrl = /^https:\/\//.test(cfg.xUrl || '') ? cfg.xUrl : '';
   var mobile = /Android|iPhone|iPad|iPod/i.test(navigator.userAgent);
   var dlg, opener, file = null;
 
@@ -22,8 +22,8 @@
       '<p class="pmc__missing" hidden>記念画像は準備中です。</p>' +
       '<div class="pmc__actions">' +
       '<a class="ux-btn ux-btn--primary ux-btn--pill pmc__save" href="' + IMG + '" download="' + NAME + '">画像を保存</a>' +
-      (shareUrl
-        ? '<a class="ux-btn ux-btn--pill pmc__x" target="_blank" rel="noopener noreferrer" href="https://twitter.com/intent/tweet?text=' + encodeURIComponent('\n\n' + shareUrl) + '">Xでアウトプットする<span class="ux-vh">（新しいタブで開きます）</span></a>'
+      (xUrl
+        ? '<a class="ux-btn ux-btn--pill pmc__x" target="_blank" rel="noopener noreferrer" href="#">Xでアウトプットする<span class="ux-vh">（新しいタブで開きます）</span></a>'
         : '<button type="button" class="ux-btn ux-btn--pill pmc__x" disabled>Xでアウトプットする（準備中）</button>') +
       '</div>' +
       '<p class="pmc__full"><a href="' + IMG + '" target="_blank" rel="noopener">原寸画像を新しいタブで開く</a></p>' +
@@ -31,6 +31,8 @@
       '</div>';
     document.body.appendChild(dlg);
     var img = dlg.querySelector('.pmc__img'), save = dlg.querySelector('.pmc__save');
+    var xa = dlg.querySelector('a.pmc__x');
+    if (xa) xa.setAttribute('href', xUrl);
     img.addEventListener('error', function () {
       img.hidden = true;
       dlg.querySelector('.pmc__missing').hidden = false;
