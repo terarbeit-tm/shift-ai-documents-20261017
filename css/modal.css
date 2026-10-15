@@ -1,0 +1,90 @@
+/* プロンプトカードとモーダル。9月サイトの .prompt-card（暗色・ラベルは強調色・コピーは半透明ボタン）と
+   .modal-box（角丸16・大きな影・右上に丸い閉じる）の再現。要 tokens.css
+   JSが無い／dialog非対応のときは、プロンプト本文がそのまま表示される（.ux-js が付いたときだけ隠す） */
+
+/* ===== プロンプトカード（9月 .prompt-card） ===== */
+.ux-prompt{overflow:hidden;border-radius:var(--r-sm);background:var(--block)}
+.ux-prompt__head{display:flex;flex-wrap:wrap;align-items:center;justify-content:space-between;gap:var(--sp-1) var(--sp-2);
+  padding:9px 12px 9px 16px;background:rgba(255,255,255,.05);border-bottom:1px solid rgba(255,255,255,.08)}
+.ux-prompt__label{display:inline-flex;align-items:center;flex-wrap:wrap;gap:8px;font-size:.7rem;font-weight:800;letter-spacing:.14em;color:var(--accent-on-dark)}
+.ux-prompt__actions{display:none;gap:var(--sp-1)}
+.ux-js .ux-prompt__actions{display:flex}
+.ux-prompt .ux-btn{min-height:32px;padding:5px 12px;border:1px solid rgba(255,255,255,.22);border-radius:var(--r-xs);
+  background:rgba(255,255,255,.10);color:#fff;font-size:.75rem}
+.ux-prompt .ux-btn:hover{background:rgba(255,255,255,.2);border-color:rgba(255,255,255,.3);color:#fff}
+.ux-prompt .ux-btn--primary{background:var(--fill);border-color:var(--fill);color:var(--on-fill)}
+.ux-prompt .ux-btn--primary:hover{background:color-mix(in srgb,var(--fill) 88%,#000);border-color:var(--fill);color:var(--on-fill)}
+.ux-prompt .ux-btn.is-done{background:#1F9D55;border-color:#1F9D55}
+.ux-prompt .ux-btn[disabled],.ux-prompt .ux-btn[disabled]:hover{opacity:.55;background:rgba(255,255,255,.10);border-color:rgba(255,255,255,.22);color:#fff}
+.ux-prompt__src{margin:0;padding:16px 18px;max-height:24rem;overflow:auto;color:var(--paper-warm);
+  font-family:var(--mono);font-size:.82rem;line-height:1.85;white-space:pre-wrap;overflow-wrap:anywhere;tab-size:2}
+.ux-js .ux-prompt:not(.ux-prompt--inline) .ux-prompt__src{display:none}
+/* 短い指示例：本文をその場に表示し、コピーだけ置く（用語集など） */
+.ux-prompt--inline .ux-prompt__src{display:block;max-height:none}
+.ux-prompt--inline .ux-prompt__actions{display:flex}
+.ux-prompt.is-pending .ux-prompt__src{color:rgba(255,248,242,.6);font-style:italic}
+.ux-prompt [hidden]{display:none}
+@media (max-width:640px){
+  .ux-prompt__actions{width:100%}
+  .ux-prompt__actions .ux-btn{flex:1;min-height:var(--tap)}
+}
+
+/* ===== モーダル（9月 .modal-box / .modal-head / .modal-close） ===== */
+html.ux-modal-open{overflow:hidden;padding-right:var(--ux-sbw,0)}
+
+.ux-modal{padding:0;border:0;border-radius:var(--r);background:var(--paper);color:var(--ink);
+  width:min(40rem,calc(100vw - 2*var(--sp-2)));max-width:none;max-height:85vh;max-height:85dvh;margin:auto;
+  box-shadow:var(--shadow-lg);overflow:hidden;font-family:var(--sans)}
+.ux-modal[open]{display:flex}
+.ux-modal::backdrop{background:rgba(41,37,33,.55)}
+.ux-modal__panel{display:flex;flex-direction:column;flex:1;min-width:0;min-height:0}
+.ux-modal__head{display:flex;align-items:flex-start;justify-content:space-between;gap:12px;padding:22px 24px 6px}
+.ux-modal__title{margin:0;font-size:1.05rem;font-weight:800;line-height:1.5}
+.ux-modal__close{flex:none;display:grid;place-items:center;width:32px;height:32px;border:0;border-radius:50%;
+  background:var(--bg-dark);color:var(--ink-sub);font:inherit;font-size:20px;line-height:1;cursor:pointer;transition:background .15s,color .15s}
+.ux-modal__close:hover{background:var(--border-strong);color:var(--ink)}
+.ux-modal__body{flex:1;min-height:6rem;margin:10px 24px 0;padding:16px 18px;overflow:auto;overscroll-behavior:contain;
+  border-radius:var(--r-sm);background:var(--block);color:var(--paper-warm);font-family:var(--mono);font-size:.82rem;line-height:1.85;
+  white-space:pre-wrap;overflow-wrap:anywhere;tab-size:2}
+.ux-modal__foot{padding:14px 24px 22px}
+.ux-modal__status{min-height:1.6em;margin:0 0 var(--sp-1);font-size:.85rem;color:var(--ink-sub)}
+.ux-modal__actions{display:flex;gap:var(--sp-1)}
+.ux-modal__actions .ux-btn{min-height:var(--tap)}
+.ux-modal__actions .ux-btn--primary{flex:2}
+.ux-modal__actions .ux-btn:not(.ux-btn--primary){flex:1}
+.ux-modal :focus-visible{outline:var(--focus-ring);outline-offset:2px}
+.ux-modal__body:focus-visible{outline-offset:-3px;outline-color:var(--accent-on-dark)}
+
+@media (max-width:640px){
+  .ux-modal{width:100%;margin:auto 0 0;border-radius:var(--r) var(--r) 0 0;max-height:92vh;max-height:92dvh}
+  .ux-modal__head{padding:18px 16px 4px}
+  .ux-modal__body{margin:8px 16px 0;padding:14px 14px;font-size:var(--fs-sm)}
+  .ux-modal__foot{padding:12px 16px calc(14px + env(safe-area-inset-bottom,0px))}
+  .ux-modal__close{width:var(--tap);height:var(--tap);margin:-6px -6px 0 0}
+}
+
+/* ===== プロンプトを開くカード（午後・応用編）：説明の文と、オレンジの「プロンプトを開く」ボタン ===== */
+.ux-prompt--cta{border:1px solid var(--border);border-radius:14px;background:var(--paper);box-shadow:var(--shadow-sm)}
+.ux-prompt--cta .ux-prompt__head{padding:14px 20px;background:var(--grad-band);border-bottom:1px solid var(--border)}
+.ux-prompt--cta .ux-prompt__label{margin:0;font-size:.95rem;font-weight:800;letter-spacing:0;color:var(--ink)}
+.ux-prompt--cta .ux-prompt__note{padding:14px 20px 0;font-size:.88rem;line-height:1.8;color:var(--ink-sub)}
+.ux-prompt--cta .ux-prompt__actions{display:none;padding:14px 20px 18px}
+.ux-js .ux-prompt--cta .ux-prompt__actions{display:flex}
+.ux-prompt--cta .ux-btn--cta{min-height:var(--tap);padding:10px 26px;border:1px solid var(--fill);border-radius:50px;background:var(--fill);color:var(--on-fill);font-size:.92rem}
+.ux-prompt--cta .ux-btn--cta:hover{background:color-mix(in srgb,var(--fill) 88%,#000);border-color:var(--fill);color:var(--on-fill)}
+.ux-prompt--cta .ux-btn--cta[disabled],.ux-prompt--cta .ux-btn--cta[disabled]:hover{background:var(--bg-dark);border-color:var(--border-strong);color:var(--ink-sub);opacity:1}
+.ux-prompt--cta .ux-prompt__src{margin:0 20px 18px;border-radius:10px}
+@media (max-width:640px){
+  .ux-prompt--cta .ux-prompt__actions{padding:12px 16px 16px}
+  .ux-prompt--cta .ux-prompt__actions .ux-btn{flex:1}
+  .ux-prompt--cta .ux-prompt__head,.ux-prompt--cta .ux-prompt__note{padding-left:16px;padding-right:16px}
+}
+
+/* ===== ボタンだけのプロンプト（午後・応用編）：枠や見出しは出さず、「プロンプトを開く」だけを置く ===== */
+.ux-prompt--btn{display:flex;flex-wrap:wrap;align-items:center;gap:8px 12px;overflow:visible;border:0;border-radius:0;background:none;box-shadow:none}
+.ux-js .ux-prompt--btn .ux-prompt__actions{display:flex}
+.ux-prompt--btn .ux-btn--cta{min-height:var(--tap);padding:10px 26px;border:1px solid var(--fill);border-radius:50px;background:var(--fill);color:var(--on-fill);font-size:.92rem}
+.ux-prompt--btn .ux-btn--cta:hover{background:color-mix(in srgb,var(--fill) 88%,#000);border-color:var(--fill);color:var(--on-fill)}
+.ux-prompt--btn .ux-btn--cta[disabled],.ux-prompt--btn .ux-btn--cta[disabled]:hover{background:var(--bg-dark);border-color:var(--border-strong);color:var(--ink-sub);opacity:1;box-shadow:none}
+.ux-prompt--btn .ux-prompt__src{flex-basis:100%;margin:0;border-radius:10px}
+@media (max-width:640px){.ux-prompt--btn .ux-prompt__actions{flex:1 1 100%}.ux-prompt--btn .ux-prompt__actions .ux-btn{flex:1}}

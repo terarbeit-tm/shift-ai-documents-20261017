@@ -1,0 +1,48 @@
+/* 追加・調整トークン。index.html（インラインの :root のあとに読み込む）と新ページ（tokens-base.css のあとに読み込む）の両方で、アクセント系だけをここで上書きする。
+   9月サイト（0912_sns_bootcamp）のデザインルールを、10月の既存トークンに置き換えて定義する。
+   対応表（9月 → 10月）
+     --bg #F6F8FC（ページ地） → --paper-warm        --navy（主色・選択中の塗り） → --accent
+     --navy-light / --blue-light → --accent-soft     --blue（リンク・ラベル） → --accent
+     --accent（アンバー・装飾） → --accent-bright    --accent-light（注意カード地） → --accent-soft
+     --code-bg（プロンプトの暗色） → --block          --code-ink → --paper-warm
+     影の色 rgba(15,30,61) → rgba(41,37,33)（--ink） 角丸 4/9/16/20px はそのまま */
+:root{
+  /* アクセント：画像の「設計」の色（#FC6000）に寄せた、明るく鮮やかなオレンジ。
+     塗り（ボタン・選択中タブ・バッジ・グラデーション）は --fill、小さな文字・細い線は AA を満たす --accent を使う。
+     塗りの上の文字は白抜き（--on-fill:#fff、コントラスト 3.3:1。太字で使う）。 */
+  --accent:#BF4900;
+  --accent-mid:#BF4900;
+  --accent-bright:#F25C00;
+  --fill:var(--accent-bright);
+  --fill-2:#FF7A1A;
+  --on-fill:#fff;
+  --head-accent:#BF4900;
+  --tool:#BF4900;
+  --accent-on-dark:#FFA84D;
+
+  --sp-0:4px;
+  --tap:44px;
+  --fs-xs:12px; --fs-sm:13px; --fs-base:16px; --fs-lg:18px; --fs-xl:clamp(24px,4vw,34px);
+  --lh-body:1.8;
+  --focus-ring:2px solid var(--accent);
+
+  --bg:var(--paper-warm);
+  --bg-dark:color-mix(in srgb,var(--accent-soft) 65%,var(--line) 35%);
+  --border:var(--line);
+  --border-strong:color-mix(in srgb,var(--line) 55%,var(--ink-faint) 45%);
+  --ink-light:var(--ink-sub);
+
+  --r-xs:4px; --r-sm:9px; --r:16px; --r-lg:20px;
+  --radius-lg:var(--r);
+
+  --shadow-sm:0 2px 8px rgba(41,37,33,.06);
+  --shadow:0 6px 26px rgba(41,37,33,.10);
+  --shadow-lg:0 14px 38px rgba(41,37,33,.13);
+
+  --grad-main:linear-gradient(145deg,var(--fill) 0%,var(--fill-2) 100%);
+  --grad-band:linear-gradient(135deg,var(--paper-warm) 0%,var(--accent-soft) 100%);
+  --grad-step:linear-gradient(135deg,var(--accent-soft) 0%,color-mix(in srgb,var(--fill) 16%,#fff) 100%);
+  --grad-accent:var(--grad-main);
+
+  --nav-h:54px;
+}

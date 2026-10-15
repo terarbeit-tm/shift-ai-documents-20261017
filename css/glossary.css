@@ -1,0 +1,165 @@
+/* glossary.html（用語集）専用。要 tokens-base / tokens / site / modal */
+
+.gl-main{padding-top:var(--sp-3);padding-bottom:var(--sp-12)}
+.gl-main section+section{margin-top:var(--sp-4)}
+
+/* 絞り込み（9月 .tab-btn：枠つきボタン、選択中は主色で塗る）と索引 */
+.gl-filter{display:flex;flex-wrap:wrap;gap:8px}
+.gl-chip{min-height:var(--tap);padding:9px 16px;border:1.5px solid var(--border);border-radius:var(--r-sm);background:var(--paper);color:var(--ink);font:inherit;font-size:.85rem;font-weight:700;cursor:pointer;transition:color .15s,background .15s,border-color .15s}
+.gl-chip:hover{border-color:var(--accent);color:var(--accent);background:var(--accent-soft)}
+.gl-chip[aria-pressed="true"]{background:var(--fill);border-color:var(--fill);color:var(--on-fill)}
+.gl-index{display:flex;flex-wrap:wrap;gap:8px;margin-top:var(--sp-2)}
+.gl-index li[hidden]{display:none}
+.ux-page .gl-index a{display:inline-flex;align-items:center;min-height:var(--tap);padding:0 14px;border:1.5px solid var(--border-strong);border-radius:50px;background:var(--paper);color:var(--ink);font-size:.85rem;font-weight:700;text-decoration:none;box-shadow:var(--shadow-sm);transition:color .15s,background .15s,border-color .15s}
+.ux-page .gl-index a:hover{border-color:var(--accent);color:var(--accent);background:var(--accent-soft)}
+.gl-count{margin-bottom:var(--sp-2);font-size:14px;color:var(--ink-sub)}
+
+.gl-terms{display:grid;gap:var(--sp-3)}
+.gl-term{scroll-margin-top:calc(var(--tap) + var(--sp-2))}
+.gl-term[hidden]{display:none}
+.gl-term:target{border-color:var(--accent);box-shadow:0 0 0 3px var(--accent-soft),var(--shadow)}
+.gl-term .ux-card__head{flex-wrap:wrap;align-items:center;gap:var(--sp-0) var(--sp-2);background:var(--bg)}
+.gl-term h3{margin:0;font-size:var(--fs-lg);line-height:1.4}
+.gl-en{font-family:var(--mono);font-size:var(--fs-xs);font-weight:400;color:var(--ink-sub)}
+.gl-cat{margin-left:auto;padding:2px 10px;border-radius:50px;background:var(--fill);color:var(--on-fill);font-size:.62rem;font-weight:800;letter-spacing:.1em}
+.gl-term .ux-card__body>*+*{margin-top:var(--sp-3)}
+.gl-label{margin:0 0 6px;font-size:.7rem;font-weight:800;letter-spacing:.1em;text-transform:uppercase;color:var(--accent)}
+.gl-demo{padding:var(--sp-2);border:1.5px dashed var(--border-strong);border-radius:var(--r-sm);background:var(--bg)}
+.gl-note{margin-top:var(--sp-1);font-size:var(--fs-sm);color:var(--ink-sub)}
+.gl-cap{margin:0 0 var(--sp-1);font-size:var(--fs-sm);font-weight:700;color:var(--ink-sub)}
+
+/* 見本の部品（装飾は最小限・既存トークンのみ） */
+.gl-two{display:grid;grid-template-columns:1fr 1fr;gap:var(--sp-2)}
+.gl-box{min-width:0;padding:var(--sp-2);border:1px solid var(--line-soft);border-radius:var(--radius);background:var(--paper-warm)}
+.gl-row{display:flex;flex-wrap:wrap;align-items:center;gap:var(--sp-1)}
+.gl-btn{display:inline-flex;align-items:center;min-height:36px;padding:0 var(--sp-2);border:1px solid var(--ink-faint);border-radius:var(--radius);background:var(--paper);font-size:14px}
+.gl-btn--main{background:var(--fill);border-color:var(--fill);color:var(--on-fill);font-weight:700}
+.gl-input{display:inline-flex;align-items:center;min-height:36px;min-width:6rem;padding:0 var(--sp-2);border:1px solid var(--ink-faint);border-radius:var(--radius);background:var(--paper);color:var(--ink-sub);font-size:14px}
+.gl-flow{display:grid;gap:var(--sp-0);counter-reset:f}
+.gl-flow li{counter-increment:f;font-size:14px}
+.gl-flow li::before{content:counter(f) ". ";font-family:var(--mono);color:var(--accent);font-weight:700}
+
+.gl-tabs__list{display:flex;gap:var(--sp-0);border-bottom:1px solid var(--line)}
+.gl-tabs__list button{min-height:var(--tap);padding:0 var(--sp-2);border:0;border-bottom:3px solid transparent;background:none;color:var(--ink-sub);font:inherit;font-size:14px;cursor:pointer}
+.gl-tabs__list button[aria-selected="true"]{border-bottom-color:var(--accent);background:var(--accent-soft);color:var(--accent);font-weight:700;border-radius:var(--radius) var(--radius) 0 0}
+.gl-tabs__panel{padding:var(--sp-2) var(--sp-1);font-size:14px}
+.gl-tabs__panel[hidden]{display:none}
+.gl-tabs :focus-visible,.gl-term :focus-visible{outline:var(--focus-ring);outline-offset:2px}
+
+.gl-acc{border:1px solid var(--line);border-radius:var(--radius);background:var(--paper)}
+.gl-acc+.gl-acc{margin-top:var(--sp-1)}
+.gl-acc summary{display:flex;align-items:center;min-height:var(--tap);padding:0 var(--sp-2);font-size:14px;font-weight:700;cursor:pointer}
+.gl-acc p{padding:var(--sp-1) var(--sp-2) var(--sp-2);font-size:14px}
+
+.gl-bar{display:block;height:8px;margin:6px 0;border-radius:4px;background:var(--line)}
+.gl-bar.short{width:60%}
+.gl-frame{padding:var(--sp-1) var(--sp-2);border:1px solid var(--ink-faint);border-radius:var(--radius);background:var(--paper)}
+.gl-frame--2{display:grid;grid-template-columns:2fr 1fr;gap:var(--sp-2)}
+.gl-side{padding-left:var(--sp-1);border-left:1px solid var(--line)}
+.gl-side .gl-bar{background:var(--accent-soft);border:1px solid var(--accent)}
+
+.gl-grid3,.gl-grid1{display:grid;gap:6px}
+.gl-grid3{grid-template-columns:repeat(3,1fr)}
+.gl-grid3 i,.gl-grid1 i{display:block;height:36px;border:1px solid var(--ink-faint);border-radius:var(--radius);background:var(--paper)}
+
+.gl-mock{display:flex;align-items:flex-end;gap:var(--sp-3);flex-wrap:wrap}
+.gl-pc{width:min(14rem,100%);padding:20px 10px 12px;border:2px solid var(--ink);border-radius:var(--radius);background:var(--paper)}
+.gl-phone{width:5.5rem;padding:18px 8px 12px;border:2px solid var(--ink);border-radius:14px;background:var(--paper)}
+
+.gl-cards{display:grid;grid-template-columns:repeat(3,1fr);gap:var(--sp-1)}
+.gl-card{display:grid;gap:2px;padding:var(--sp-2);border:1px solid var(--line);border-top:4px solid var(--accent);border-radius:var(--radius);background:var(--paper);font-size:14px}
+.gl-card span{font-size:var(--fs-sm);color:var(--ink-sub)}
+.gl-card--note{border-top-color:var(--line);background:var(--paper-warm)}
+.gl-card--file{border-style:dashed;border-top-color:var(--ink-faint);background:var(--paper-warm)}
+
+.gl-header{display:flex;justify-content:space-between;align-items:center;padding:0 var(--sp-2);min-height:48px;border:1px solid var(--line);border-radius:var(--radius);background:var(--paper)}
+.gl-nav{display:flex;border-bottom:1px solid var(--line)}
+.gl-nav span{display:flex;align-items:center;min-height:var(--tap);padding:0 var(--sp-2);border-bottom:3px solid transparent;color:var(--ink-sub);font-size:14px}
+.gl-nav .is-current{border-bottom-color:var(--accent);color:var(--accent);font-weight:700}
+.gl-hero{display:grid;gap:var(--sp-1);justify-items:start;padding:var(--sp-4) var(--sp-3);border-radius:var(--radius);background:var(--accent-soft)}
+.gl-hero b{font-size:var(--fs-lg)}
+.gl-hero span:not(.gl-btn){font-size:14px;color:var(--ink-sub)}
+.gl-hover{display:inline-flex;align-items:center;min-height:var(--tap);padding:0 var(--sp-3);border:1px solid var(--line);border-radius:var(--radius);background:var(--paper);cursor:pointer;transition:background .15s,border-color .15s}
+.gl-hover:hover,.gl-hover:focus-visible{border-color:var(--accent);background:var(--accent-soft);color:var(--accent)}
+.gl-swatches{display:flex;gap:var(--sp-1);margin-bottom:var(--sp-2)}
+.gl-sw{display:grid;place-items:center;width:5.5rem;height:48px;border-radius:var(--radius);color:#fff;font-size:var(--fs-sm);font-weight:700}
+.gl-space b{display:block;font-size:14px}
+.gl-space p{font-size:var(--fs-sm)}
+.gl-space--tight{line-height:1.2}
+.gl-space--tight p{margin:0}
+.gl-space:not(.gl-space--tight) p{margin:var(--sp-0) 0 var(--sp-2)}
+.gl-space:not(.gl-space--tight){line-height:1.7}
+.gl-steps{display:grid;gap:var(--sp-1);counter-reset:s;margin-bottom:var(--sp-1)}
+.gl-steps li{position:relative;padding-left:34px;font-size:14px}
+.gl-steps li::before{counter-increment:s;content:counter(s);position:absolute;left:0;top:0;display:grid;place-items:center;width:24px;height:24px;border:1px solid var(--accent);border-radius:var(--radius);background:var(--accent-soft);color:var(--accent);font-family:var(--mono);font-size:var(--fs-sm);font-weight:700;line-height:1}
+.gl-check{display:flex;align-items:center;gap:var(--sp-1);min-height:var(--tap);font-size:14px;cursor:pointer}
+.gl-check input{width:22px;height:22px;accent-color:var(--accent)}
+
+.gl-demo-dialog{width:min(28rem,calc(100vw - 2*var(--sp-2)));padding:var(--sp-3);border:0;border-radius:var(--radius-lg);box-shadow:var(--shadow-lg);background:var(--paper);color:var(--ink);font-family:var(--sans)}
+.gl-demo-dialog::backdrop{background:rgba(41,37,33,.55)}
+.gl-demo-dialog h2{margin:0 0 var(--sp-1);font-size:var(--fs-lg)}
+.gl-demo-dialog p+p{margin-top:var(--sp-2)}
+.gl-demo-dialog .ux-btn{min-height:var(--tap)}
+
+@media (max-width:640px){
+  .gl-head{padding-top:var(--sp-3)}
+  .gl-two{grid-template-columns:1fr}
+  .gl-cards{grid-template-columns:1fr}
+  .gl-term .ux-card__head{padding:var(--sp-1) var(--sp-2)}
+  .gl-term .ux-card__body{padding:var(--sp-2)}
+  .gl-cat{margin-left:0}
+  .gl-chip{flex:1 1 auto}
+}
+
+/* ===== 用語カード＋詳細モーダル（JSが動くとき：.gl-js） =====
+   JSが無いときは、従来どおり用語の一覧（.gl-term）がそのまま表示される */
+.gl-tools,.gl-tlist{display:none}
+.gl-js .gl-tools{display:flex;flex-direction:column;align-items:flex-start;gap:var(--sp-2)}
+.gl-js .gl-index,.gl-js .gl-terms{display:none}
+.gl-js .gl-tlist{display:grid;grid-template-columns:repeat(auto-fill,minmax(16rem,1fr));gap:14px}
+.gl-main{max-width:1080px}
+.gl-search{display:flex;flex-direction:column;align-items:stretch;gap:6px;width:100%;max-width:28rem;margin-bottom:var(--sp-1)}
+.gl-search label{flex:none;font-size:.85rem;font-weight:700;color:var(--ink-sub)}
+.gl-search input{flex:none;min-width:0;min-height:var(--tap);padding:0 var(--sp-2);border:1.5px solid var(--border-strong);border-radius:50px;background:var(--paper);color:var(--ink);font:inherit}
+.gl-search input:focus-visible{outline:var(--focus-ring);outline-offset:1px}
+.gl-empty{padding:var(--sp-3);border:1.5px dashed var(--border-strong);border-radius:var(--r);background:var(--bg-dark);color:var(--ink-sub);text-align:center}
+.gl-empty[hidden]{display:none}
+
+/* 用語カード（大きめの白いカード。カテゴリのタブ＝小さな丸いボタンとは別の見た目にする） */
+.gl-tcard{display:flex;flex-direction:column;align-items:flex-start;gap:6px;min-height:11.5rem;padding:18px 18px 16px;border:1.5px solid var(--border-strong);border-radius:14px;background:var(--paper);
+  box-shadow:var(--shadow-sm);color:var(--ink);font:inherit;text-align:left;cursor:pointer;transition:border-color .15s,box-shadow .15s,transform .15s}
+.gl-tcard[hidden]{display:none}
+.gl-tcard:hover{border-color:var(--accent);box-shadow:var(--shadow);transform:translateY(-1px)}
+.gl-tcard__cat{padding:2px 10px;border-radius:50px;background:var(--accent-soft);color:var(--accent);font-size:.68rem;font-weight:800;letter-spacing:.08em}
+.gl-tcard__name{font-size:1.05rem;font-weight:800;line-height:1.45}
+.gl-tcard__en{font-family:var(--mono);font-size:var(--fs-xs);color:var(--ink-sub)}
+.gl-tcard__desc{flex:1;font-size:.88rem;line-height:1.75;color:var(--ink-sub)}
+.gl-tcard__more{margin-top:4px;padding:6px 16px;border-radius:50px;background:var(--fill);color:var(--on-fill);font-size:.8rem;font-weight:800}
+.gl-tcard:hover .gl-tcard__more{background:color-mix(in srgb,var(--fill) 88%,#000)}
+.gl-tcard:focus-visible{outline:var(--focus-ring);outline-offset:2px}
+
+/* 詳細モーダル */
+.gl-modal{width:min(44rem,calc(100vw - 2*var(--sp-2)))}
+.gl-modal__head{align-items:flex-start;padding:20px 24px 12px;border-bottom:1px solid var(--border)}
+.gl-modal__titles{min-width:0}
+.gl-modal__cat{display:inline-block;margin:0 0 6px;padding:2px 10px;border-radius:50px;background:var(--accent-soft);color:var(--accent);font-size:.68rem;font-weight:800;letter-spacing:.08em}
+.gl-modal__en{margin:2px 0 0;font-family:var(--mono);font-size:var(--fs-xs);color:var(--ink-sub)}
+.gl-modal__body{flex:1;min-height:8rem;overflow:auto;overscroll-behavior:contain;padding:20px 24px 12px}
+.gl-modal__body:focus-visible{outline-offset:-3px}
+.gl-modal__body .ux-card__body{padding:0}
+.gl-modal__body .ux-card__body>*+*{margin-top:var(--sp-3)}
+.gl-modal .ux-modal__foot{border-top:1px solid var(--border)}
+@media (max-width:640px){
+  .gl-modal__head{padding:16px 16px 10px}
+  .gl-modal__body{padding:16px 16px 10px}
+  .gl-tcard{min-height:0}
+}
+
+/* 表示見本：モーダルを、見本の枠の中だけで開閉する */
+.gl-mini{position:relative;overflow:hidden;border:1px solid var(--border);border-radius:var(--r-sm);background:var(--paper)}
+.gl-mini__page{display:grid;gap:6px;padding:var(--sp-2)}
+.gl-mini__page .ux-btn{justify-self:start;margin-top:6px}
+.gl-mini__layer{position:absolute;inset:0;display:grid;place-items:center;padding:var(--sp-2);background:rgba(41,37,33,.55)}
+.gl-mini__layer[hidden]{display:none}
+.gl-mini__box{display:grid;gap:6px;justify-items:start;width:min(18rem,100%);padding:var(--sp-2);border-radius:var(--r-sm);background:var(--paper);box-shadow:var(--shadow-lg);font-size:.88rem}
+.gl-mini__box p{margin:0;color:var(--ink-sub)}

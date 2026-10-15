@@ -1,0 +1,116 @@
+/* apps.html（応用編）専用。9月サイトのピッカー（.rss-picker：ステータス行・グループ見出し・チップ）を再現。
+   要 tokens-base / tokens / site / modal */
+
+.ap-main{padding-top:var(--sp-3);padding-bottom:var(--sp-8)}
+.ap-flow{display:flex;flex-wrap:wrap;gap:var(--sp-1);margin:0 0 var(--sp-2);font-size:14px}
+.ap-flow li{display:flex;align-items:center;gap:var(--sp-1);padding:6px var(--sp-2) 6px 6px;border:1px solid var(--border);border-radius:50px;background:var(--paper);box-shadow:var(--shadow-sm);font-weight:700}
+.ap-flow b{display:inline-grid;place-items:center;width:24px;height:24px;border-radius:50%;background:var(--fill);color:var(--on-fill);font-size:.75rem;font-weight:800}
+
+.ap-sec{margin-top:var(--sp-4)}
+.ap-hint{font-size:.85rem;color:var(--ink-light)}
+.ap-field{display:block;margin-bottom:var(--sp-1);font-weight:700;font-size:14px}
+.ap-input{width:100%;min-height:var(--tap);padding:0 var(--sp-2);border:1.5px solid var(--border-strong);border-radius:var(--r-sm);background:var(--paper);color:var(--ink);font:inherit}
+.ap-input:focus-visible{outline:var(--focus-ring);outline-offset:1px}
+.ap-input+.ap-hint{margin-top:var(--sp-1)}
+
+/* 項目カード（9月 .infocard：ヘッダー帯＋本文。選択中は主色の枠と影） */
+.ap-items{display:grid;gap:12px}
+.ap-item{overflow:hidden;border:1px solid var(--border);border-radius:14px;background:var(--paper);box-shadow:var(--shadow-sm);transition:border-color .15s,box-shadow .15s}
+.ap-item.is-on{border-color:var(--accent);box-shadow:var(--shadow)}
+.ap-item__head{display:flex;align-items:flex-start;gap:12px;min-height:var(--tap);padding:14px 18px;background:var(--bg);border-bottom:1px solid var(--border);cursor:pointer}
+.ap-item.is-on .ap-item__head{background:var(--grad-band)}
+.ap-item__chk{flex:none;width:24px;height:24px;margin:2px 0 0;accent-color:var(--accent)}
+.ap-item__txt{display:grid;gap:2px}
+.ap-item__title{font-size:.95rem;font-weight:800;line-height:1.4}
+.ap-item__desc{font-size:.85rem;color:var(--ink-light)}
+.ap-item__terms{padding:10px 18px 0 54px;font-size:var(--fs-sm);color:var(--ink-sub)}
+.ap-item:not(.is-on) .ap-item__terms{padding-bottom:12px}
+.ux-page .ap-term{color:var(--accent);text-underline-offset:2px}
+.ap-item__body{padding:6px 18px 18px;display:grid;gap:14px}
+.ap-item__body[hidden]{display:none}
+
+.ap-group{min-width:0;margin:0;padding:0;border:0}
+.ap-group__legend{display:flex;align-items:center;flex-wrap:wrap;gap:6px;padding:0;margin-bottom:8px;font-size:.9rem;font-weight:700;color:var(--accent)}
+.ap-group__legend .ap-term{font-size:.78rem;font-weight:500}
+.ap-opts{display:flex;flex-wrap:wrap;gap:8px}
+
+.ap-sum{display:grid;gap:8px}
+.ap-sum li{padding:10px 14px;border:1px solid var(--border);border-radius:10px;background:var(--bg);font-size:.9rem}
+.ap-sum__empty{color:var(--ink-sub)}
+.ap-sum__empty[hidden]{display:none}
+.ap-fb{margin-top:var(--sp-2)}
+.ap-fb__pre{margin:var(--sp-1) 0;padding:16px 18px;max-height:24rem;overflow:auto;border-radius:var(--r-sm);background:var(--block);color:var(--paper-warm);font-family:var(--mono);font-size:.82rem;line-height:1.85;white-space:pre-wrap;overflow-wrap:anywhere}
+
+/* 操作バー（9月 .rss-picker-status を画面下に固定） */
+.ap-bar{position:sticky;bottom:0;z-index:30;display:flex;flex-wrap:wrap;align-items:center;justify-content:space-between;gap:var(--sp-1) var(--sp-2);
+  margin-top:var(--sp-4);padding:10px 0 calc(10px + env(safe-area-inset-bottom,0px));background:var(--bg);box-shadow:0 -8px 12px -10px rgba(41,37,33,.18)}
+.ap-bar .ux-status{flex:1 1 16rem;min-width:0}
+.ap-bar__count{font-weight:800;color:var(--accent);white-space:nowrap}
+.ap-bar__hint{flex:1 1 10rem;min-width:0;font-size:.85rem}
+.ap-bar__hint[hidden]{display:none}
+.ap-bar__act{display:flex;gap:var(--sp-1)}
+.ap-bar .ux-btn{min-height:var(--tap)}
+
+@media (max-width:720px){
+  .ap-item__head{padding:12px 14px}
+  .ap-item__terms{padding-left:50px;padding-right:14px}
+  .ap-item__body{padding:6px 14px 14px}
+  .ap-opts{flex-direction:column}
+  .ap-opts .ux-chip{width:100%}
+  .ap-bar{margin-left:-20px;margin-right:-20px;padding-left:20px;padding-right:20px}
+  .ap-bar__act{width:100%}
+  .ap-bar__act .ux-btn--primary{flex:1;white-space:nowrap}
+  .ap-bar__act .ux-btn:not(.ux-btn--primary){flex:none}
+}
+
+/* ===== 配色変更：色見本・色の使い方のミニ見本・プレビュー ===== */
+.ap-opts .ux-chip{gap:10px}
+.ap-sw{display:inline-flex;flex:none;width:76px}
+.ap-sw i{display:block;flex:1;height:26px;border:1px solid rgba(41,37,33,.18);margin-left:-1px}
+.ap-sw i:first-child{margin-left:0;border-radius:6px 0 0 6px}
+.ap-sw i:last-child{border-radius:0 6px 6px 0}
+.ap-mini{display:inline-flex;flex:none;align-items:flex-end;gap:6px;width:76px;height:26px;padding:0 2px}
+.ap-mini i{display:block}
+.ap-mini .h{width:16px;height:8px;border-radius:2px;align-self:flex-start;margin-top:2px}
+.ap-mini .l{width:14px;height:3px;border-radius:2px;margin-bottom:4px}
+.ap-mini .b{width:20px;height:14px;border-radius:50px}
+.ap-opt__label{min-width:0}
+
+.ap-item__body--pv{grid-template-columns:minmax(0,1fr);align-items:start;row-gap:18px}
+.ap-pvbox{display:grid;gap:8px}
+.ap-pvbox__h{margin:0;font-size:.85rem;font-weight:800;color:var(--ink)}
+.ap-pvbox__note{margin:0;font-size:var(--fs-xs);line-height:1.6;color:var(--ink-sub)}
+.ap-pv{--pv-bg:#fff;--pv-surface:#f4f5f6;--pv-ink:#2f3437;--pv-sub:#6b7378;--pv-heading:#2f3437;--pv-link:#5f6b76;--pv-btn:#5f6b76;--pv-onbtn:#fff;--pv-tag:#e3e6e8;
+  display:grid;gap:8px;justify-items:start;padding:16px;border:1px solid var(--border-strong);border-radius:12px;background:var(--pv-bg);color:var(--pv-ink);transition:background .2s,color .2s}
+.ap-pv__tag{padding:2px 10px;border-radius:50px;background:var(--pv-tag);color:var(--pv-ink);font-size:.68rem;font-weight:800;letter-spacing:.06em;transition:background .2s}
+.ap-pv__title{font-size:1.05rem;font-weight:800;line-height:1.4;color:var(--pv-heading);transition:color .2s}
+.ap-pv__sub{font-size:.8rem;line-height:1.6;color:var(--pv-sub)}
+.ap-pv__card{display:grid;gap:4px;width:100%;padding:10px 12px;border:1px solid color-mix(in srgb,var(--pv-ink) 14%,transparent);border-radius:10px;background:var(--pv-surface);font-size:.8rem;line-height:1.6;color:var(--pv-ink)}
+.ap-pv__card b{font-size:.85rem}
+.ap-pv__link{color:var(--pv-link);text-decoration:underline;text-underline-offset:2px;font-weight:700;transition:color .2s}
+.ap-pv__btn{padding:6px 18px;border-radius:50px;background:var(--pv-btn);color:var(--pv-onbtn);font-size:.8rem;font-weight:800;transition:background .2s}
+/* ===== 上段：2カラムの選択（左＝配色の方向／右＝色の使い方）、下段：横幅いっぱいのプレビュー ===== */
+.ap-item__body--pv .ap-group{padding:14px;border:1px solid var(--border);border-radius:12px;background:var(--bg)}
+.ap-item__body--pv .ap-group__legend{float:left;width:100%;margin-bottom:10px;font-size:.95rem}
+.ap-item__body--pv .ap-group__legend+*{clear:both}
+.ap-item__body--pv .ap-opts{flex-direction:column;gap:8px}
+.ap-item__body--pv .ap-opts .ux-chip{width:100%;background:var(--paper)}
+.ap-item__body--pv .ap-opts .ux-chip:has(input:checked){background:color-mix(in srgb,var(--accent) 6%,#fff)}
+.ap-pvbox{grid-column:1 / -1;display:grid;gap:10px}
+.ap-pvbox__h{font-size:.95rem}
+.ap-pv{padding:20px;gap:10px 24px;border-radius:14px}
+.ap-pv__tag{font-size:.72rem}
+.ap-pv__title{font-size:1.25rem}
+.ap-pv__sub{font-size:.9rem}
+.ap-pv__card{padding:14px 16px;font-size:.9rem}
+.ap-pv__card b{font-size:.95rem}
+.ap-pv__btn{padding:9px 26px;font-size:.9rem}
+@media (min-width:760px){
+  .ap-item__body--pv{grid-template-columns:repeat(2,minmax(0,1fr));column-gap:16px}
+  .ap-pv{grid-template-columns:minmax(0,1fr) minmax(0,1fr);grid-template-areas:"tag card" "title card" "sub card" "btn card";align-items:start;justify-items:start}
+  .ap-pv__tag{grid-area:tag}.ap-pv__title{grid-area:title}.ap-pv__sub{grid-area:sub}.ap-pv__card{grid-area:card;align-self:stretch}.ap-pv__btn{grid-area:btn;align-self:end}
+}
+@media (max-width:759px){
+  .ap-item__body--pv{grid-template-columns:minmax(0,1fr)}
+  .ap-pvbox__note{max-width:none}
+}

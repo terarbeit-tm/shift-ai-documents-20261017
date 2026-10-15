@@ -1,0 +1,37 @@
+/* 既存トークンの固定コピー（新ページ専用。index.html には読み込まない）：index.html 450行目の有効値（後勝ちの現行配色）をそのまま固定。
+   index.html 6行目の旧定義（ネイビー＋ゴールド）は使わない。既存値は変更しない。 */
+:root{
+  --ink:#292521;
+  --ink-sub:#655A51;
+  --ink-faint:#7B6A5D;
+  --paper:#FFFFFF;
+  --paper-warm:#FFF8F2;
+  --line:#E6D7CB;
+  --line-soft:#F1E6DC;
+  --accent:#B94700;
+  --accent-bright:#FF6500;
+  --accent-soft:#FFF0E4;
+  --accent-mid:#B94700;
+  --tool:#A3471C;
+  --tool-soft:#FFF0E4;
+  --ok:#0E8A6E;
+  --ok-soft:#E3F3EF;
+  --bad:#B33A3A;
+  --bad-soft:#F7E7E4;
+  --block:#2D2722;
+  --accent-on-dark:#FFB67A;
+  --shot-line:#9C8B7D;
+  --shot-frame:#F4ECE4;
+  --head-bg:#FFFFFF;
+  --head-line:#E6D7CB;
+  --head-ink:#292521;
+  --head-ink-sub:#655A51;
+  --head-accent:#B94700;
+  --head-accent-soft:#FFF0E4;
+
+  --mono:"IBM Plex Mono","Noto Sans JP",monospace;
+  --sans:"Noto Sans JP",-apple-system,BlinkMacSystemFont,sans-serif;
+  --w-text:48rem;
+  --sp-1:8px; --sp-2:16px; --sp-3:24px; --sp-4:32px; --sp-6:48px; --sp-8:64px; --sp-12:96px;
+  --radius:6px;
+}

@@ -1,0 +1,256 @@
+/* 午前（index.html）に9月サイトのデザイン体系を適用する。CSSのみ。クラス名・文言・DOMは変えない。
+   要 tokens.css（9月→10月の対応表は tokens.css の冒頭）。
+   折り返し保護：本文の幅・文字サイズ・行間は変えない。枠線の太さを変える箇所は、padding で同じ内寸になるよう補正している。 */
+
+:root{--nav-h:0px}
+html{scroll-padding-top:calc(132px + var(--nav-h))}
+body{background:var(--bg)}
+
+/* キーボード操作：フォーカスの見え方をそろえる（既存の指定があればそちらを優先） */
+:where(a,button,summary,input,select,textarea,[tabindex]):focus-visible{outline:var(--focus-ring);outline-offset:2px}
+
+/* 4ページ間のサイトナビは、メインタブ（07 用語集まで）に統合したため置かない（--nav-h は常に0） */
+
+/* ===== ヘッダー（9月 .hero：薄い光のある地に、画像をカードとして置く） ===== */
+.head{background:radial-gradient(1100px 320px at 50% -60px,rgba(255,101,0,.12),transparent),var(--bg);border-bottom:0}
+.head .brand{padding-left:0;font-family:var(--sans);font-size:.72rem;font-weight:700;letter-spacing:.18em;color:var(--accent)}
+.head .brand::before{display:none}
+.thumbnail-title img{border-radius:var(--r);box-shadow:var(--shadow)}
+.head .date{color:var(--ink-light)}
+
+/* 制作プレビューの注記（9月 .info-box の色） */
+.preview-note{background:var(--accent-soft);border-top:1px solid color-mix(in srgb,var(--accent) 24%,transparent);border-bottom:1px solid color-mix(in srgb,var(--accent) 24%,transparent);color:var(--ink-light)}
+
+/* ===== メインタブ（9月 .tab-nav-wrapper / .tab-btn：白い帯・枠つきボタン・選択中は主色で塗る） ===== */
+.tabbar{top:var(--nav-h);z-index:100;background:var(--paper);backdrop-filter:none;border-bottom:1px solid var(--border);box-shadow:0 2px 8px rgba(41,37,33,.04)}
+.tabbar .inner{gap:8px;padding-top:10px;padding-bottom:10px}
+.tab{min-height:var(--tap);padding:9px 16px;border:1.5px solid var(--border);border-radius:var(--r-sm);background:var(--paper);
+  color:var(--ink);font-size:.85rem;font-weight:700;transition:color .15s,background .15s,border-color .15s}
+.tab .tno{font-size:var(--fs-xs);font-weight:800;color:var(--ink-sub);opacity:1}
+.tab:hover{border-color:var(--accent);color:var(--accent);background:var(--accent-soft)}
+.tab.on{border-color:var(--fill);background:var(--fill);color:var(--on-fill);border-radius:var(--r-sm)}
+.tab.on .tno{color:rgba(255,255,255,.9)}
+@media (max-width:720px){.tab{padding:8px 12px;font-size:.8rem}}
+/* 6タブ：PCは9月と同じ幅の帯に並べる。スマホは横にスクロールし、右端が切れていることを薄れる端で示す */
+@media (min-width:721px){.tabbar .inner{max-width:1080px}}
+@media (max-width:720px){.tabbar .inner{padding-right:28px;-webkit-mask-image:linear-gradient(to right,#000 calc(100% - 28px),transparent);mask-image:linear-gradient(to right,#000 calc(100% - 28px),transparent)}}
+
+/* 午前・午後は別パネルになったため、パートの切り替え用の非表示指定は使わない */
+.part{display:block}
+
+/* ===== 午前／午後の切り替え（9月 .worksub-btn のカード版） ===== */
+.partbtn{border:1.5px solid var(--border-strong);border-radius:var(--r);background:var(--paper);box-shadow:var(--shadow-sm);transition:color .15s,background .15s,border-color .15s}
+.partbtn .pn{font-size:var(--fs-xs);font-weight:800;color:var(--ink-sub)}
+.partbtn:hover{border-color:var(--accent)}
+.partbtn.on{border:1.5px solid var(--fill);background:var(--grad-main);box-shadow:var(--shadow)}
+.partbtn.on .pn{color:rgba(255,255,255,.9)}
+.partbtn.on .pt{color:var(--on-fill)}
+
+/* ===== パネルの見出し（9月 .section-label / .section-title：枠や左ラインは付けない） ===== */
+.panel-head{background:none;border:0;border-radius:0;padding:0;margin:var(--sp-6) 0 var(--sp-3)}
+.panel-head .kicker{font-family:var(--sans);font-size:11px;font-weight:700;letter-spacing:.14em;color:var(--accent)}
+.panel-head h2{font-size:clamp(22px,3vw,26px);font-weight:800}
+.panel-head .desc{font-size:14px;line-height:1.85;color:var(--ink-light)}
+
+/* パネル内の目次（9月 .worksub-btn：丸いピル） */
+.local a{display:inline-flex;align-items:center;min-height:40px;padding:6px 18px;border:1.5px solid var(--border-strong);border-radius:50px;
+  background:var(--paper);color:var(--ink-light);font-size:.82rem;font-weight:800;transition:color .15s,background .15s,border-color .15s}
+.local a:hover{border-color:var(--accent);color:var(--accent);background:var(--accent-soft)}
+.local a b{font-family:var(--sans);font-size:var(--fs-xs);font-weight:800;color:var(--accent)}
+
+/* ===== 章の見出し（9月 .work-head：グラデーションのバッジ＋タイトル） ===== */
+.chap-head{flex-wrap:wrap;align-items:center;gap:12px;padding-bottom:0;border-bottom:0;margin-bottom:var(--sp-2)}
+.chap-head .no{display:inline-flex;align-items:center;padding:6px 16px;border-radius:50px;background:var(--grad-main);color:var(--on-fill);
+  font-family:var(--sans);font-size:.72rem;font-weight:800;letter-spacing:.12em}
+.chap-head h3{font-size:clamp(19px,2.6vw,22px);font-weight:800}
+details.chap>summary.chap-head::after{color:var(--accent)}
+
+/* 作業の見出し（9月 .step-card-header：ヘッダー帯） */
+h4{padding:9px 17px;border:1px solid var(--border);border-radius:var(--r);background:var(--grad-step);color:var(--ink);font-weight:800;box-shadow:var(--shadow-sm)}
+h4 .h4no{color:var(--accent)}
+h4 .wk{background:var(--grad-main);color:var(--on-fill)}
+@media (max-width:640px){h4{padding:11px 13px}}
+.tooltag b{color:var(--accent)}
+
+/* ===== GOAL（9月 .goal-card：大きな角丸・強い影・ヘッダー帯） ===== */
+.goal{padding-top:0;overflow:hidden;border:1px solid var(--border);border-radius:var(--r-lg);background:var(--paper);box-shadow:var(--shadow-lg);
+  padding-left:calc(var(--sp-4) + 3px)}
+.goal .ct{display:block;margin:0 calc(-1*var(--sp-4)) 20px calc(-1*(var(--sp-4) + 3px));padding:16px var(--sp-4) 16px calc(var(--sp-4) + 3px);
+  background:var(--grad-band);border-bottom:1px solid var(--border);font-family:var(--sans);font-size:.72rem;font-weight:800;letter-spacing:.14em;color:var(--accent)}
+@media (max-width:640px){
+  .goal{padding-left:23px}
+  .goal .ct{margin:0 -20px 18px -23px;padding:14px 20px 14px 23px}
+}
+
+/* ===== CALLOUT（9月 .callout：地色＋枠＋円形バッジ。左ラインは使わない） ===== */
+.callout{padding:16px 23px 16px 26px;border:1px solid color-mix(in srgb,var(--accent) 38%,transparent);border-radius:14px;background:var(--accent-soft)}
+.callout .ct{display:flex;align-items:center;gap:9px;margin-bottom:9px;font-family:var(--sans);font-size:.72rem;font-weight:800;letter-spacing:.08em;color:var(--ink)}
+.callout .ct::before{content:"!";flex:none;display:grid;place-items:center;width:26px;height:26px;border-radius:50%;background:var(--fill);color:var(--on-fill);font-size:.8rem;letter-spacing:0}
+.callout.ok{background:var(--ok-soft);border-color:color-mix(in srgb,var(--ok) 45%,transparent)}
+.callout.ok .ct{color:var(--ink)}
+.callout.ok .ct::before{content:"✓";background:var(--ok)}
+.callout.tool{background:var(--tool-soft);border-color:color-mix(in srgb,var(--tool) 40%,transparent)}
+.callout.tool .ct{color:var(--ink)}
+.callout.tool .ct::before{content:"i";background:var(--tool)}
+.callout.ng{border-color:color-mix(in srgb,var(--bad) 45%,transparent)}
+.callout.ng .ct{color:#8E2418}
+.callout.ng .ct::before{background:#C0392B}
+
+/* ===== PROMPT（9月の「プロンプトを開く」＝オレンジの丸いボタン。全文は押すとモーダルで開く） ===== */
+.copywrap{display:block;margin:var(--sp-3) 0;padding:14px 16px;border:1px solid var(--border);border-radius:14px;background:var(--paper);box-shadow:var(--shadow-sm)}
+.copyhead{padding:0 0 10px;border:0;border-radius:0;background:none}
+.copyhead .fn{font-family:var(--sans);font-size:.88rem;font-weight:800;letter-spacing:0;color:var(--ink)}
+.copybtn{padding:4px 14px;border:1.5px solid var(--border-strong);border-radius:50px;background:var(--paper);color:var(--ink);font-size:.78rem;font-weight:700}
+.copybtn:hover{border-color:var(--accent);color:var(--accent);background:var(--accent-soft)}
+.copybtn.done{background:var(--ok);border-color:var(--ok);color:#fff}
+.prompt-details{border:0;border-radius:0;background:none}
+.prompt-details>summary{display:flex;align-items:center;justify-content:center;gap:8px;width:fit-content;max-width:100%;min-height:var(--tap);padding:10px 24px;
+  border-radius:50px;background:var(--fill);color:var(--on-fill);font-size:.9rem;font-weight:800;list-style:none;cursor:pointer;
+  box-shadow:0 8px 20px rgba(242,92,0,.28);transition:background .15s,transform .15s}
+.prompt-details>summary::-webkit-details-marker{display:none}
+.prompt-details>summary::before{content:"✦";font-size:1rem;line-height:1}
+.prompt-details>summary:hover{background:color-mix(in srgb,var(--fill) 88%,#000);transform:translateY(-1px)}
+pre.copy{border:0;border-radius:10px;background:var(--block);color:var(--paper-warm)}
+.prompt-details pre.copy{margin-top:10px}
+@media (max-width:640px){
+  .prompt-details>summary{width:100%}
+  .copywrap{padding:12px 12px}
+}
+@media (max-width:640px),(pointer:coarse){.copybtn{min-height:var(--tap)}}
+
+/* ===== カード類（9月 .output-card / .word-card / .usecase-card：白地・枠・小さな影） ===== */
+.cards3 .c,.proc .st,.duo .side,.cards4 .cc,.pubgrid .pc{border:1.5px solid var(--border-strong);border-radius:14px;background:var(--paper);box-shadow:var(--shadow-sm)}
+.duo .side.hero{border-color:var(--accent);background:var(--accent-soft)}
+.cards3 .c .n,.proc .st .n{display:inline-block;padding:2px 9px;border-radius:50px;background:var(--fill);color:var(--on-fill);font-family:var(--sans);font-size:.7rem;font-weight:800;letter-spacing:.04em}
+.duo .lb{font-family:var(--sans);font-weight:800;color:var(--accent)}
+.cards4.subnav .cc:hover,.pubgrid.subnav .pc:hover{border-color:var(--accent)}
+.cards4.subnav .cc.on,.pubgrid.subnav .pc.on{border-color:var(--accent);background:var(--accent-soft);box-shadow:var(--shadow)}
+.pubgrid .pc.reco{border-color:var(--accent)}
+.walltwo .branch{border-radius:14px;box-shadow:var(--shadow-sm)}
+.flowline,.calc,.sample-memo{border-radius:var(--r-sm)}
+
+/* ===== 配布リンクのカード（9月 .infocard：ヘッダー帯＋本文）とボタン（9月 .link-btn：丸いピル） ===== */
+.scard{border:1px solid var(--border);border-radius:14px;box-shadow:var(--shadow-sm)}
+.scard .shead{background:var(--grad-step);color:var(--ink);border-bottom:1px solid var(--border)}
+.scard.codex .shead{background:var(--tool-soft)}
+.scard .shead .ic{padding:2px 8px;border-radius:6px;background:var(--fill);color:var(--on-fill);opacity:1}
+.btnlink{padding:9px 20px;border-radius:50px;background:var(--fill);color:var(--on-fill);font-size:.85rem;transition:background .15s}
+.btnlink:hover{opacity:1;background:color-mix(in srgb,var(--fill) 88%,#000)}
+.jumplink{padding:8px 18px;border:1.5px solid color-mix(in srgb,var(--accent) 40%,transparent);background:var(--accent-soft);font-weight:800;transition:background .15s,color .15s}
+.jumplink:hover{background:var(--fill);color:var(--on-fill);text-decoration:none}
+.downloads a{border-radius:50px;padding:8px 16px;font-weight:700}
+.checkbtn{padding:9px 20px;border-radius:50px;background:var(--fill);border-color:var(--fill);color:var(--on-fill)}
+.checkbtn:hover{background:color-mix(in srgb,var(--fill) 88%,#000);border-color:var(--fill)}
+.checkbtn.ghost{background:transparent;color:var(--ink-sub);border-color:var(--border-strong)}
+.checkbtn.ghost:hover{border-color:var(--accent);color:var(--accent);background:var(--accent-soft)}
+
+/* 選択式のチップ（9月 .rss-chip：枠・選択中は主色で塗る） */
+.chip{border:1.5px solid var(--border-strong);border-radius:var(--r-sm);background:var(--paper);color:var(--ink);font-weight:600}
+.chip:hover{border-color:var(--accent);background:var(--accent-soft)}
+.chip.sel{border-color:var(--fill);background:var(--fill);color:var(--on-fill)}
+
+/* 画像・表 */
+figure.shot img[src*="images/shots/"]{border-radius:14px;box-shadow:var(--shadow-sm)}
+.sample-memo{background:var(--bg)}
+th{font-family:var(--sans);font-size:.75rem;font-weight:800;letter-spacing:.06em;color:var(--accent);border-bottom-color:var(--accent)}
+
+/* ===== FAQ（9月 .faq-item：枠・押す行・開くと地色が変わる）。内寸は変えない（左右に広げて、中の文字位置は同じ） ===== */
+#t4 details{margin:0 -14px 8px;overflow:hidden;border:1px solid var(--border);border-radius:var(--r-sm);background:var(--paper)}
+#t4 details:last-of-type{border-bottom:1px solid var(--border)}
+#t4 summary{padding:16px 18px;transition:background .15s}
+#t4 summary:hover{background:var(--bg)}
+#t4 details[open] summary{background:var(--accent-soft);color:var(--accent)}
+#t4 details[open] summary::after{color:var(--accent)}
+#t4 details .a{padding:15px 18px 18px 48px;border-top:1px solid var(--border)}
+
+/* ===== BONUS（9月 .bonus-card：暖色の面・強調の枠・バッジ）。枠は box-shadow で描き、内寸は変えない ===== */
+.bonus{border:0;border-radius:var(--r-lg);background:linear-gradient(160deg,var(--paper) 0%,var(--accent-soft) 100%);color:var(--ink);
+  box-shadow:0 0 0 1px color-mix(in srgb,var(--accent) 38%,transparent),var(--shadow)}
+.bonus-kicker{display:inline-block;padding:5px 16px;border-radius:50px;background:var(--grad-main);color:var(--on-fill);font-family:var(--sans);font-size:.68rem;font-weight:800;letter-spacing:.12em}
+.bonus-title{font-weight:800;color:var(--ink)}
+.bonus-lead{color:var(--ink-light)}
+.bonus-item{border-radius:14px;box-shadow:0 0 0 1px var(--border),var(--shadow-sm)}
+.bonus-tag{border-radius:50px}
+
+/* ===== 前後のページ（9月 .worksub-nav-wrapper--bottom：丸いボタン） ===== */
+.pager button{border:1.5px solid var(--border-strong);border-radius:50px;background:var(--paper);font-weight:800;padding:12px 22px;transition:color .15s,background .15s,border-color .15s}
+.pager button:hover{border-color:var(--accent);color:var(--accent);background:var(--accent-soft)}
+.pager button small{font-family:var(--sans);font-size:.68rem;font-weight:800;letter-spacing:.1em;color:var(--accent)}
+.pager .next{border-color:var(--fill);background:var(--fill);color:var(--on-fill)}
+.pager .next:hover{background:color-mix(in srgb,var(--fill) 88%,#000);border-color:var(--fill);color:var(--on-fill)}
+.pager .next small{color:rgba(255,255,255,.9)}
+
+
+@media (prefers-reduced-motion:reduce){
+  html{scroll-behavior:auto}
+}
+
+/* ===== 午前のワーク：サブタブ（9月 .worksub-nav：丸いピル。選択中はオレンジ地に白抜き文字） ===== */
+.worksub{display:none}
+.ws-js .worksub{display:block;position:sticky;top:calc(var(--nav-h) + var(--tabbar-h,64px));z-index:90;margin:0 0 var(--sp-3);padding:10px 0;background:var(--bg);box-shadow:0 6px 12px -8px rgba(41,37,33,.18)}
+.worksub-inner{display:flex;gap:8px;overflow-x:auto;scrollbar-width:none;-webkit-overflow-scrolling:touch;padding-bottom:2px}
+.worksub-inner::-webkit-scrollbar{display:none}
+.worksub-btn{flex:none;display:flex;align-items:center;min-height:var(--tap);padding:10px 18px;border:1.5px solid var(--border-strong);border-radius:50px;background:var(--paper);
+  color:var(--ink-light);font:inherit;font-size:.82rem;font-weight:800;white-space:nowrap;cursor:pointer;transition:color .15s,background .15s,border-color .15s}
+.worksub-btn:hover{border-color:var(--accent);color:var(--accent);background:var(--accent-soft)}
+.worksub-btn.on{border-color:var(--fill);background:var(--grad-main);color:var(--on-fill);box-shadow:var(--shadow-sm)}
+/* 選んだワークだけを表示する。作業の目次はサブタブと重なるため、サイドバーが出る広い画面だけに置く */
+.ws-js #am section.chap:not(.sub-on),.ws-js #am details.chap:not(.sub-on){display:none}
+.ws-js #am .panel-head .local{display:none}
+/* 左側の縦目次（作業の目次）は、サブタブに置き換えたため表示しない。DOMは直リンク用のIDとともに残す */
+.worktoc{display:none!important}
+html{scroll-padding-top:calc(var(--nav-h) + var(--tabbar-h,64px) + var(--worksub-h,0px) + 16px)}
+h4[id^="work"],#am .chap{scroll-margin-top:calc(var(--nav-h) + var(--tabbar-h,64px) + var(--worksub-h,0px) + 16px)}
+
+/* 午後の4工程（各工程のページへ直接移動する） */
+.proc a.st{display:block;color:inherit;text-decoration:none;transition:border-color .15s,box-shadow .15s}
+.proc a.st:hover{border-color:var(--accent);box-shadow:var(--shadow)}
+@media (min-width:721px){.worksub-btn{padding:8px 14px}}
+
+/* ===== プロンプトは「プロンプトを開く」ボタンだけにする（全文はモーダル。pre.copy はコピー元として残す） =====
+   JSが動くときだけ適用。動かないときは、従来どおりカードと本文を確認できる */
+.ux-js .copywrap:has(>.prompt-details){margin:var(--sp-2) 0;padding:0;border:0;border-radius:0;background:none;box-shadow:none}
+.ux-js .copywrap:has(>.prompt-details)>.copyhead{display:none}
+.ux-js .copywrap>.prompt-details>summary{margin:0}
+/* 短いワークでも、選んだワークの見出しを固定領域の下まで持ってこられる高さを確保する */
+.ws-js #am .chap.sub-on{min-height:calc(100vh - var(--nav-h) - var(--tabbar-h,64px) - var(--worksub-h,0px))}
+@supports (height:100dvh){.ws-js #am .chap.sub-on{min-height:calc(100dvh - var(--nav-h) - var(--tabbar-h,64px) - var(--worksub-h,0px))}}
+
+/* ===== 午前のSTEPカード（site.css の .ux-step）に合わせて、旧 h4 の帯・操作対象ラベル・カード内の入れ子を整える ===== */
+h4.ux-step__head{margin:0;padding:15px 22px;border-radius:0;box-shadow:none}
+@media (max-width:720px){h4.ux-step__head{padding:12px 14px}}
+.ux-step__head .wk{margin:0;vertical-align:baseline}
+.ux-step__body .tooltag{display:inline-flex;align-items:center;flex-wrap:wrap;gap:4px;width:fit-content;max-width:100%;margin:0 0 var(--sp-2);padding:5px 14px;
+  border:1px solid color-mix(in srgb,var(--accent) 28%,transparent);border-radius:50px;background:var(--accent-soft);color:var(--ink-sub);font-size:.82rem;font-weight:700}
+.ux-step__body .tooltag b{color:var(--accent)}
+.ux-step__body .callout{margin:var(--sp-2) 0;box-shadow:none}
+.ux-step__body figure.shot{margin:var(--sp-2) 0}
+.ux-step__body .copywrap{margin:var(--sp-2) 0}
+.ux-step__body>:last-child{margin-bottom:0}
+.ux-step__body>.tblwrap{margin:var(--sp-2) 0}
+.ux-step__body>ol:not([class]){padding-left:1.6em}
+.ux-step__body>ol.steps{margin:var(--sp-2) 0}
+
+/* ===== チェックリスト（W3 作業6）：チェックボックス付きの行。押す場所は文章を含む行全体 ===== */
+.ux-checklist{list-style:none;display:grid;gap:8px;margin:0 0 var(--sp-2);padding:0}
+.ux-checklist li{margin:0;padding:0;border:0}
+.ux-checklist .ux-check{gap:12px;padding:12px 14px;border:1.5px solid var(--border);border-radius:12px;background:var(--paper);transition:border-color .15s,background .15s}
+.ux-checklist .ux-check:hover{border-color:var(--accent);background:var(--accent-soft)}
+.ux-checklist .ux-check:has(input:checked){border-color:var(--fill);background:var(--accent-soft)}
+.ux-checklist .ux-check__text{font-size:.95rem;line-height:1.7;color:var(--ink)}
+.ux-checklist .ux-check input:checked~.ux-check__text{text-decoration:none;color:var(--ink)}
+.ux-checklist__count{display:flex;width:fit-content;align-items:baseline;gap:4px;margin:0 0 10px;padding:4px 14px;border:1px solid color-mix(in srgb,var(--accent) 28%,transparent);border-radius:50px;
+  background:var(--accent-soft);color:var(--ink-sub);font-size:.85rem;font-weight:700}
+.ux-checklist__count strong{color:var(--accent);font-size:1rem;font-weight:800}
+.ux-checklist__count.is-done{border-color:color-mix(in srgb,var(--ok) 45%,transparent);background:var(--ok-soft)}
+.ux-checklist__count.is-done strong{color:var(--ok)}
+@media (max-width:720px){.ux-checklist .ux-check{padding:11px 12px}}
+
+/* 左の縦目次をなくしたあとの午前ワーク：本文のカードを中央に置き、読みやすい最大幅（48rem＝他のタブと同じ）を保つ */
+#am{max-width:var(--w-text);margin-left:auto;margin-right:auto}
+
+/* ===== 統合：サブタブ共通（午前・午後・講義のあと）。選んだ1つの内容だけを表示する ===== */
+.ws-js .sg-pane:not(.sub-on){display:none}
+.subpane{display:block}
+/* 午後・応用編・用語集の部品（site.css の .ux-*）を、午前のマークアップの中に置くための囲い。余白は中のクラスで決める */
+.ux-pane{background:transparent}

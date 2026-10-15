@@ -1,0 +1,57 @@
+/* 午後のワーク（index.html の 04）専用。WORK見出し・配布ファイル・CPの各カード。工程のサブタブは index-ux.css の .worksub を使う。
+   要 tokens / site / modal */
+
+:root{--pm-offset:calc(var(--nav-h,0px) + var(--tabbar-h,64px) + var(--worksub-h,0px) + 16px)}
+
+.pm-top{padding-top:var(--sp-3);display:grid;gap:var(--sp-3)}
+.pm-top>*{margin:0}
+.pm-pending{display:inline-block;padding:1px 10px;border:1px dashed var(--border-strong);border-radius:var(--r-xs);
+  background:var(--bg-dark);color:var(--ink-sub);font-size:var(--fs-xs);font-weight:700;letter-spacing:.04em;white-space:nowrap}
+.pm-pending[hidden]{display:none}
+.ux-prompt .pm-pending{background:transparent;border-color:rgba(255,248,242,.45);color:rgba(255,248,242,.8);letter-spacing:.04em}
+.pm-start__h{margin:0 0 var(--sp-1);font-size:1.15rem;font-weight:800;line-height:1.5;color:var(--ink)}
+.pm-start .ux-card__body{padding-top:6px}
+.pm-start__row{display:flex;flex-wrap:wrap;align-items:center;gap:var(--sp-1) var(--sp-2)}
+.pm-fine{font-size:var(--fs-xs);color:var(--ink-sub)}
+
+/* 工程（9月 .work-head：バッジ＋タイトル） */
+.pm-panel{padding:var(--sp-4) 0 var(--sp-8);scroll-margin-top:var(--pm-offset)}
+.pm-panel+.pm-panel{border-top:1px solid var(--border)}
+.ws-js .pm-panel+.pm-panel{border-top:0}
+
+
+.pm-slot{display:grid;place-items:center;min-height:180px;padding:var(--sp-3);border:1.5px dashed var(--border-strong);border-radius:var(--r);
+  background:var(--bg-dark);text-align:center;color:var(--ink-sub)}
+.pm-slot p{margin-top:var(--sp-1);font-size:.85rem}
+
+/* 前後の工程（9月 .worksub-nav-wrapper--bottom） */
+.pm-pager{display:flex;justify-content:space-between;gap:var(--sp-2);margin-top:var(--sp-6);padding-top:var(--sp-3);border-top:1px solid var(--border)}
+.pm-pager .ux-btn{min-height:var(--tap)}
+.pm-pager .ux-btn:only-child{margin-left:auto}
+
+@media (max-width:720px){
+  .pm-top{padding-top:var(--sp-2)}
+  .pm-panel{padding-top:var(--sp-3)}
+  .pm-start__row .ux-btn{width:100%}
+  .pm-pager{flex-direction:column-reverse}
+  .pm-pager .ux-btn{width:100%}
+}
+
+
+/* 短い工程でも、見出しを固定領域の下まで持ってこられる高さを確保する */
+.ws-js .pm-panel{min-height:calc(100vh - var(--pm-offset))}
+@supports (height:100dvh){.ws-js .pm-panel{min-height:calc(100dvh - var(--pm-offset))}}
+
+/* 各工程（CP）の中は、午前のワーク（W）と同じ。見出し単位のカード（.ux-step）を縦1カラムに並べる */
+.pm-panel{padding:var(--sp-3) 0 var(--sp-8);scroll-margin-top:var(--pm-offset)}
+.pm-panel__head{display:flex;align-items:center;flex-wrap:wrap;gap:12px;margin-bottom:var(--sp-1)}
+.pm-panel h2{margin:0;font-size:22px;font-weight:800;line-height:1.4}
+.pm-panel h2:focus{outline:none}
+.pm-panel h2:focus-visible{outline:var(--focus-ring);outline-offset:4px}
+.pm-card{scroll-margin-top:var(--pm-offset)}
+.pm-card .ux-step__body>*+*{margin-top:var(--sp-2)}
+.pm-card .ux-step__body p{margin-bottom:0}
+.pm-card .ux-flow{margin:0}
+.pm-card .ux-checks{margin:0}
+@media (max-width:720px){.pm-panel{padding-top:var(--sp-2)}}
+.ux-prompt--btn .pm-pending{background:var(--bg-dark);border-color:var(--border-strong);color:var(--ink-sub)}

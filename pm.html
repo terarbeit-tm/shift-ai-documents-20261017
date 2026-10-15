@@ -1,0 +1,321 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="robots" content="noindex">
+<!-- 統合済み：旧URLは index.html の該当タブへ移動する（検収完了後にこのファイルは削除予定） -->
+<script>location.replace("index.html"+(location.hash||"#tpm"));</script>
+<noscript><meta http-equiv="refresh" content="0;url=index.html#tpm"></noscript>
+<title>午後ハンズオン｜資料作成実践合宿</title>
+<link rel="stylesheet" href="css/tokens-base.css">
+<link rel="stylesheet" href="css/tokens.css">
+<link rel="stylesheet" href="css/site.css">
+<link rel="stylesheet" href="css/modal.css">
+<link rel="stylesheet" href="css/pm.css">
+</head>
+<body class="ux-page">
+<a class="ux-skip" href="#main">本文へ移動</a>
+
+<nav class="ux-sitenav ux-sitenav--sticky" aria-label="サイト内の移動">
+  <div class="ux-wrap ux-sitenav__in">
+    <span class="ux-sitenav__brand">資料作成実践合宿</span>
+    <ul>
+      <li><a href="index.html">午前</a></li>
+      <li><a href="pm.html" aria-current="page">午後</a></li>
+      <li><a href="apps.html">応用編</a></li>
+      <li><a href="glossary.html">用語集</a></li>
+    </ul>
+  </div>
+</nav>
+
+<section class="ux-hero">
+  <div class="ux-hero__card">
+    <p class="ux-hero__eyebrow">2026.10.17（土）／午後 ハンズオン</p>
+    <h1 class="ux-hero__title">午後ハンズオン</h1>
+    <p class="ux-hero__lead">午前で使った手順の初期HTMLを、4つの工程で使いやすい特設ページに作り変えます。<br>用意されたプロンプトを、順番に実行します。このページ自体が、完成した姿の見本です。</p>
+  </div>
+</section>
+
+<div class="ux-wrap pm-top">
+  <div class="ux-card ux-card--note"><div class="ux-card__body">制作プレビュー：初期HTML・プロンプト・画像・公開手順は<span class="pm-pending">教材準備中</span>です。</div></div>
+
+  <section class="pm-start ux-card ux-card--file" id="start" aria-labelledby="start-h">
+    <div class="ux-card__head">配布ファイル</div>
+    <div class="ux-card__body">
+      <h2 class="pm-start__h" id="start-h">はじめに：初期HTMLをダウンロードする</h2>
+      <p>ハンズオンで改善する、午前の手順を載せた初期HTMLです。先にダウンロードして、手元に保存してください。</p>
+      <p class="pm-start__row"><span data-start-slot><button type="button" class="ux-btn ux-btn--primary ux-btn--pill" disabled>ダウンロード準備中</button></span>
+        <span class="pm-pending" data-start-badge>教材準備中</span></p>
+      <p class="pm-fine" data-start-file hidden></p>
+      <p class="pm-fine">ダウンロード先のURLは、確定しだい設定されます。</p>
+    </div>
+  </section>
+</div>
+
+<div class="pm-tabbar">
+  <div class="ux-wrap ux-wrap--wide">
+    <div class="pm-tabs" role="tablist" aria-label="午後ハンズオンの工程"><a class="pm-tab" role="tab" id="tab-cp1" href="#cp1" aria-controls="cp1" aria-selected="true" tabindex="0"><span class="pm-tab__no">CP1</span><span class="pm-tab__name">タブ化</span></a><a class="pm-tab" role="tab" id="tab-cp2" href="#cp2" aria-controls="cp2" aria-selected="false" tabindex="-1"><span class="pm-tab__no">CP2</span><span class="pm-tab__name">ポップアップ</span></a><a class="pm-tab" role="tab" id="tab-cp3" href="#cp3" aria-controls="cp3" aria-selected="false" tabindex="-1"><span class="pm-tab__no">CP3</span><span class="pm-tab__name">画像挿入</span></a><a class="pm-tab" role="tab" id="tab-cp4" href="#cp4" aria-controls="cp4" aria-selected="false" tabindex="-1"><span class="pm-tab__no">CP4</span><span class="pm-tab__name">公開・共有</span></a></div>
+  </div>
+</div>
+
+<main id="main" class="ux-wrap">
+      <section class="pm-panel" id="cp1" role="tabpanel" aria-labelledby="tab-cp1">
+        <header class="pm-panel__head">
+          <span class="ux-badge">CP1 ／ 工程 1 / 4</span>
+          <h2 tabindex="-1">タブ化・情報整理</h2>
+        </header>
+
+        <div class="ux-step pm-card" id="cp1-what">
+          <h3 class="ux-step__head"><span class="ux-step__num ux-step__num--label">内容</span><span class="ux-step__title">改善する内容</span></h3>
+          <div class="ux-step__body"><p class="ux-lead">縦に長く並んだ初期HTMLを、工程ごとのタブに分け、いま必要な手順だけが見える状態にします。</p></div>
+        </div>
+
+        <div class="ux-step pm-card" id="cp1-why">
+          <h3 class="ux-step__head"><span class="ux-step__num ux-step__num--label">理由</span><span class="ux-step__title">なぜ改善するのか</span></h3>
+          <div class="ux-step__body"><p>長い1枚のページは、「いまどこまで進んだか」「次に何をするか」を見失いやすくなります。工程ごとに分けると、探す・迷う手間が減ります。</p></div>
+        </div>
+
+        <div class="ux-step pm-card" id="cp1-steps">
+          <h3 class="ux-step__head"><span class="ux-step__num ux-step__num--label">手順</span><span class="ux-step__title">操作手順</span></h3>
+          <div class="ux-step__body">
+            <ol class="ux-flow">
+              <li>「プロンプトを開く」を押し、全文をコピーします。</li>
+              <li>Codexに貼り付けて、実行します。</li>
+              <li>結果を「完成イメージ」と見比べます。</li>
+              <li>「到達チェックポイント」を確かめて、次の工程へ進みます。</li>
+            </ol>
+            <div class="ux-todo"><span class="pm-pending">教材準備中</span> 画面ごとの具体的な操作手順は、教材の確定後に掲載します。</div>
+            <div class="ux-prompt ux-prompt--btn" id="cp1-prompt" data-prompt data-prompt-id="cp1" data-prompt-title="CP1 のプロンプト">
+              <span class="ux-prompt__actions"><button type="button" class="ux-btn ux-btn--primary ux-btn--pill ux-btn--cta" data-prompt-open>プロンプトを開く</button></span>
+              <span class="pm-pending" data-pending-badge>教材準備中</span>
+              <pre class="ux-prompt__src">教材準備中です。
+このプロンプトは、教材の確定後に掲載します。</pre>
+            </div>
+          </div>
+        </div>
+
+        <div class="ux-step pm-card" id="cp1-image">
+          <h3 class="ux-step__head"><span class="ux-step__num ux-step__num--label">完成</span><span class="ux-step__title">完成イメージ</span></h3>
+          <div class="ux-step__body">
+            <p>このページ上部の4つのタブが、完成した姿の見本です。タブを押すと、その工程だけが表示されます。</p>
+            <figure class="pm-slot"><div><span class="pm-pending">教材準備中</span><p>完成イメージの画像は、教材の確定後に掲載します。</p></div></figure>
+          </div>
+        </div>
+
+        <div class="ux-step pm-card" id="cp1-check">
+          <h3 class="ux-step__head"><span class="ux-step__num ux-step__num--label">確認</span><span class="ux-step__title">到達チェックポイント</span></h3>
+          <div class="ux-step__body">
+            <p class="pm-fine">できたものに、チェックを入れます。</p>
+            <div class="ux-checks"><label class="ux-check"><input type="checkbox"><span class="ux-check__box"></span><span class="ux-check__text">工程ごとのタブが表示されている</span></label><label class="ux-check"><input type="checkbox"><span class="ux-check__box"></span><span class="ux-check__text">タブを押すと、表示する内容が切り替わる</span></label><label class="ux-check"><input type="checkbox"><span class="ux-check__box"></span><span class="ux-check__text">元の文章と手順が欠けていない</span></label></div>
+            <p class="pm-fine">チェックの内容は、教材の確定時に見直します。チェックの状態は保存されません。</p>
+          </div>
+        </div>
+
+        <div class="ux-step pm-card" id="cp1-trouble">
+          <h3 class="ux-step__head"><span class="ux-step__num ux-step__num--label">対処</span><span class="ux-step__title">うまくいかない場合</span></h3>
+          <div class="ux-step__body">
+            <div class="ux-todo"><span class="pm-pending">教材準備中</span> この工程の対処法は、教材の確定後に掲載します。</div>
+            <p>午前のガイドの<a href="index.html#t4">FAQ（止まった場所から、再開する）</a>も確認できます。</p>
+          </div>
+        </div>
+
+        <nav class="pm-pager" aria-label="CP1 の移動">
+          <a class="ux-btn ux-btn--primary ux-btn--pill" href="#cp2" data-goto="cp2">次の工程へ：CP2 ポップアップ →</a>
+        </nav>
+      </section>
+      <section class="pm-panel" id="cp2" role="tabpanel" aria-labelledby="tab-cp2">
+        <header class="pm-panel__head">
+          <span class="ux-badge">CP2 ／ 工程 2 / 4</span>
+          <h2 tabindex="-1">プロンプトのポップアップ化とコピー</h2>
+        </header>
+
+        <div class="ux-step pm-card" id="cp2-what">
+          <h3 class="ux-step__head"><span class="ux-step__num ux-step__num--label">内容</span><span class="ux-step__title">改善する内容</span></h3>
+          <div class="ux-step__body"><p class="ux-lead">長いプロンプトを手順の途中に並べず、ボタンで開くポップアップに入れます。ポップアップ内でワンクリックでコピーできるようにします。</p></div>
+        </div>
+
+        <div class="ux-step pm-card" id="cp2-why">
+          <h3 class="ux-step__head"><span class="ux-step__num ux-step__num--label">理由</span><span class="ux-step__title">なぜ改善するのか</span></h3>
+          <div class="ux-step__body"><p>長い文章が手順の間に挟まると、手順が読み進めにくくなります。必要なときだけ開き、全文を1回の操作でコピーできれば、選択漏れや貼り間違いも減ります。</p></div>
+        </div>
+
+        <div class="ux-step pm-card" id="cp2-steps">
+          <h3 class="ux-step__head"><span class="ux-step__num ux-step__num--label">手順</span><span class="ux-step__title">操作手順</span></h3>
+          <div class="ux-step__body">
+            <ol class="ux-flow">
+              <li>「プロンプトを開く」を押し、全文をコピーします。</li>
+              <li>Codexに貼り付けて、実行します。</li>
+              <li>結果を「完成イメージ」と見比べます。</li>
+              <li>「到達チェックポイント」を確かめて、次の工程へ進みます。</li>
+            </ol>
+            <div class="ux-todo"><span class="pm-pending">教材準備中</span> 画面ごとの具体的な操作手順は、教材の確定後に掲載します。</div>
+            <div class="ux-prompt ux-prompt--btn" id="cp2-prompt" data-prompt data-prompt-id="cp2" data-prompt-title="CP2 のプロンプト">
+              <span class="ux-prompt__actions"><button type="button" class="ux-btn ux-btn--primary ux-btn--pill ux-btn--cta" data-prompt-open>プロンプトを開く</button></span>
+              <span class="pm-pending" data-pending-badge>教材準備中</span>
+              <pre class="ux-prompt__src">教材準備中です。
+このプロンプトは、教材の確定後に掲載します。</pre>
+            </div>
+          </div>
+        </div>
+
+        <div class="ux-step pm-card" id="cp2-image">
+          <h3 class="ux-step__head"><span class="ux-step__num ux-step__num--label">完成</span><span class="ux-step__title">完成イメージ</span></h3>
+          <div class="ux-step__body">
+            <p>「プロンプトを開く」ボタンを押すと、完成した動きの見本が開きます（Escキーや背景クリックでも閉じられます）。</p>
+            <figure class="pm-slot"><div><span class="pm-pending">教材準備中</span><p>完成イメージの画像は、教材の確定後に掲載します。</p></div></figure>
+          </div>
+        </div>
+
+        <div class="ux-step pm-card" id="cp2-check">
+          <h3 class="ux-step__head"><span class="ux-step__num ux-step__num--label">確認</span><span class="ux-step__title">到達チェックポイント</span></h3>
+          <div class="ux-step__body">
+            <p class="pm-fine">できたものに、チェックを入れます。</p>
+            <div class="ux-checks"><label class="ux-check"><input type="checkbox"><span class="ux-check__box"></span><span class="ux-check__text">ボタンを押すとポップアップが開く</span></label><label class="ux-check"><input type="checkbox"><span class="ux-check__box"></span><span class="ux-check__text">ポップアップを閉じられる（閉じるボタン・Esc）</span></label><label class="ux-check"><input type="checkbox"><span class="ux-check__box"></span><span class="ux-check__text">ポップアップ内のボタンで全文をコピーできる</span></label></div>
+            <p class="pm-fine">チェックの内容は、教材の確定時に見直します。チェックの状態は保存されません。</p>
+          </div>
+        </div>
+
+        <div class="ux-step pm-card" id="cp2-trouble">
+          <h3 class="ux-step__head"><span class="ux-step__num ux-step__num--label">対処</span><span class="ux-step__title">うまくいかない場合</span></h3>
+          <div class="ux-step__body">
+            <div class="ux-todo"><span class="pm-pending">教材準備中</span> この工程の対処法は、教材の確定後に掲載します。</div>
+            <p>午前のガイドの<a href="index.html#t4">FAQ（止まった場所から、再開する）</a>も確認できます。</p>
+          </div>
+        </div>
+
+        <nav class="pm-pager" aria-label="CP2 の移動">
+          <a class="ux-btn ux-btn--pill" href="#cp1" data-goto="cp1">← 前の工程へ：CP1 タブ化</a><a class="ux-btn ux-btn--primary ux-btn--pill" href="#cp3" data-goto="cp3">次の工程へ：CP3 画像挿入 →</a>
+        </nav>
+      </section>
+      <section class="pm-panel" id="cp3" role="tabpanel" aria-labelledby="tab-cp3">
+        <header class="pm-panel__head">
+          <span class="ux-badge">CP3 ／ 工程 3 / 4</span>
+          <h2 tabindex="-1">説明用画像の挿入</h2>
+        </header>
+
+        <div class="ux-step pm-card" id="cp3-what">
+          <h3 class="ux-step__head"><span class="ux-step__num ux-step__num--label">内容</span><span class="ux-step__title">改善する内容</span></h3>
+          <div class="ux-step__body"><p class="ux-lead">文字だけの手順に、説明用の画像を差し込みます。</p></div>
+        </div>
+
+        <div class="ux-step pm-card" id="cp3-why">
+          <h3 class="ux-step__head"><span class="ux-step__num ux-step__num--label">理由</span><span class="ux-step__title">なぜ改善するのか</span></h3>
+          <div class="ux-step__body"><p>操作画面は、言葉だけだと伝わりにくい情報です。画面を見て「同じ状態か」を確かめられると、迷いが減ります。</p></div>
+        </div>
+
+        <div class="ux-step pm-card" id="cp3-steps">
+          <h3 class="ux-step__head"><span class="ux-step__num ux-step__num--label">手順</span><span class="ux-step__title">操作手順</span></h3>
+          <div class="ux-step__body">
+            <ol class="ux-flow">
+              <li>「プロンプトを開く」を押し、全文をコピーします。</li>
+              <li>Codexに貼り付けて、実行します。</li>
+              <li>結果を「完成イメージ」と見比べます。</li>
+              <li>「到達チェックポイント」を確かめて、次の工程へ進みます。</li>
+            </ol>
+            <div class="ux-todo"><span class="pm-pending">教材準備中</span> 画面ごとの具体的な操作手順は、教材の確定後に掲載します。</div>
+            <div class="ux-prompt ux-prompt--btn" id="cp3-prompt" data-prompt data-prompt-id="cp3" data-prompt-title="CP3 のプロンプト">
+              <span class="ux-prompt__actions"><button type="button" class="ux-btn ux-btn--primary ux-btn--pill ux-btn--cta" data-prompt-open>プロンプトを開く</button></span>
+              <span class="pm-pending" data-pending-badge>教材準備中</span>
+              <pre class="ux-prompt__src">教材準備中です。
+このプロンプトは、教材の確定後に掲載します。</pre>
+            </div>
+          </div>
+        </div>
+
+        <div class="ux-step pm-card" id="cp3-image">
+          <h3 class="ux-step__head"><span class="ux-step__num ux-step__num--label">完成</span><span class="ux-step__title">完成イメージ</span></h3>
+          <div class="ux-step__body">
+            <p>画像の見本は教材準備中です。午前のガイドには、画像を手順の近くに置いた例があります。</p>
+            <figure class="pm-slot"><div><span class="pm-pending">教材準備中</span><p>完成イメージの画像は、教材の確定後に掲載します。</p></div></figure>
+          </div>
+        </div>
+
+        <div class="ux-step pm-card" id="cp3-check">
+          <h3 class="ux-step__head"><span class="ux-step__num ux-step__num--label">確認</span><span class="ux-step__title">到達チェックポイント</span></h3>
+          <div class="ux-step__body">
+            <p class="pm-fine">できたものに、チェックを入れます。</p>
+            <div class="ux-checks"><label class="ux-check"><input type="checkbox"><span class="ux-check__box"></span><span class="ux-check__text">説明用の画像が手順の近くに表示されている</span></label><label class="ux-check"><input type="checkbox"><span class="ux-check__box"></span><span class="ux-check__text">画像が画面幅からはみ出していない</span></label></div>
+            <p class="pm-fine">チェックの内容は、教材の確定時に見直します。チェックの状態は保存されません。</p>
+          </div>
+        </div>
+
+        <div class="ux-step pm-card" id="cp3-trouble">
+          <h3 class="ux-step__head"><span class="ux-step__num ux-step__num--label">対処</span><span class="ux-step__title">うまくいかない場合</span></h3>
+          <div class="ux-step__body">
+            <div class="ux-todo"><span class="pm-pending">教材準備中</span> この工程の対処法は、教材の確定後に掲載します。</div>
+            <p>午前のガイドの<a href="index.html#t4">FAQ（止まった場所から、再開する）</a>も確認できます。</p>
+          </div>
+        </div>
+
+        <nav class="pm-pager" aria-label="CP3 の移動">
+          <a class="ux-btn ux-btn--pill" href="#cp2" data-goto="cp2">← 前の工程へ：CP2 ポップアップ</a><a class="ux-btn ux-btn--primary ux-btn--pill" href="#cp4" data-goto="cp4">次の工程へ：CP4 公開・共有 →</a>
+        </nav>
+      </section>
+      <section class="pm-panel" id="cp4" role="tabpanel" aria-labelledby="tab-cp4">
+        <header class="pm-panel__head">
+          <span class="ux-badge">CP4 ／ 工程 4 / 4</span>
+          <h2 tabindex="-1">ChatGPT Sitesでの公開・共有</h2>
+        </header>
+
+        <div class="ux-step pm-card" id="cp4-what">
+          <h3 class="ux-step__head"><span class="ux-step__num ux-step__num--label">内容</span><span class="ux-step__title">改善する内容</span></h3>
+          <div class="ux-step__body"><p class="ux-lead">作ったページを、ChatGPT Sitesで公開し、他の人と共有できる状態にします。</p></div>
+        </div>
+
+        <div class="ux-step pm-card" id="cp4-why">
+          <h3 class="ux-step__head"><span class="ux-step__num ux-step__num--label">理由</span><span class="ux-step__title">なぜ改善するのか</span></h3>
+          <div class="ux-step__body"><p>手元のファイルだけでは、他の人が使えません。URLで共有できると、完成したものを見てもらえます。</p></div>
+        </div>
+
+        <div class="ux-step pm-card" id="cp4-steps">
+          <h3 class="ux-step__head"><span class="ux-step__num ux-step__num--label">手順</span><span class="ux-step__title">操作手順</span></h3>
+          <div class="ux-step__body">
+            <div class="ux-todo"><span class="pm-pending">教材準備中</span> 公開の手順は、教材の確定後に掲載します。</div>
+            <div class="ux-prompt ux-prompt--btn" id="cp4-prompt" data-prompt data-prompt-id="cp4" data-prompt-title="CP4 のプロンプト">
+              <span class="ux-prompt__actions"><button type="button" class="ux-btn ux-btn--primary ux-btn--pill ux-btn--cta" data-prompt-open>プロンプトを開く</button></span>
+              <span class="pm-pending" data-pending-badge>教材準備中</span>
+              <pre class="ux-prompt__src">教材準備中です。
+このプロンプトは、教材の確定後に掲載します。</pre>
+            </div>
+          </div>
+        </div>
+
+        <div class="ux-step pm-card" id="cp4-image">
+          <h3 class="ux-step__head"><span class="ux-step__num ux-step__num--label">完成</span><span class="ux-step__title">完成イメージ</span></h3>
+          <div class="ux-step__body">
+            <p>公開後の見本は教材準備中です。</p>
+            <figure class="pm-slot"><div><span class="pm-pending">教材準備中</span><p>完成イメージの画像は、教材の確定後に掲載します。</p></div></figure>
+          </div>
+        </div>
+
+        <div class="ux-step pm-card" id="cp4-check">
+          <h3 class="ux-step__head"><span class="ux-step__num ux-step__num--label">確認</span><span class="ux-step__title">到達チェックポイント</span></h3>
+          <div class="ux-step__body">
+            <p class="pm-fine">できたものに、チェックを入れます。</p>
+            <div class="ux-checks"><label class="ux-check"><input type="checkbox"><span class="ux-check__box"></span><span class="ux-check__text">公開されたURLが発行されている</span></label><label class="ux-check"><input type="checkbox"><span class="ux-check__box"></span><span class="ux-check__text">そのURLを別の端末で開ける</span></label><label class="ux-check"><input type="checkbox"><span class="ux-check__box"></span><span class="ux-check__text">公開後も、元の内容と表示が崩れていない</span></label></div>
+            <p class="pm-fine">チェックの内容は、教材の確定時に見直します。チェックの状態は保存されません。</p>
+          </div>
+        </div>
+
+        <div class="ux-step pm-card" id="cp4-trouble">
+          <h3 class="ux-step__head"><span class="ux-step__num ux-step__num--label">対処</span><span class="ux-step__title">うまくいかない場合</span></h3>
+          <div class="ux-step__body">
+            <div class="ux-todo"><span class="pm-pending">教材準備中</span> この工程の対処法は、教材の確定後に掲載します。</div>
+            <p>午前のガイドの<a href="index.html#t4">FAQ（止まった場所から、再開する）</a>も確認できます。</p>
+          </div>
+        </div>
+
+        <nav class="pm-pager" aria-label="CP4 の移動">
+          <a class="ux-btn ux-btn--pill" href="#cp3" data-goto="cp3">← 前の工程へ：CP3 画像挿入</a><a class="ux-btn ux-btn--primary ux-btn--pill" href="#cp1" data-goto="cp1">最初の工程（CP1）に戻る</a>
+        </nav>
+      </section>
+</main>
+
+<script src="js/pm-config.js"></script>
+<script src="js/pm-prompts.js"></script>
+<script src="js/copy.js"></script>
+<script src="js/prompt-modal.js"></script>
+<script src="js/pm.js"></script>
+</body>
+</html>

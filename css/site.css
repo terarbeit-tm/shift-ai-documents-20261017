@@ -1,0 +1,217 @@
+/* 共通UI＝9月サイト（style.css）のデザインルールを、10月のトークンで再現したもの。要 tokens.css
+   クラスは ux- 接頭辞。全体の書式は body.ux-page に限定（index.html の既存クラスと衝突させない）。
+   9月のクラス → ux-クラス
+     #mainNav/.nav-tab-link → .ux-sitenav     .hero/.hero-thumb → .ux-hero
+     .tab-btn → .ux-btn / .pm-tab              .section-label/.section-title → .ux-label/.ux-title
+     .goal-card/.step-card/.checkpoint-card/.callout/.infocard/.word-card/.bonus-card → .ux-card--*/.ux-callout
+     .faq-item → .ux-acc                       .rss-chip → .ux-chip                        */
+
+.ux-page{margin:0;font-family:var(--sans);font-feature-settings:"palt";color:var(--ink);background:var(--bg);
+  font-size:var(--fs-base);line-height:var(--lh-body);-webkit-font-smoothing:antialiased}
+.ux-page *,.ux-page *::before,.ux-page *::after{box-sizing:border-box}
+.ux-page :where(h1,h2,h3,h4,p,ul,ol,figure,pre){margin:0}
+.ux-page :where(ul,ol){padding:0;list-style:none}
+.ux-page img{max-width:100%;height:auto}
+:where(.ux-page) a{color:var(--accent)}
+.ux-page ::selection{background:var(--accent-soft)}
+html{scroll-behavior:smooth}
+.ux-page :focus-visible{outline:var(--focus-ring);outline-offset:2px}
+@media (prefers-reduced-motion:reduce){
+  html{scroll-behavior:auto}
+  .ux-page *,.ux-page *::before,.ux-page *::after{transition:none!important;animation:none!important}
+}
+
+.ux-wrap{max-width:var(--w-text);margin:0 auto;padding:0 var(--sp-3)}
+.ux-vh{position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0);white-space:nowrap}
+.ux-skip{position:absolute;left:var(--sp-2);top:-100px;z-index:400;padding:var(--sp-1) var(--sp-2);background:var(--ink);color:#fff;border-radius:var(--r-sm)}
+.ux-skip:focus{top:var(--sp-1)}
+
+/* ===== トップナビ（9月 #mainNav：白の半透明・ぼかし・影・ロゴ左／リンク右のピル） ===== */
+.ux-sitenav{position:relative;z-index:200;background:rgba(255,255,255,.97);backdrop-filter:blur(12px);
+  border-bottom:1px solid var(--border);box-shadow:0 1px 8px rgba(41,37,33,.05)}
+.ux-sitenav--sticky{position:sticky;top:0}
+.ux-sitenav .ux-sitenav__in{max-width:1080px;display:flex;align-items:center;justify-content:space-between;gap:var(--sp-2);padding:10px var(--sp-3)}
+.ux-sitenav__brand{display:flex;align-items:center;gap:8px;flex:none;font-size:.86rem;font-weight:700;color:var(--ink);white-space:nowrap}
+.ux-sitenav__brand::before{content:"";width:18px;height:18px;border-radius:5px;background:var(--grad-main)}
+.ux-sitenav ul{display:flex;align-items:center;gap:2px;margin:0;padding:0;list-style:none;overflow-x:auto;scrollbar-width:none}
+.ux-sitenav ul::-webkit-scrollbar{display:none}
+.ux-sitenav a{display:inline-flex;align-items:center;justify-content:center;padding:6px 12px;border-radius:var(--r-sm);
+  font-size:.8rem;font-weight:600;color:var(--ink-sub);text-decoration:none;white-space:nowrap;transition:color .2s,background .2s}
+.ux-sitenav a:hover{color:var(--accent);background:var(--accent-soft)}
+.ux-sitenav a[aria-current="page"]{color:var(--accent);background:var(--accent-soft)}
+@media (max-width:720px){
+  .ux-wrap{padding:0 20px}
+  .ux-sitenav .ux-sitenav__in{padding:6px 12px}
+  .ux-sitenav__brand{display:none}
+  .ux-sitenav ul{width:100%;gap:4px}
+  .ux-sitenav li{flex:1}
+  .ux-sitenav a{width:100%;min-height:var(--tap);padding:0 4px;font-size:var(--fs-sm)}
+}
+
+/* ===== ヒーロー（9月 .hero / .hero-thumb のフォールバック＝主色の面＋キャッチ） ===== */
+.ux-hero{padding:44px var(--sp-3) 8px;background:radial-gradient(1100px 320px at 50% -60px,rgba(255,101,0,.12),transparent),var(--bg)}
+.ux-hero__card{position:relative;max-width:760px;margin:0 auto;padding:36px 40px;overflow:hidden;border-radius:var(--r);
+  box-shadow:var(--shadow);background:var(--grad-main);color:var(--on-fill)}
+.ux-hero__card::before{content:"";position:absolute;top:-60px;right:-40px;width:200px;height:200px;border-radius:50%;
+  background:rgba(255,255,255,.28);filter:blur(46px)}
+.ux-hero__eyebrow{position:relative;margin-bottom:14px;font-size:.72rem;font-weight:700;letter-spacing:.18em;text-transform:uppercase;color:rgba(255,255,255,.9)}
+.ux-hero__title{position:relative;margin-bottom:16px;font-size:1.7rem;font-weight:800;line-height:1.4;letter-spacing:.01em}
+.ux-hero__lead{position:relative;margin:0;font-size:.92rem;line-height:1.9;color:var(--on-fill)}
+@media (max-width:720px){
+  .ux-hero{padding:28px 16px 8px}
+  .ux-hero__card{padding:26px 22px}
+  .ux-hero__title{font-size:1.4rem}
+}
+
+/* ===== 見出し（9月 .section-label / .section-title / .section-desc） ===== */
+.ux-label{margin-bottom:6px;font-size:11px;font-weight:700;letter-spacing:.14em;text-transform:uppercase;color:var(--accent)}
+.ux-title{margin-bottom:10px;font-size:21px;font-weight:800;line-height:1.45;color:var(--ink)}
+.ux-desc{margin-bottom:22px;font-size:14px;line-height:1.85;color:var(--ink-light)}
+
+/* ===== ボタン（9月 .tab-btn / .link-btn / .trouble-cta-btn） ===== */
+.ux-btn{display:inline-flex;align-items:center;justify-content:center;gap:6px;min-height:40px;padding:9px 16px;
+  border:1.5px solid var(--border);border-radius:var(--r-sm);background:var(--paper);color:var(--ink);
+  font:inherit;font-size:.85rem;font-weight:700;line-height:1.3;text-decoration:none;cursor:pointer;
+  transition:color .15s,background .15s,border-color .15s}
+.ux-btn:hover{border-color:var(--accent);color:var(--accent);background:var(--accent-soft)}
+.ux-btn--primary{background:var(--fill);border-color:var(--fill);color:var(--on-fill)}
+.ux-btn--primary:hover{background:color-mix(in srgb,var(--fill) 88%,#000);border-color:var(--fill);color:var(--on-fill)}
+.ux-btn--pill{border-radius:50px;padding:9px 18px}
+.ux-btn.is-done{background:var(--ok);border-color:var(--ok);color:#fff}
+.ux-btn[disabled]{opacity:.5;cursor:not-allowed}
+.ux-btn[disabled]:hover{background:var(--paper);border-color:var(--border);color:var(--ink)}
+.ux-btn--primary[disabled]:hover{background:var(--fill);border-color:var(--fill);color:var(--on-fill)}
+@media (max-width:720px),(pointer:coarse){.ux-btn{min-height:var(--tap)}}
+
+/* ===== カード（9月：役割ごとに描き分ける。ヘッダー帯＋本文） ===== */
+.ux-card{overflow:hidden;border:1px solid var(--border);border-radius:var(--r);background:var(--paper);box-shadow:var(--shadow-sm)}
+.ux-card__head{display:flex;align-items:center;gap:14px;padding:14px 20px;font-size:.95rem;font-weight:800;line-height:1.4;border-bottom:1px solid var(--border)}
+.ux-card__body{padding:18px 20px 20px}
+.ux-card__body>*+*{margin-top:12px}
+
+/* GOAL：大きな角丸・強い影・帯の左に円形アイコン */
+.ux-card--goal{border-radius:var(--r-lg);box-shadow:var(--shadow-lg)}
+.ux-card--goal .ux-card__head{padding:20px 26px;background:var(--grad-band);color:var(--ink)}
+.ux-card--goal .ux-card__body{padding:24px 26px 26px}
+
+/* STEP：帯に52pxの円形の番号 */
+.ux-card--step .ux-card__head{gap:15px;padding:15px 20px;background:var(--grad-step);font-size:15px}
+.ux-card--step .ux-card__head b{flex:none;display:grid;place-items:center;width:52px;height:52px;border-radius:50%;
+  background:var(--grad-main);color:var(--on-fill);font-size:15px;font-weight:800;letter-spacing:.02em;box-shadow:0 4px 12px rgba(242,92,0,.35)}
+
+/* CHECKPOINT：帯にバッジ＋タイトル */
+.ux-card--check{border-color:var(--border-strong)}
+.ux-card--check .ux-card__head{padding:16px 20px;flex-wrap:wrap;background:var(--grad-band);font-size:1rem}
+.ux-card--check .ux-card__head b{padding:4px 12px;border-radius:50px;background:var(--fill);color:var(--on-fill);font-size:.68rem;font-weight:800;letter-spacing:.1em;white-space:nowrap}
+
+/* INFO（補足）：薄い面の案内ボックス */
+.ux-card--note{border-color:color-mix(in srgb,var(--accent) 24%,transparent);border-radius:14px;background:var(--accent-soft);box-shadow:none}
+.ux-card--note .ux-card__body{padding:16px 20px}
+
+/* 配布・BONUS：暖色の面＋破線の枠 */
+.ux-card--file{border:1.5px dashed var(--border-strong);border-radius:var(--r-lg);background:linear-gradient(160deg,var(--paper) 0%,var(--accent-soft) 100%);box-shadow:var(--shadow-sm)}
+.ux-card--file .ux-card__head{background:transparent;color:var(--accent);font-size:.72rem;letter-spacing:.12em;border-bottom:0;padding-bottom:0}
+
+/* 用語（9月 .word-card）：強い枠・小さな影 */
+.ux-card--term{border:1.5px solid var(--border-strong);border-radius:14px}
+.ux-card--term .ux-card__head{background:var(--paper);font-size:1rem;color:var(--ink);border-bottom:1px solid var(--border)}
+.ux-card--term .ux-card__body{padding:16px 18px}
+
+/* ===== コールアウト（9月 .callout：地色＋枠＋円形バッジ付きラベル。左ラインは使わない） ===== */
+.ux-callout{padding:18px 20px;border:1px solid color-mix(in srgb,var(--accent) 38%,transparent);border-radius:14px;background:var(--accent-soft)}
+.ux-callout__label{display:flex;align-items:center;gap:9px;margin-bottom:9px;font-size:.72rem;font-weight:800;letter-spacing:.08em;text-transform:uppercase;color:var(--ink)}
+.ux-callout__label::before{content:"!";flex:none;display:grid;place-items:center;width:26px;height:26px;border-radius:50%;background:var(--fill);color:var(--on-fill);font-size:.8rem;font-weight:800;letter-spacing:0}
+.ux-callout--ok{background:var(--ok-soft);border-color:color-mix(in srgb,var(--ok) 45%,transparent)}
+.ux-callout--ok .ux-callout__label::before{content:"✓";background:var(--ok)}
+.ux-callout--tool{background:var(--tool-soft);border-color:color-mix(in srgb,var(--tool) 40%,transparent)}
+.ux-callout--tool .ux-callout__label::before{content:"i";background:var(--tool)}
+.ux-callout--ng{background:var(--bad-soft);border-color:color-mix(in srgb,var(--bad) 45%,transparent)}
+.ux-callout--ng .ux-callout__label::before{background:var(--bad)}
+.ux-callout p{font-size:.88rem;line-height:1.85;color:var(--ink-light)}
+
+/* ===== アコーディオン（9月 .faq-item：枠・押す行・開くと地色が変わる） ===== */
+.ux-acc{overflow:hidden;border:1px solid var(--border);border-radius:var(--r-sm);background:var(--paper)}
+.ux-acc+.ux-acc{margin-top:8px}
+.ux-acc>summary{display:flex;align-items:center;justify-content:space-between;gap:12px;min-height:var(--tap);padding:14px 18px;
+  font-size:14px;font-weight:700;color:var(--ink);list-style:none;cursor:pointer;transition:background .15s}
+.ux-acc>summary::-webkit-details-marker{display:none}
+.ux-acc>summary::after{content:"＋";flex:none;color:var(--ink-sub);font-weight:400}
+.ux-acc>summary:hover{background:var(--bg)}
+.ux-acc[open]>summary{background:var(--accent-soft);color:var(--accent);border-bottom:1px solid var(--border)}
+.ux-acc[open]>summary::after{content:"−";color:var(--accent)}
+.ux-acc__body{padding:15px 18px;font-size:13.5px;line-height:1.9}
+.ux-acc__body>*+*{margin-top:10px}
+
+/* ===== チップ・選択肢（9月 .rss-chip：四角いチェック欄、選択中は主色で塗る） ===== */
+.ux-chip{position:relative;display:inline-flex;align-items:center;gap:10px;min-height:var(--tap);padding:8px 14px 8px 12px;
+  border:1.5px solid var(--border-strong);border-radius:var(--r-sm);background:var(--paper);color:var(--ink);
+  font-size:.92rem;font-weight:600;line-height:1.35;cursor:pointer;transition:background .15s,border-color .15s,color .15s}
+.ux-chip>input{position:absolute;opacity:0;width:1px;height:1px;margin:0}
+.ux-chip::before{content:"";flex:none;width:16px;height:16px;border:1.5px solid var(--border-strong);border-radius:4px;background:var(--paper)}
+.ux-chip--radio::before{border-radius:50%}
+.ux-chip:hover{border-color:var(--accent);background:var(--accent-soft)}
+.ux-chip:has(input:checked){background:color-mix(in srgb,var(--accent) 6%,#fff);border-color:var(--accent);box-shadow:inset 0 0 0 1px var(--accent);color:var(--accent);font-weight:800}
+.ux-chip:has(input:checked)::before{background:var(--accent) center/14px no-repeat url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 16 16'%3E%3Cpath d='M3.5 8.5l3 3 6-6' fill='none' stroke='white' stroke-width='2.2' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E");border-color:var(--accent)}
+.ux-chip--radio:has(input:checked)::before{background:radial-gradient(circle,var(--accent) 0 36%,#fff 40%);border-color:var(--accent)}
+.ux-chip:has(input:focus-visible){outline:var(--focus-ring);outline-offset:2px}
+
+/* ステータス行（9月 .rss-picker-status） */
+.ux-status{display:flex;align-items:center;gap:12px;flex-wrap:wrap;padding:10px 14px;border:1px solid var(--border);border-radius:var(--r-sm);
+  background:var(--accent-soft);font-size:.92rem;color:var(--ink-light)}
+.ux-status strong{color:var(--accent);font-weight:800}
+
+/* ===== 小物（9月：円形アイコン・英字の見出し・バッジ・チェック） ===== */
+.ux-ic{flex:none;display:grid;place-items:center;width:44px;height:44px;border-radius:50%;background:var(--grad-main);color:var(--on-fill);font-size:1.05rem;font-weight:800}
+.ux-eyebrow{margin:0 0 2px;font-size:.68rem;font-weight:800;letter-spacing:.14em;text-transform:uppercase;color:var(--accent)}
+.ux-card__head h3{margin:0;font-size:1rem;font-weight:800;line-height:1.4;color:var(--ink)}
+.ux-lead{font-size:1.12rem;font-weight:800;line-height:1.65;color:var(--ink)}
+.ux-badge{display:inline-flex;align-items:center;gap:8px;padding:6px 16px;border-radius:50px;background:var(--grad-main);color:var(--on-fill);font-size:.72rem;font-weight:800;letter-spacing:.12em}
+.ux-flow{counter-reset:uf;display:grid;gap:8px;margin:0}
+.ux-flow>li{counter-increment:uf;display:flex;align-items:flex-start;gap:11px;font-size:.9rem;line-height:1.7;color:var(--ink)}
+.ux-flow>li::before{content:counter(uf);flex:none;display:grid;place-items:center;width:24px;height:24px;margin-top:1px;border-radius:50%;
+  background:var(--fill);color:var(--on-fill);font-size:.75rem;font-weight:800;line-height:1}
+.ux-todo{padding:13px 16px;border:1px dashed var(--border-strong);border-radius:10px;background:var(--bg-dark);color:var(--ink-sub);font-size:.85rem;line-height:1.75}
+.ux-checks{display:grid;gap:4px}
+.ux-check{display:flex;align-items:flex-start;gap:11px;min-height:var(--tap);padding:9px 10px;border-radius:9px;cursor:pointer;user-select:none;transition:background .12s}
+.ux-check:hover{background:var(--bg)}
+.ux-check input{position:absolute;opacity:0;width:1px;height:1px;margin:0}
+.ux-check__box{flex:none;width:22px;height:22px;margin-top:1px;border:2px solid var(--border-strong);border-radius:6px;background:var(--paper);transition:background .12s,border-color .12s}
+.ux-check input:checked+.ux-check__box{background:var(--fill) center/16px no-repeat url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 16 16'%3E%3Cpath d='M3.5 8.5l3 3 6-6' fill='none' stroke='white' stroke-width='2.2' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E");border-color:var(--fill)}
+.ux-check input:focus-visible+.ux-check__box{outline:var(--focus-ring);outline-offset:2px}
+.ux-check__text{font-size:.9rem;line-height:1.6;color:var(--ink)}
+.ux-check input:checked~.ux-check__text{color:var(--ink-sub);text-decoration:line-through}
+.ux-page{word-break:auto-phrase;line-break:strict}
+.ux-page :where(h1,h2,h3,h4){text-wrap:balance}
+.ux-page :where(p,li){text-wrap:pretty}
+
+.ux-wrap--wide{max-width:1080px}
+/* プロンプトを開くボタン（9月 .link-btn：丸いピル＋きらめきの印） */
+.ux-btn--cta{min-height:var(--tap);padding:10px 26px;font-size:.92rem;font-weight:800;box-shadow:0 8px 20px rgba(242,92,0,.28)}
+.ux-btn--cta::before{content:"✦";font-size:1rem;line-height:1}
+.ux-btn--cta[disabled]{box-shadow:none}
+
+/* ===== STEPカード（午前・午後の共通）：9月 .step-card ＝ 大きな角丸の白いカード＋ヘッダー帯＋円形の番号 =====
+   構造：.ux-step > .ux-step__head（.ux-step__num ＋ .ux-step__title）＋ .ux-step__body */
+.ux-step{overflow:hidden;margin:var(--sp-4) 0 0;border:1px solid var(--border);border-radius:var(--r);background:var(--paper);box-shadow:var(--shadow)}
+.ux-step__head{display:flex;align-items:center;gap:15px;margin:0;padding:15px 22px;border:0;border-bottom:1px solid var(--border);border-radius:0;
+  background:var(--grad-step);box-shadow:none;color:var(--ink);font-size:1.02rem;font-weight:800;line-height:1.5}
+.ux-step__head .ux-step__num{flex:none;display:flex;flex-direction:column;align-items:center;justify-content:center;width:54px;height:54px;margin:0;padding:0;border-radius:50%;
+  background:var(--grad-main);color:var(--on-fill);font-size:var(--fs-xs);font-weight:800;letter-spacing:.06em;line-height:1.2;white-space:normal;vertical-align:baseline;box-shadow:0 4px 12px rgba(242,92,0,.30)}
+.ux-step__head .ux-step__num strong,.ux-step__head .ux-step__num b{display:block;font-size:1.3rem;font-weight:800;line-height:1;letter-spacing:0}
+.ux-step__title{min-width:0;font-size:1.02rem;font-weight:800;line-height:1.5;text-wrap:balance}
+.ux-step__eyebrow{margin:0 0 2px;font-size:.68rem;font-weight:800;letter-spacing:.14em;text-transform:uppercase;color:var(--accent)}
+.ux-step__body{padding:20px 22px 24px}
+.ux-step__body>:first-child{margin-top:0}
+.ux-step__body>:last-child{margin-bottom:0}
+/* 本文の中の小見出し（午後の 改善する内容／なぜ… など）：小さなオレンジの印を付ける */
+.ux-step__sub{display:flex;align-items:center;gap:8px;margin:0 0 8px;font-size:.95rem;font-weight:800;line-height:1.5;color:var(--ink)}
+.ux-step__sub::before{content:"";flex:none;width:8px;height:8px;border-radius:2px;background:var(--fill)}
+@media (max-width:720px){
+  .ux-step{margin-top:var(--sp-3)}
+  .ux-step__head{gap:12px;padding:12px 14px}
+  .ux-step__head .ux-step__num{width:50px;height:50px}
+  .ux-step__body{padding:16px 14px 18px}
+}
+
+/* 番号ではなく役割の短い語を入れる円（午後の「内容」「理由」「手順」など） */
+.ux-step__head .ux-step__num--label{font-size:.82rem;letter-spacing:.02em;white-space:nowrap}

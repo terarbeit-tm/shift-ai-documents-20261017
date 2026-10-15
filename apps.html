@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="robots" content="noindex">
+<!-- 統合済み：旧URLは index.html の該当タブへ移動する（検収完了後にこのファイルは削除予定） -->
+<script>location.replace("index.html"+(location.hash||"#apps"));</script>
+<noscript><meta http-equiv="refresh" content="0;url=index.html#apps"></noscript>
+<title>応用編｜資料作成実践合宿</title>
+<link rel="stylesheet" href="css/tokens-base.css">
+<link rel="stylesheet" href="css/tokens.css">
+<link rel="stylesheet" href="css/site.css">
+<link rel="stylesheet" href="css/modal.css">
+<link rel="stylesheet" href="css/apps.css">
+</head>
+<body class="ux-page">
+<a class="ux-skip" href="#main">本文へ移動</a>
+
+<nav class="ux-sitenav ux-sitenav--sticky" aria-label="サイト内の移動">
+  <div class="ux-wrap ux-sitenav__in">
+    <span class="ux-sitenav__brand">資料作成実践合宿</span>
+    <ul>
+      <li><a href="index.html">午前</a></li>
+      <li><a href="pm.html">午後</a></li>
+      <li><a href="apps.html" aria-current="page">応用編</a></li>
+      <li><a href="glossary.html">用語集</a></li>
+    </ul>
+  </div>
+</nav>
+
+<section class="ux-hero">
+  <div class="ux-hero__card">
+    <p class="ux-hero__eyebrow">応用編</p>
+    <h1 class="ux-hero__title">改善プロンプトをつくる</h1>
+    <p class="ux-hero__lead">新しいページを作るのではなく、<b>いまあるページを改善する</b>ためのCodex用プロンプトを、選ぶだけで作ります。</p>
+  </div>
+</section>
+
+<main id="main" class="ux-wrap ap-main">
+  <noscript><div class="ux-callout ux-callout--ng"><h2 class="ux-callout__label">JavaScriptが必要です</h2><p>このツールは、ブラウザのJavaScriptを有効にすると使えます。</p></div></noscript>
+
+  <ol class="ap-flow" aria-label="使い方">
+    <li><b>1</b>対象を決める（任意）</li>
+    <li><b>2</b>直したい項目を選ぶ</li>
+    <li><b>3</b>プロンプトを開いて、コピーする</li>
+  </ol>
+
+  <section class="ap-sec" aria-labelledby="ap-h1">
+    <p class="ux-label">Step 1</p>
+    <h2 class="ux-title" id="ap-h1">対象を決める（任意）</h2>
+    <div class="ux-card ux-card--note"><div class="ux-card__body">
+      <label class="ap-field" for="ap-target">改善したいファイル名（空のままでも使えます）</label>
+      <input class="ap-input" id="ap-target" type="text" placeholder="例：index.html" autocomplete="off" aria-describedby="ap-target-hint">
+      <p class="ap-hint" id="ap-target-hint">空の場合は「このフォルダーにある、いま開いているHTMLページ」として扱います。</p>
+    </div></div>
+  </section>
+
+  <section class="ap-sec" aria-labelledby="ap-h2">
+    <p class="ux-label">Step 2</p>
+    <h2 class="ux-title" id="ap-h2">直したい項目を選ぶ</h2>
+    <p class="ux-desc">項目にチェックを入れると、選択肢が開きます。複数の項目を選べます。選択肢を選ばなかった場合は「おまかせ」になります。意味が分からない言葉は、「用語集で見る」から確認できます（新しいタブで開きます）。</p>
+    <div class="ap-items" id="ap-items"></div>
+  </section>
+
+  <section class="ap-sec" aria-labelledby="ap-h3">
+    <p class="ux-label">Step 3</p>
+    <h2 class="ux-title" id="ap-h3">選んだ内容を確認する</h2>
+    <div class="ux-card ux-card--check">
+      <div class="ux-card__head"><b>SUMMARY</b><h3>いまの選択</h3></div>
+      <div class="ux-card__body"><p class="ap-sum__empty" id="ap-sum-empty">まだ項目が選ばれていません。</p><ul class="ap-sum" id="ap-sum"></ul></div>
+    </div>
+    <div class="ap-fb" id="ap-fb" hidden>
+      <p class="ap-hint">この環境ではポップアップが使えないため、プロンプトをここに表示します。</p>
+      <pre class="ap-fb__pre" id="ap-fb-pre"></pre>
+      <button type="button" class="ux-btn" id="ap-fb-copy">コピー</button>
+    </div>
+  </section>
+
+  <div class="ap-bar" role="region" aria-label="プロンプトの操作">
+    <div class="ux-status">
+      <span class="ap-bar__count" id="ap-count" aria-live="polite">0項目を選択中</span>
+      <span class="ap-bar__hint" id="ap-open-hint">項目を1つ以上選んでください。</span>
+    </div>
+    <div class="ap-bar__act">
+      <button type="button" class="ux-btn ux-btn--pill" id="ap-reset">選択をリセット</button>
+      <button type="button" class="ux-btn ux-btn--primary ux-btn--pill ux-btn--cta" id="ap-open" disabled aria-describedby="ap-open-hint">プロンプトを開く</button>
+    </div>
+  </div>
+</main>
+
+<script src="js/apps-data.js"></script>
+<script src="js/apps-build.js"></script>
+<script src="js/copy.js"></script>
+<script src="js/prompt-modal.js"></script>
+<script src="js/apps.js"></script>
+</body>
+</html>

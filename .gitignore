@@ -11,3 +11,9 @@ auth.json
 service-account*.json
 *.pem
 *.key
+
+# 内部計画（公開しない）
+/docs/
+
+# 内部開発用の検証ツール（公開しない）
+/tools/

@@ -1,0 +1,294 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="robots" content="noindex">
+<!-- 統合済み：旧URLは index.html の該当タブへ移動する（検収完了後にこのファイルは削除予定） -->
+<script>location.replace("index.html"+(location.hash||"#tg"));</script>
+<noscript><meta http-equiv="refresh" content="0;url=index.html#tg"></noscript>
+<title>UI/UX用語集｜資料作成実践合宿</title>
+<link rel="stylesheet" href="css/tokens-base.css">
+<link rel="stylesheet" href="css/tokens.css">
+<link rel="stylesheet" href="css/site.css">
+<link rel="stylesheet" href="css/modal.css">
+<link rel="stylesheet" href="css/glossary.css">
+</head>
+<body class="ux-page">
+<a class="ux-skip" href="#main">本文へ移動</a>
+
+<nav class="ux-sitenav ux-sitenav--sticky" aria-label="サイト内の移動">
+  <div class="ux-wrap ux-sitenav__in">
+    <span class="ux-sitenav__brand">資料作成実践合宿</span>
+    <ul>
+      <li><a href="index.html">午前</a></li>
+      <li><a href="pm.html">午後</a></li>
+      <li><a href="apps.html">応用編</a></li>
+      <li><a href="glossary.html" aria-current="page">用語集</a></li>
+    </ul>
+  </div>
+</nav>
+
+<section class="ux-hero">
+  <div class="ux-hero__card">
+    <p class="ux-hero__eyebrow">UI / UX GLOSSARY</p>
+    <h1 class="ux-hero__title">UI/UX用語集</h1>
+    <p class="ux-hero__lead">Webページを直すときに、Codexへ伝えるための言葉です。<br>意味・使いどころ・表示見本・Codexへの指示例を、16語そろえています。</p>
+  </div>
+</section>
+
+<main id="main" class="ux-wrap ux-wrap--wide gl-main">
+  <section aria-labelledby="gl-index-h">
+    <p class="ux-label">Find</p>
+    <h2 class="ux-title" id="gl-index-h">用語を探す</h2>
+    <div class="gl-tools">
+      <div class="gl-search"><label for="gl-q">用語を検索</label><input type="search" id="gl-q" placeholder="例：タブ、余白、CTA" autocomplete="off"></div>
+      <div class="gl-filter" role="group" aria-label="種類で絞り込む"><button type="button" class="gl-chip" aria-pressed="true" data-cat="">すべて（16語）</button><button type="button" class="gl-chip" aria-pressed="false" data-cat="基本">基本（1）</button><button type="button" class="gl-chip" aria-pressed="false" data-cat="部品">部品（7）</button><button type="button" class="gl-chip" aria-pressed="false" data-cat="レイアウト">レイアウト（5）</button><button type="button" class="gl-chip" aria-pressed="false" data-cat="見た目・操作">見た目・操作（3）</button></div>
+    </div>
+    <ul class="gl-index" id="gl-index"><li><a href="#term-ui-ux">UI / UX</a></li><li><a href="#term-modal">モーダル</a></li><li><a href="#term-tab">タブ</a></li><li><a href="#term-accordion">アコーディオン</a></li><li><a href="#term-columns">1カラム／2カラム</a></li><li><a href="#term-responsive">レスポンシブ</a></li><li><a href="#term-mockup">モックアップ</a></li><li><a href="#term-card-ui">カードUI</a></li><li><a href="#term-header">ヘッダー</a></li><li><a href="#term-navigation">ナビゲーション</a></li><li><a href="#term-cta">CTA</a></li><li><a href="#term-hero">ヒーローセクション</a></li><li><a href="#term-hover">ホバー</a></li><li><a href="#term-accent-color">アクセントカラー</a></li><li><a href="#term-whitespace">余白</a></li><li><a href="#term-steps">ステップ表示・チェックリスト</a></li></ul>
+  </section>
+
+  <section class="gl-list" aria-labelledby="gl-list-h">
+    <p class="ux-label">Terms</p>
+    <h2 class="ux-title" id="gl-list-h">用語一覧</h2>
+    <p class="gl-count" id="gl-count" aria-live="polite">16語を表示中</p>
+    <div class="gl-tlist" id="gl-cards"></div>
+    <p class="gl-empty" id="gl-empty" hidden>条件に合う用語がありません。検索の言葉やカテゴリを変えてください。</p>
+    <div class="gl-terms" id="gl-terms">
+    <article class="ux-card ux-card--term gl-term" id="term-ui-ux" data-cat="基本" data-summary="UIは見た目と操作する部品、UXは使ったときの体験全体です。" aria-labelledby="h-ui-ux">
+      <div class="ux-card__head"><h3 id="h-ui-ux">UI / UX</h3><span class="gl-en">User Interface / User Experience</span><span class="gl-cat">基本</span></div>
+      <div class="ux-card__body">
+        <section><h4 class="gl-label">意味</h4><p>UIは「画面の見た目と、操作する部品」（ボタン・文字・色など）。UXは「使ったときの体験全体」（迷わず目的を達成できたか）です。UIは、UXをよくするための手段です。</p></section>
+        <section><h4 class="gl-label">使いどころ</h4><p>ページを直すときは、「見た目をよくしたい」ではなく「利用者が迷わず目的を達成できるようにしたい」から考えます。</p></section>
+        <section><h4 class="gl-label">表示見本</h4><div class="gl-demo"><div class="gl-two"><div class="gl-box"><p class="gl-cap">UI（部品の見た目）</p><div class="gl-row"><span class="gl-btn">ボタン</span><span class="gl-input">入力欄</span></div></div>
+<div class="gl-box"><p class="gl-cap">UX（体験の流れ）</p><ol class="gl-flow"><li>選ぶ</li><li>確認する</li><li>完了</li></ol><p class="gl-note">迷わず最後まで進めれば、よいUX</p></div></div></div></section>
+        <section><h4 class="gl-label">Codexへの指示例</h4>
+          <div class="ux-prompt ux-prompt--inline" data-prompt data-prompt-title="UI / UX の指示例">
+            <div class="ux-prompt__head"><span class="ux-prompt__label">指示例</span><span class="ux-prompt__actions"><button type="button" class="ux-btn" data-prompt-copy>コピー</button></span></div>
+            <pre class="ux-prompt__src">利用者が迷わず目的を達成できるように、このページのUI（見た目・操作）を改善してください。
+文章・リンク・機能は変えないでください。</pre>
+          </div></section>
+      </div>
+    </article>
+    <article class="ux-card ux-card--term gl-term" id="term-modal" data-cat="部品" data-summary="画面の上に重ねて表示する小さな画面（ポップアップ）です。" aria-labelledby="h-modal">
+      <div class="ux-card__head"><h3 id="h-modal">モーダル</h3><span class="gl-en">Modal</span><span class="gl-cat">部品</span></div>
+      <div class="ux-card__body">
+        <section><h4 class="gl-label">意味</h4><p>画面の上に重ねて表示する小さな画面（ポップアップ）です。開いている間は、後ろのページを操作できません。</p></section>
+        <section><h4 class="gl-label">使いどころ</h4><p>長い文章（プロンプトなど）を、必要なときだけ見せたいとき。確認や入力など、いま集中してほしい操作に使います。常に読ませたい手順は、入れません。</p></section>
+        <section><h4 class="gl-label">表示見本</h4><div class="gl-demo"><div class="gl-mini" data-mini><div class="gl-mini__page"><i class="gl-bar"></i><i class="gl-bar short"></i><button type="button" class="ux-btn" data-mini-open>モーダルを開く（見本）</button></div>
+<div class="gl-mini__layer" data-mini-layer hidden><div class="gl-mini__box" role="group" aria-label="モーダルの見本"><b>モーダルの見本</b><p>開いている間、後ろのページは操作できません。</p><button type="button" class="ux-btn ux-btn--primary" data-mini-close>閉じる</button></div></div></div>
+<p class="gl-note">この見本は枠の中で動きます。背景の暗い部分か「閉じる」で閉じられます。</p></div></section>
+        <section><h4 class="gl-label">Codexへの指示例</h4>
+          <div class="ux-prompt ux-prompt--inline" data-prompt data-prompt-title="モーダル の指示例">
+            <div class="ux-prompt__head"><span class="ux-prompt__label">指示例</span><span class="ux-prompt__actions"><button type="button" class="ux-btn" data-prompt-copy>コピー</button></span></div>
+            <pre class="ux-prompt__src">長いプロンプトを、ボタンで開くモーダル（ポップアップ）にしてください。
+開く・閉じる・全文コピーができ、Escキーでも閉じられるようにしてください。</pre>
+          </div></section>
+      </div>
+    </article>
+    <article class="ux-card ux-card--term gl-term" id="term-tab" data-cat="部品" data-summary="同じ場所で、表示する内容を切り替える見出しの並びです。" aria-labelledby="h-tab">
+      <div class="ux-card__head"><h3 id="h-tab">タブ</h3><span class="gl-en">Tabs</span><span class="gl-cat">部品</span></div>
+      <div class="ux-card__body">
+        <section><h4 class="gl-label">意味</h4><p>同じ場所で、表示する内容を切り替える見出しの並びです。</p></section>
+        <section><h4 class="gl-label">使いどころ</h4><p>工程や種類ごとに情報を分けて、いま必要な分だけ見せたいとき。</p></section>
+        <section><h4 class="gl-label">表示見本</h4><div class="gl-demo"><div class="gl-tabs" data-demo-tabs><div class="gl-tabs__list" role="tablist" aria-label="タブの見本"><button type="button" role="tab" aria-selected="true">手順</button><button type="button" role="tab" aria-selected="false" tabindex="-1">理由</button><button type="button" role="tab" aria-selected="false" tabindex="-1">確認</button></div>
+<div class="gl-tabs__panel" role="tabpanel">手順：やることを順に書きます。</div><div class="gl-tabs__panel" role="tabpanel" hidden>理由：なぜ必要かを書きます。</div><div class="gl-tabs__panel" role="tabpanel" hidden>確認：できたかどうかを確かめます。</div></div></div></section>
+        <section><h4 class="gl-label">Codexへの指示例</h4>
+          <div class="ux-prompt ux-prompt--inline" data-prompt data-prompt-title="タブ の指示例">
+            <div class="ux-prompt__head"><span class="ux-prompt__label">指示例</span><span class="ux-prompt__actions"><button type="button" class="ux-btn" data-prompt-copy>コピー</button></span></div>
+            <pre class="ux-prompt__src">工程ごとにタブで切り替えられるようにしてください。
+現在選択中のタブが分かる見た目にし、キーボードでも操作できるようにしてください。</pre>
+          </div></section>
+      </div>
+    </article>
+    <article class="ux-card ux-card--term gl-term" id="term-accordion" data-cat="部品" data-summary="見出しを押すと、中身が開いたり閉じたりする表示です。" aria-labelledby="h-accordion">
+      <div class="ux-card__head"><h3 id="h-accordion">アコーディオン</h3><span class="gl-en">Accordion</span><span class="gl-cat">部品</span></div>
+      <div class="ux-card__body">
+        <section><h4 class="gl-label">意味</h4><p>見出しを押すと、中身が開いたり閉じたりする表示です。</p></section>
+        <section><h4 class="gl-label">使いどころ</h4><p>補足や見本など、必要な人だけ読めばよい情報。必須の手順は閉じません。</p></section>
+        <section><h4 class="gl-label">表示見本</h4><div class="gl-demo"><details class="gl-acc"><summary>よくある質問（押すと開きます）</summary><p>ここに答えが入ります。</p></details><details class="gl-acc"><summary>もうひとつの質問</summary><p>必要な人だけが開いて読みます。</p></details></div></section>
+        <section><h4 class="gl-label">Codexへの指示例</h4>
+          <div class="ux-prompt ux-prompt--inline" data-prompt data-prompt-title="アコーディオン の指示例">
+            <div class="ux-prompt__head"><span class="ux-prompt__label">指示例</span><span class="ux-prompt__actions"><button type="button" class="ux-btn" data-prompt-copy>コピー</button></span></div>
+            <pre class="ux-prompt__src">よくある質問を、見出しを押すと開くアコーディオンにしてください。
+最初は閉じておき、必須の手順は折りたたまないでください。</pre>
+          </div></section>
+      </div>
+    </article>
+    <article class="ux-card ux-card--term gl-term" id="term-columns" data-cat="レイアウト" data-summary="画面を縦の列で区切った構成です。" aria-labelledby="h-columns">
+      <div class="ux-card__head"><h3 id="h-columns">1カラム／2カラム</h3><span class="gl-en">Columns</span><span class="gl-cat">レイアウト</span></div>
+      <div class="ux-card__body">
+        <section><h4 class="gl-label">意味</h4><p>画面を縦の列で区切った構成です。1カラムは本文が縦一列、2カラムは本文の横に目次などを置く構成です。</p></section>
+        <section><h4 class="gl-label">使いどころ</h4><p>読み物は1カラム。目次や関連リンクを常に見せたいなら2カラム。スマホでは1カラムに戻すのが基本です。</p></section>
+        <section><h4 class="gl-label">表示見本</h4><div class="gl-demo"><div class="gl-two"><div class="gl-box"><p class="gl-cap">1カラム</p><div class="gl-frame"><i class="gl-bar"></i><i class="gl-bar"></i><i class="gl-bar short"></i></div></div>
+<div class="gl-box"><p class="gl-cap">2カラム</p><div class="gl-frame gl-frame--2"><div><i class="gl-bar"></i><i class="gl-bar"></i><i class="gl-bar short"></i></div><div class="gl-side"><i class="gl-bar"></i><i class="gl-bar"></i></div></div></div></div></div></section>
+        <section><h4 class="gl-label">Codexへの指示例</h4>
+          <div class="ux-prompt ux-prompt--inline" data-prompt data-prompt-title="1カラム／2カラム の指示例">
+            <div class="ux-prompt__head"><span class="ux-prompt__label">指示例</span><span class="ux-prompt__actions"><button type="button" class="ux-btn" data-prompt-copy>コピー</button></span></div>
+            <pre class="ux-prompt__src">本文を2カラム（本文と、右側の目次）にしてください。
+スマホでは1カラムに戻してください。</pre>
+          </div></section>
+      </div>
+    </article>
+    <article class="ux-card ux-card--term gl-term" id="term-responsive" data-cat="レイアウト" data-summary="画面の幅（PC・スマホ）に合わせて、レイアウトが自動で変わる作りです。" aria-labelledby="h-responsive">
+      <div class="ux-card__head"><h3 id="h-responsive">レスポンシブ</h3><span class="gl-en">Responsive design</span><span class="gl-cat">レイアウト</span></div>
+      <div class="ux-card__body">
+        <section><h4 class="gl-label">意味</h4><p>画面の幅（PC・スマホ）に合わせて、レイアウトが自動で変わる作りです。</p></section>
+        <section><h4 class="gl-label">使いどころ</h4><p>PCでもスマホでも見られるページ。横スクロールが出ないこと、文字や押す部分が小さくなりすぎないことが目安です。</p></section>
+        <section><h4 class="gl-label">表示見本</h4><div class="gl-demo"><div class="gl-two"><div class="gl-box"><p class="gl-cap">PCの幅（3列）</p><div class="gl-grid3"><i></i><i></i><i></i></div></div><div class="gl-box"><p class="gl-cap">スマホの幅（1列）</p><div class="gl-grid1"><i></i><i></i><i></i></div></div></div></div></section>
+        <section><h4 class="gl-label">Codexへの指示例</h4>
+          <div class="ux-prompt ux-prompt--inline" data-prompt data-prompt-title="レスポンシブ の指示例">
+            <div class="ux-prompt__head"><span class="ux-prompt__label">指示例</span><span class="ux-prompt__actions"><button type="button" class="ux-btn" data-prompt-copy>コピー</button></span></div>
+            <pre class="ux-prompt__src">スマホ（画面幅360〜390px）でも見やすいレスポンシブ表示にしてください。
+横スクロールが出ないようにし、ボタンは押しやすい大きさにしてください。</pre>
+          </div></section>
+      </div>
+    </article>
+    <article class="ux-card ux-card--term gl-term" id="term-mockup" data-cat="レイアウト" data-summary="完成後の画面イメージを見せる、見本の画面枠です。" aria-labelledby="h-mockup">
+      <div class="ux-card__head"><h3 id="h-mockup">モックアップ</h3><span class="gl-en">Mockup</span><span class="gl-cat">レイアウト</span></div>
+      <div class="ux-card__body">
+        <section><h4 class="gl-label">意味</h4><p>完成後の画面イメージを見せる、見本の画面枠（PCやスマホの画面）です。</p></section>
+        <section><h4 class="gl-label">使いどころ</h4><p>操作画面や完成イメージを、文章より早く伝えたいとき。</p></section>
+        <section><h4 class="gl-label">表示見本</h4><div class="gl-demo"><div class="gl-mock"><div class="gl-pc"><i class="gl-bar"></i><i class="gl-bar short"></i></div><div class="gl-phone"><i class="gl-bar"></i><i class="gl-bar short"></i></div></div></div></section>
+        <section><h4 class="gl-label">Codexへの指示例</h4>
+          <div class="ux-prompt ux-prompt--inline" data-prompt data-prompt-title="モックアップ の指示例">
+            <div class="ux-prompt__head"><span class="ux-prompt__label">指示例</span><span class="ux-prompt__actions"><button type="button" class="ux-btn" data-prompt-copy>コピー</button></span></div>
+            <pre class="ux-prompt__src">説明の近くに、PC画面とスマホ画面のモックアップを入れてください。
+画像は後から差し替えられる枠にし、代替テキスト（alt）を付けてください。</pre>
+          </div></section>
+      </div>
+    </article>
+    <article class="ux-card ux-card--term gl-term" id="term-card-ui" data-cat="部品" data-summary="関連する情報を、枠で囲んだ小さな面にまとめる見せ方です。" aria-labelledby="h-card-ui">
+      <div class="ux-card__head"><h3 id="h-card-ui">カードUI</h3><span class="gl-en">Card UI</span><span class="gl-cat">部品</span></div>
+      <div class="ux-card__body">
+        <section><h4 class="gl-label">意味</h4><p>関連する情報を、枠で囲んだ小さな面にまとめる見せ方です。</p></section>
+        <section><h4 class="gl-label">使いどころ</h4><p>種類の違う情報を並べて、役割を見分けやすくしたいとき（手順・補足・配布ファイルなど）。</p></section>
+        <section><h4 class="gl-label">表示見本</h4><div class="gl-demo"><div class="gl-cards"><div class="gl-card"><b>手順</b><span>やること</span></div><div class="gl-card gl-card--note"><b>補足</b><span>知っておくこと</span></div><div class="gl-card gl-card--file"><b>配布</b><span>ダウンロード</span></div></div></div></section>
+        <section><h4 class="gl-label">Codexへの指示例</h4>
+          <div class="ux-prompt ux-prompt--inline" data-prompt data-prompt-title="カードUI の指示例">
+            <div class="ux-prompt__head"><span class="ux-prompt__label">指示例</span><span class="ux-prompt__actions"><button type="button" class="ux-btn" data-prompt-copy>コピー</button></span></div>
+            <pre class="ux-prompt__src">手順・補足・配布ファイルを、役割が分かるカードUIに分けてください。
+カードごとに見出しと余白をそろえてください。</pre>
+          </div></section>
+      </div>
+    </article>
+    <article class="ux-card ux-card--term gl-term" id="term-header" data-cat="レイアウト" data-summary="ページの一番上にある、タイトルやロゴ、メニューを置く帯です。" aria-labelledby="h-header">
+      <div class="ux-card__head"><h3 id="h-header">ヘッダー</h3><span class="gl-en">Header</span><span class="gl-cat">レイアウト</span></div>
+      <div class="ux-card__body">
+        <section><h4 class="gl-label">意味</h4><p>ページの一番上にある、タイトルやロゴ、メニューを置く帯です。</p></section>
+        <section><h4 class="gl-label">使いどころ</h4><p>いま見ているサイトが何か、どこへ移動できるかを、最初に伝えたいとき。</p></section>
+        <section><h4 class="gl-label">表示見本</h4><div class="gl-demo"><div class="gl-header"><b>サイト名</b><span>メニュー</span></div></div></section>
+        <section><h4 class="gl-label">Codexへの指示例</h4>
+          <div class="ux-prompt ux-prompt--inline" data-prompt data-prompt-title="ヘッダー の指示例">
+            <div class="ux-prompt__head"><span class="ux-prompt__label">指示例</span><span class="ux-prompt__actions"><button type="button" class="ux-btn" data-prompt-copy>コピー</button></span></div>
+            <pre class="ux-prompt__src">ページの上部に、サイト名と主要メニューを置いたヘッダーを作ってください。
+スマホでも1行に収まるようにしてください。</pre>
+          </div></section>
+      </div>
+    </article>
+    <article class="ux-card ux-card--term gl-term" id="term-navigation" data-cat="部品" data-summary="ページ間・ページ内を移動するためのメニューです。" aria-labelledby="h-navigation">
+      <div class="ux-card__head"><h3 id="h-navigation">ナビゲーション</h3><span class="gl-en">Navigation</span><span class="gl-cat">部品</span></div>
+      <div class="ux-card__body">
+        <section><h4 class="gl-label">意味</h4><p>ページ間・ページ内を移動するためのメニューです。</p></section>
+        <section><h4 class="gl-label">使いどころ</h4><p>どこにいるか（現在地）と、次にどこへ行けるかを示したいとき。現在地は、色だけでなく下線などでも示します。</p></section>
+        <section><h4 class="gl-label">表示見本</h4><div class="gl-demo"><div class="gl-nav" role="presentation"><span>午前</span><span class="is-current">午後</span><span>応用編</span><span>用語集</span></div><p class="gl-note">現在地は、色・太さ・下線で示しています。</p></div></section>
+        <section><h4 class="gl-label">Codexへの指示例</h4>
+          <div class="ux-prompt ux-prompt--inline" data-prompt data-prompt-title="ナビゲーション の指示例">
+            <div class="ux-prompt__head"><span class="ux-prompt__label">指示例</span><span class="ux-prompt__actions"><button type="button" class="ux-btn" data-prompt-copy>コピー</button></span></div>
+            <pre class="ux-prompt__src">午前・午後・応用編・用語集へ移動できるナビゲーションを、全ページの上部に置いてください。
+現在のページが分かる表示にしてください。</pre>
+          </div></section>
+      </div>
+    </article>
+    <article class="ux-card ux-card--term gl-term" id="term-cta" data-cat="部品" data-summary="「ダウンロードする」「申し込む」のように、次の行動をうながすボタンやリンクです。" aria-labelledby="h-cta">
+      <div class="ux-card__head"><h3 id="h-cta">CTA</h3><span class="gl-en">Call To Action</span><span class="gl-cat">部品</span></div>
+      <div class="ux-card__body">
+        <section><h4 class="gl-label">意味</h4><p>「ダウンロードする」「申し込む」のように、次の行動をうながすボタンやリンクです。</p></section>
+        <section><h4 class="gl-label">使いどころ</h4><p>読んだ人にしてほしい行動が1つあるとき。目立たせるのは、1ページに1〜2個までにします。</p></section>
+        <section><h4 class="gl-label">表示見本</h4><div class="gl-demo"><div class="gl-row"><span class="gl-btn gl-btn--main">資料をダウンロード</span><span class="gl-btn">あとで読む</span></div><p class="gl-note">主なボタンだけを目立たせています。</p></div></section>
+        <section><h4 class="gl-label">Codexへの指示例</h4>
+          <div class="ux-prompt ux-prompt--inline" data-prompt data-prompt-title="CTA の指示例">
+            <div class="ux-prompt__head"><span class="ux-prompt__label">指示例</span><span class="ux-prompt__actions"><button type="button" class="ux-btn" data-prompt-copy>コピー</button></span></div>
+            <pre class="ux-prompt__src">ページの最後に、「資料をダウンロード」のCTAボタンを置いてください。
+主なボタンは1つだけ目立たせ、他は控えめにしてください。</pre>
+          </div></section>
+      </div>
+    </article>
+    <article class="ux-card ux-card--term gl-term" id="term-hero" data-cat="レイアウト" data-summary="ページを開いて最初に見える、大きな見出しと一言説明の領域です。" aria-labelledby="h-hero">
+      <div class="ux-card__head"><h3 id="h-hero">ヒーローセクション</h3><span class="gl-en">Hero section</span><span class="gl-cat">レイアウト</span></div>
+      <div class="ux-card__body">
+        <section><h4 class="gl-label">意味</h4><p>ページを開いて最初に見える、大きな見出しと一言説明の領域です。</p></section>
+        <section><h4 class="gl-label">使いどころ</h4><p>ページの目的を、最初の数秒で伝えたいとき。</p></section>
+        <section><h4 class="gl-label">表示見本</h4><div class="gl-demo"><div class="gl-hero"><b>ひと目で分かる題名</b><span>1行の説明</span><span class="gl-btn gl-btn--main">はじめる</span></div></div></section>
+        <section><h4 class="gl-label">Codexへの指示例</h4>
+          <div class="ux-prompt ux-prompt--inline" data-prompt data-prompt-title="ヒーローセクション の指示例">
+            <div class="ux-prompt__head"><span class="ux-prompt__label">指示例</span><span class="ux-prompt__actions"><button type="button" class="ux-btn" data-prompt-copy>コピー</button></span></div>
+            <pre class="ux-prompt__src">ページの最初に、題名と1行の説明、主なボタンを置いたヒーローセクションを作ってください。
+文章量は少なくしてください。</pre>
+          </div></section>
+      </div>
+    </article>
+    <article class="ux-card ux-card--term gl-term" id="term-hover" data-cat="見た目・操作" data-summary="マウスを重ねたときに、見た目が変わることです。" aria-labelledby="h-hover">
+      <div class="ux-card__head"><h3 id="h-hover">ホバー</h3><span class="gl-en">Hover</span><span class="gl-cat">見た目・操作</span></div>
+      <div class="ux-card__body">
+        <section><h4 class="gl-label">意味</h4><p>マウスを重ねたときに、見た目が変わることです。「押せる場所」を伝える合図になります。</p></section>
+        <section><h4 class="gl-label">使いどころ</h4><p>ボタン・リンク・カードなど、押せる場所を示したいとき。スマホにはホバーがないので、ホバーだけに頼りません。</p></section>
+        <section><h4 class="gl-label">表示見本</h4><div class="gl-demo"><div class="gl-row"><span class="gl-hover" tabindex="0">マウスを重ねてみてください</span></div><p class="gl-note">キーボードでフォーカスしても、同じ見た目になります。</p></div></section>
+        <section><h4 class="gl-label">Codexへの指示例</h4>
+          <div class="ux-prompt ux-prompt--inline" data-prompt data-prompt-title="ホバー の指示例">
+            <div class="ux-prompt__head"><span class="ux-prompt__label">指示例</span><span class="ux-prompt__actions"><button type="button" class="ux-btn" data-prompt-copy>コピー</button></span></div>
+            <pre class="ux-prompt__src">ボタンとカードに、マウスを重ねたときの見た目の変化（ホバー）を付けてください。
+スマホでも使えるように、ホバーだけに頼らない作りにしてください。</pre>
+          </div></section>
+      </div>
+    </article>
+    <article class="ux-card ux-card--term gl-term" id="term-accent-color" data-cat="見た目・操作" data-summary="基本の色に加えて、強調したい所だけに使う色です。" aria-labelledby="h-accent-color">
+      <div class="ux-card__head"><h3 id="h-accent-color">アクセントカラー</h3><span class="gl-en">Accent color</span><span class="gl-cat">見た目・操作</span></div>
+      <div class="ux-card__body">
+        <section><h4 class="gl-label">意味</h4><p>基本の色に加えて、強調したい所だけに使う色です。</p></section>
+        <section><h4 class="gl-label">使いどころ</h4><p>ボタンやリンクなど、目を向けてほしい所だけに使います。使いすぎると、どこが大事か分からなくなります。</p></section>
+        <section><h4 class="gl-label">表示見本</h4><div class="gl-demo"><div class="gl-swatches"><span class="gl-sw" style="background:var(--ink)">基本</span><span class="gl-sw" style="background:var(--paper-warm);color:var(--ink);border:1px solid var(--line)">背景</span><span class="gl-sw" style="background:var(--fill);color:var(--on-fill)">強調</span></div><div class="gl-row"><span class="gl-btn gl-btn--main">強調の色はここだけ</span></div></div></section>
+        <section><h4 class="gl-label">Codexへの指示例</h4>
+          <div class="ux-prompt ux-prompt--inline" data-prompt data-prompt-title="アクセントカラー の指示例">
+            <div class="ux-prompt__head"><span class="ux-prompt__label">指示例</span><span class="ux-prompt__actions"><button type="button" class="ux-btn" data-prompt-copy>コピー</button></span></div>
+            <pre class="ux-prompt__src">アクセントカラーを1色に決めて、ボタン・リンク・見出しの印だけに使ってください。
+文字と背景の明暗差は確保してください。</pre>
+          </div></section>
+      </div>
+    </article>
+    <article class="ux-card ux-card--term gl-term" id="term-whitespace" data-cat="見た目・操作" data-summary="文字や部品のまわりの、何も置かない空きです。" aria-labelledby="h-whitespace">
+      <div class="ux-card__head"><h3 id="h-whitespace">余白</h3><span class="gl-en">Whitespace</span><span class="gl-cat">見た目・操作</span></div>
+      <div class="ux-card__body">
+        <section><h4 class="gl-label">意味</h4><p>文字や部品のまわりの、何も置かない空きです。</p></section>
+        <section><h4 class="gl-label">使いどころ</h4><p>情報のまとまりを見分けやすくしたいとき。詰め込むほど、読みにくくなります。</p></section>
+        <section><h4 class="gl-label">表示見本</h4><div class="gl-demo"><div class="gl-two"><div class="gl-box"><p class="gl-cap">余白が少ない</p><div class="gl-space gl-space--tight"><b>見出し</b><p>本文が続きます。まとまりが分かりにくい。</p><b>見出し</b><p>次の本文です。</p></div></div><div class="gl-box"><p class="gl-cap">余白がある</p><div class="gl-space"><b>見出し</b><p>本文が続きます。まとまりが見分けやすい。</p><b>見出し</b><p>次の本文です。</p></div></div></div></div></section>
+        <section><h4 class="gl-label">Codexへの指示例</h4>
+          <div class="ux-prompt ux-prompt--inline" data-prompt data-prompt-title="余白 の指示例">
+            <div class="ux-prompt__head"><span class="ux-prompt__label">指示例</span><span class="ux-prompt__actions"><button type="button" class="ux-btn" data-prompt-copy>コピー</button></span></div>
+            <pre class="ux-prompt__src">見出しと本文、カードとカードの間の余白を広げて、まとまりが見分けやすいようにしてください。
+文章は変えないでください。</pre>
+          </div></section>
+      </div>
+    </article>
+    <article class="ux-card ux-card--term gl-term" id="term-steps" data-cat="部品" data-summary="手順に番号を付けて順番を示す表示と、できたかどうかを確かめる確認欄です。" aria-labelledby="h-steps">
+      <div class="ux-card__head"><h3 id="h-steps">ステップ表示・チェックリスト</h3><span class="gl-en">Steps / Checklist</span><span class="gl-cat">部品</span></div>
+      <div class="ux-card__body">
+        <section><h4 class="gl-label">意味</h4><p>手順に番号を付けて順番を示す表示と、できたかどうかを確かめる確認欄です。</p></section>
+        <section><h4 class="gl-label">使いどころ</h4><p>操作手順など、順番どおりに進めてほしい情報。「できたら確認」を付けると、次へ進んでよいか迷いません。</p></section>
+        <section><h4 class="gl-label">表示見本</h4><div class="gl-demo"><ol class="gl-steps"><li>ファイルを開く</li><li>プロンプトをコピーする</li><li>貼り付けて実行する</li></ol><label class="gl-check"><input type="checkbox"><span>できたら確認：結果が表示された</span></label></div></section>
+        <section><h4 class="gl-label">Codexへの指示例</h4>
+          <div class="ux-prompt ux-prompt--inline" data-prompt data-prompt-title="ステップ表示・チェックリスト の指示例">
+            <div class="ux-prompt__head"><span class="ux-prompt__label">指示例</span><span class="ux-prompt__actions"><button type="button" class="ux-btn" data-prompt-copy>コピー</button></span></div>
+            <pre class="ux-prompt__src">手順に番号を付けたステップ表示にし、各ステップの終わりに「できたら確認」のチェック欄を付けてください。
+手順の文章は変えないでください。</pre>
+          </div></section>
+      </div>
+    </article>
+    </div>
+  </section>
+</main>
+
+<script src="js/copy.js"></script>
+<script src="js/glossary.js"></script>
+</body>
+</html>
