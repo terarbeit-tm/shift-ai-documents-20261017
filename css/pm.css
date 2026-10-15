@@ -6,10 +6,10 @@
 .pm-top{padding-top:var(--sp-3);display:grid;gap:var(--sp-3)}
 .pm-top>*{margin:0}
 .pm-pending{display:inline-block;padding:1px 10px;border:1px dashed var(--border-strong);border-radius:var(--r-xs);
-  background:var(--bg-dark);color:var(--ink-sub);font-size:var(--fs-xs);font-weight:700;letter-spacing:.04em;white-space:nowrap}
+  background:var(--bg-dark);color:var(--ink-sub);font-size:var(--fs-xs);font-weight:600;letter-spacing:.04em;white-space:nowrap}
 .pm-pending[hidden]{display:none}
 .ux-prompt .pm-pending{background:transparent;border-color:rgba(255,248,242,.45);color:rgba(255,248,242,.8);letter-spacing:.04em}
-.pm-start__h{margin:0 0 var(--sp-1);font-size:1.15rem;font-weight:800;line-height:1.5;color:var(--ink)}
+.pm-start__h{margin:0 0 var(--sp-1);font-size:1.15rem;font-weight:700;line-height:1.5;color:var(--ink)}
 .pm-start .ux-card__body{padding-top:6px}
 .pm-start__row{display:flex;flex-wrap:wrap;align-items:center;gap:var(--sp-1) var(--sp-2)}
 .pm-fine{font-size:var(--fs-xs);color:var(--ink-sub)}
@@ -45,7 +45,7 @@
 /* 各工程（CP）の中は、午前のワーク（W）と同じ。見出し単位のカード（.ux-step）を縦1カラムに並べる */
 .pm-panel{padding:var(--sp-3) 0 var(--sp-8);scroll-margin-top:var(--pm-offset)}
 .pm-panel__head{display:flex;align-items:center;flex-wrap:wrap;gap:12px;margin-bottom:var(--sp-1)}
-.pm-panel h2{margin:0;font-size:22px;font-weight:800;line-height:1.4}
+.pm-panel h2{margin:0;font-size:22px;font-weight:700;line-height:1.4}
 .pm-panel h2:focus{outline:none}
 .pm-panel h2:focus-visible{outline:var(--focus-ring);outline-offset:4px}
 .pm-card{scroll-margin-top:var(--pm-offset)}

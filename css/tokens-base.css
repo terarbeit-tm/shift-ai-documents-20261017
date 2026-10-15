@@ -1,7 +1,7 @@
 /* 既存トークンの固定コピー（新ページ専用。index.html には読み込まない）：index.html 450行目の有効値（後勝ちの現行配色）をそのまま固定。
    index.html 6行目の旧定義（ネイビー＋ゴールド）は使わない。既存値は変更しない。 */
 :root{
-  --ink:#292521;
+  --ink:#3B3632;
   --ink-sub:#655A51;
   --ink-faint:#7B6A5D;
   --paper:#FFFFFF;
@@ -24,7 +24,7 @@
   --shot-frame:#F4ECE4;
   --head-bg:#FFFFFF;
   --head-line:#E6D7CB;
-  --head-ink:#292521;
+  --head-ink:#3B3632;
   --head-ink-sub:#655A51;
   --head-accent:#B94700;
   --head-accent-soft:#FFF0E4;
