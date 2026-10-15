@@ -273,3 +273,22 @@ h4.ux-step__head{margin:0;padding:15px 22px;border-radius:0;box-shadow:none}
 }
 #t0 section.chap .goal{border-color:color-mix(in srgb,var(--accent) 28%,transparent)}
 #t0 section.chap .chap-head h3,#t1 section.chap .chap-head h3,#t3 section.chap .chap-head h3{word-break:auto-phrase;line-break:strict}
+
+/* ===== 05 講義のあと：応用編の切替カード（大きめの選択カード。PCは2列、スマホは1列） ===== */
+.ws-js .worksub.worksub--cards{position:static;margin:var(--sp-4) 0 var(--sp-2);padding:0;background:none;box-shadow:none}
+.worksub--cards .worksub-inner{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:14px;overflow:visible;padding:0}
+.worksub--cards .worksub-card{position:relative;display:flex;align-items:flex-start;gap:14px;min-height:0;padding:16px 18px 40px;border:1.5px solid var(--border-strong);border-radius:var(--r);background:var(--paper);box-shadow:var(--shadow-sm);
+  color:var(--ink);text-align:left;white-space:normal;font-weight:400;line-height:1.5}
+.worksub-card .wc-ic{flex:none;display:grid;place-items:center;width:46px;height:46px;border-radius:50%;background:var(--accent-soft);color:var(--accent)}
+.worksub-card .wc-tx{display:grid;gap:4px;min-width:0}
+.worksub-card .wc-t{font-size:1.05rem;font-weight:800;color:var(--ink)}
+.worksub-card .wc-d{font-size:.85rem;font-weight:500;color:var(--ink-light);word-break:auto-phrase;line-break:strict}
+.worksub-card::after{content:"表示する →";position:absolute;right:16px;bottom:12px;font-size:.78rem;font-weight:800;color:var(--accent)}
+.worksub--cards .worksub-card:hover{border-color:var(--accent);background:var(--accent-soft);color:var(--ink);box-shadow:var(--shadow)}
+.worksub--cards .worksub-card.on{border-color:var(--fill);background:var(--accent-soft);color:var(--ink);box-shadow:0 0 0 1px var(--fill),var(--shadow)}
+.worksub--cards .worksub-card.on .wc-ic{background:var(--grad-main);color:var(--on-fill)}
+.worksub-card.on::after{content:"✓ 表示中";color:var(--fill)}
+@media (max-width:640px){
+  .worksub--cards .worksub-inner{grid-template-columns:minmax(0,1fr);gap:10px}
+  .worksub--cards .worksub-card{padding:14px 14px 38px}
+}

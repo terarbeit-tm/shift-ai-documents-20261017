@@ -49,14 +49,16 @@
 
   function headOf(pane) { return pane.querySelector('.chap-head, .pm-panel__head, .panel-head') || pane; }
 
-  function toHeading(g, pane) { reveal(headOf(pane), stack(g)); }
+  /* 切替カード（選択カード形式・固定しない）のグループは、カードが見える位置を先頭にする */
+  function toHeading(g, pane) { reveal(g.nav.classList.contains('worksub--cards') ? g.nav : headOf(pane), stack(g)); }
 
   /* メインタブを切り替えたとき、そのタブの先頭（見出し）が、固定のメインタブの下に見えるようにする */
   function toPanel(id) {
     var p = document.querySelector('.panel[data-panel="' + id + '"]') || document.getElementById(id);
     if (!p) return;
+    var cards = p.querySelector('.worksub--cards');
     var heads = [].slice.call(p.querySelectorAll('.panel-head')).filter(function (e) { return e.offsetParent !== null; });
-    reveal(heads[0] || p, bar ? bar.offsetHeight : 0);
+    reveal(cards || heads[0] || p, bar ? bar.offsetHeight : 0);
   }
 
   function paneOf(g, el) {
@@ -117,7 +119,7 @@
     var hit = find(el);
     if (hit && isOn(hit.g)) {
       select(hit.g, hit.pane.id);
-      el.scrollIntoView();
+      if (el === hit.pane) toHeading(hit.g, hit.pane); else el.scrollIntoView();
     }
   }
 
@@ -154,7 +156,7 @@
     if (!hit) return;
     setTimeout(function () {
       select(hit.g, hit.pane.id, { url: false });
-      el.scrollIntoView();
+      if (el === hit.pane) toHeading(hit.g, hit.pane); else el.scrollIntoView();
       if (a.hasAttribute('data-goto')) { var h2 = hit.pane.querySelector('h2'); if (h2) h2.focus({ preventScroll: true }); }
     }, 0);
   });
