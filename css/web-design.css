@@ -27,7 +27,7 @@
 .wd-h{margin:16px 0 8px;font-size:.95rem;font-weight:700;color:var(--ink)}
 .wd-h:first-child{margin-top:0}
 .wd-sum{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:8px;margin:0}
-.wd-sum div{min-width:0;padding:10px 14px;border-radius:10px;background:var(--accent-soft)}
+.wd-sum div{min-width:0;padding:10px 14px;border:1px solid #D9D9D9;border-radius:10px;background:#FFFFFF}
 .wd-sum dt{font-size:.75rem;font-weight:600;color:var(--ink-sub)}
 .wd-sum dd{margin:2px 0 0;font-size:.9rem;line-height:1.6;overflow-wrap:anywhere}
 .wd-pre{max-height:320px;margin:0;padding:14px 16px;overflow:auto;border-radius:12px;background:#2b2622;color:#fff8f2;font:inherit;font-size:.85rem;line-height:1.85;white-space:pre-wrap;overflow-wrap:anywhere}
