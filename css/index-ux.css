@@ -320,7 +320,7 @@ a.after-btn:focus-visible,.after-copy:focus-visible{outline:3px solid var(--ink)
 .after-copy.is-done{border-color:#1F7A44;background:#1F7A44;color:#fff}
 /* 公開講評会：横長カード。サムネイルは16:9のまま枠に収める（画像ファイルのパスだけで差し替え可。画像が無い・読めないときは「サムネイル準備中」） */
 .after-bd--ev{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1fr);align-items:stretch;gap:20px}
-.after-thumb{position:relative;margin:0;aspect-ratio:16/9;align-self:start;overflow:hidden;border:1px solid var(--border);border-radius:var(--r-sm);background:var(--accent-soft)}
+.after-thumb{position:relative;margin:0;aspect-ratio:16/9;align-self:center;overflow:hidden;border:1px solid var(--border);border-radius:var(--r-sm);background:var(--accent-soft)}
 .after-thumb img{display:block;width:100%;height:100%;object-fit:contain}
 .after-thumb:not(:has(img))::after{content:"サムネイル準備中";position:absolute;inset:0;display:grid;place-items:center;font-size:.9rem;font-weight:700;color:var(--ink-light)}
 .after-ev{display:flex;flex-direction:column;gap:10px;min-width:0}
