@@ -9,7 +9,7 @@
 
   var PARTS = [
     { id: 'am', label: '午前のワーク', panel: 't2', stages: ['s7', 's8', 's9', 's10', 's18'] },
-    { id: 'pm', label: '午後のワーク', panel: 'tpm', stages: ['start', 'cp1', 'cp2', 'cp3', 'cp4'] }
+    { id: 'pm', label: '午後のワーク', panel: 'tpm', stages: ['start', 'cp1', 'cp2', 'cp3', 'cp4', 'cp5'] }
   ];
 
   function txt(el) { return el ? el.textContent.replace(/\s+/g, ' ').trim() : ''; }

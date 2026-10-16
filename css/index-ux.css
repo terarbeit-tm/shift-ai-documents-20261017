@@ -304,7 +304,7 @@ h4.ux-step__head{margin:0;padding:15px 22px;border-radius:0;box-shadow:none}
 .after-when{display:flex;flex-wrap:wrap;gap:4px 10px;align-items:baseline;font-weight:600}
 .after-when span{padding:0 8px;border:1px solid var(--border-strong);border-radius:4px;font-size:.75rem;font-weight:600;color:var(--ink-light)}
 .after-sub{font-weight:600;color:var(--ink-light)}
-.after-act{display:flex;justify-content:flex-start;margin-top:auto;padding-top:6px}
+.after-act{display:flex;flex-wrap:wrap;gap:10px;justify-content:flex-start;margin-top:auto;padding-top:6px}
 .after-btn{display:inline-flex;align-items:center;justify-content:center;max-width:100%;min-height:var(--tap);padding:6px 22px;border:1px solid var(--fill);border-radius:50px;background:var(--fill);color:var(--on-fill);font-size:.92rem;font-weight:700;text-align:center;text-decoration:none}
 a.after-btn:hover{background:color-mix(in srgb,var(--fill) 88%,#000);color:var(--on-fill);text-decoration:none}
 a.after-btn--discord{border-color:#5865F2;background:#5865F2;color:#fff}
