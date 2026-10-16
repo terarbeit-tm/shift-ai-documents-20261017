@@ -1,8 +1,6 @@
 /* Webページ設計・UI/UXシート（特設ページ応用）。要 tokens / site */
-.wd{margin:var(--sp-4) 0;padding:20px;border:1px solid var(--border-strong);border-radius:16px;background:var(--paper);box-shadow:var(--shadow-sm)}
-.wd-kicker{margin:0 0 4px;font-size:11px;font-weight:600;letter-spacing:.14em;color:var(--accent)}
-.wd-title{margin:0 0 8px;font-size:1.25rem;font-weight:700;line-height:1.45;color:var(--ink)}
-.wd-lead{margin:0 0 16px;font-size:.92rem;line-height:1.8;color:var(--ink-sub)}
+.wd{min-width:0}
+.wd-lead{margin:12px 0 16px;font-size:.92rem;line-height:1.8;color:var(--ink-sub)}
 .wd-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:14px}
 .wd-q{min-width:0;margin:0;padding:14px;border:1px solid var(--border);border-radius:14px;background:var(--accent-soft)}
 .wd-q--wide{grid-column:1/-1}
@@ -29,7 +27,7 @@
 .wd-h{margin:16px 0 8px;font-size:.95rem;font-weight:700;color:var(--ink)}
 .wd-h:first-child{margin-top:0}
 .wd-sum{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:8px;margin:0}
-.wd-sum div{min-width:0;padding:8px 12px;border-left:4px solid var(--accent);border-radius:8px;background:var(--accent-soft)}
+.wd-sum div{min-width:0;padding:10px 14px;border-radius:10px;background:var(--accent-soft)}
 .wd-sum dt{font-size:.75rem;font-weight:600;color:var(--ink-sub)}
 .wd-sum dd{margin:2px 0 0;font-size:.9rem;line-height:1.6;overflow-wrap:anywhere}
 .wd-pre{max-height:320px;margin:0;padding:14px 16px;overflow:auto;border-radius:12px;background:#2b2622;color:#fff8f2;font:inherit;font-size:.85rem;line-height:1.85;white-space:pre-wrap;overflow-wrap:anywhere}
@@ -38,7 +36,6 @@
 .wd-status{min-height:1.5em;margin:8px 0 0;font-size:.88rem;font-weight:600;color:var(--accent)}
 .wd-note{margin:4px 0 0;font-size:.8rem;color:var(--ink-sub)}
 @media (max-width:720px){
-  .wd{padding:16px 14px}
   .wd-grid,.wd-sum{grid-template-columns:minmax(0,1fr)}
   .wd-acts .ux-btn{flex:1 1 100%}
 }
